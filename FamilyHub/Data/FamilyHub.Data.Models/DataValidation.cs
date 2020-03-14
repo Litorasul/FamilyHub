@@ -6,9 +6,7 @@
 
         public const int DescriptionMaxLength = 1000;
 
-        public static class Question
-        {
-            public const int TextMaxLength = 500;
-        }
+        public const int TextMaxLength = 500;
+
     }
 }

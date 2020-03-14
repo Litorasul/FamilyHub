@@ -1,5 +1,7 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
 
+using FamilyHub.Data.Models.Lists;
+
 namespace FamilyHub.Data.Models
 {
     using System;
@@ -19,8 +21,11 @@ namespace FamilyHub.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.AssignedEvents = new HashSet<UserEvent>();
-            this.Surveys = new HashSet<Survey.Survey>();
+            this.CreatedSurveys = new HashSet<Survey.Survey>();
             this.Responses = new HashSet<Response>();
+            this.AssignedLists = new HashSet<UserList>();
+            this.CreatedEvents = new HashSet<Event>();
+            this.CreatedLists = new HashSet<List>();
         }
 
         // Audit info
@@ -41,8 +46,16 @@ namespace FamilyHub.Data.Models
 
         public ICollection<UserEvent> AssignedEvents { get; set; }
 
-        public ICollection<Survey.Survey> Surveys { get; set; }
+        public ICollection<Event> CreatedEvents { get; set; }
+
+        public ICollection<Survey.Survey> CreatedSurveys { get; set; }
 
         public ICollection<Response> Responses { get; set; }
+
+        public ICollection<UserList> AssignedLists { get; set; }
+
+        public ICollection<List> CreatedLists { get; set; }
+
+        public ICollection<ListItem> ListItemsDone { get; set; }
     }
 }

@@ -6,7 +6,7 @@
 
     using FamilyHub.Data.Common.Models;
 
-    using static FamilyHub.Data.Models.DataValidation.Question;
+    using static FamilyHub.Data.Models.DataValidation;
 
     public class Answer : BaseDeletableModel<int>
     {
