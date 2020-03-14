@@ -1,4 +1,4 @@
-﻿namespace FamilyHub.Data.Models
+﻿namespace FamilyHub.Data.Models.Planner
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,8 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     using FamilyHub.Data.Common.Models;
+
+    using static FamilyHub.Data.Models.DataValidation;
 
     public class Event : BaseDeletableModel<int>
     {
@@ -15,10 +17,10 @@
         }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
         [Required]

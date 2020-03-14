@@ -1,6 +1,7 @@
 ﻿namespace FamilyHub.Data.Configurations
 {
     using FamilyHub.Data.Models;
+    using FamilyHub.Data.Models.Planner;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,7 +10,7 @@
         public void Configure(EntityTypeBuilder<UserEvent> userEvent)
         {
             userEvent
-                .HasKey(ue => new {ue.UserId, ue.EventId});
+                .HasKey(ue => new { ue.UserId, ue.EventId });
 
             userEvent
                 .HasOne(ue => ue.User)

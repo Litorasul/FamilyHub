@@ -8,7 +8,8 @@
 
     using FamilyHub.Data.Common.Models;
     using FamilyHub.Data.Models;
-
+    using FamilyHub.Data.Models.Planner;
+    using FamilyHub.Data.Models.Survey;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,20 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Event> Events { get; set; }
+
+        public DbSet<UserEvent> UserEvents { get; set; }
+
+        public DbSet<Survey> Surveys { get; set; }
+
+        public DbSet<Question> Questions { get; set; }
+
+        public DbSet<Response> Responses { get; set; }
+
+        public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
+
+        public DbSet<Answer> Answers { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

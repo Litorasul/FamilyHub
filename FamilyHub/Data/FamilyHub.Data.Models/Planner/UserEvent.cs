@@ -1,4 +1,4 @@
-﻿namespace FamilyHub.Data.Models
+﻿namespace FamilyHub.Data.Models.Planner
 {
     public class UserEvent
     {
