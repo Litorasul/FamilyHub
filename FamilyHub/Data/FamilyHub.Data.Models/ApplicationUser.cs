@@ -1,6 +1,7 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
 
 using FamilyHub.Data.Models.Lists;
+using FamilyHub.Data.Models.Messenger;
 
 namespace FamilyHub.Data.Models
 {
@@ -26,6 +27,8 @@ namespace FamilyHub.Data.Models
             this.AssignedLists = new HashSet<UserList>();
             this.CreatedEvents = new HashSet<Event>();
             this.CreatedLists = new HashSet<List>();
+            this.Conversations = new HashSet<UserConversation>();
+            this.Messages = new HashSet<Message>();
         }
 
         // Audit info
@@ -57,5 +60,9 @@ namespace FamilyHub.Data.Models
         public ICollection<List> CreatedLists { get; set; }
 
         public ICollection<ListItem> ListItemsDone { get; set; }
+
+        public ICollection<UserConversation> Conversations { get; set; }
+
+        public ICollection<Message> Messages { get; set; }
     }
 }

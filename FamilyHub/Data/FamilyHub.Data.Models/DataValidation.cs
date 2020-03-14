@@ -8,5 +8,7 @@
 
         public const int TextMaxLength = 500;
 
+        public const int MessageMaxLength = 2000;
+
     }
 }

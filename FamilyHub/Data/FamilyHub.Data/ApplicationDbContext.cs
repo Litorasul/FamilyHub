@@ -9,6 +9,7 @@
     using FamilyHub.Data.Common.Models;
     using FamilyHub.Data.Models;
     using FamilyHub.Data.Models.Lists;
+    using FamilyHub.Data.Models.Messenger;
     using FamilyHub.Data.Models.Planner;
     using FamilyHub.Data.Models.Survey;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -47,6 +48,12 @@
         public DbSet<UserList> UserLists { get; set; }
 
         public DbSet<ListItem> ListItems { get; set; }
+
+        public DbSet<Conversation> Conversations { get; set; }
+
+        public DbSet<Message> Messages { get; set; }
+
+        public DbSet<UserConversation> UserConversations { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
