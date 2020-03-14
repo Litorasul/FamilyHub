@@ -1,14 +1,14 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
 
-using FamilyHub.Data.Models.Lists;
-using FamilyHub.Data.Models.Messenger;
-
 namespace FamilyHub.Data.Models
 {
     using System;
     using System.Collections.Generic;
 
     using FamilyHub.Data.Common.Models;
+    using FamilyHub.Data.Models.Lists;
+    using FamilyHub.Data.Models.Messenger;
+    using FamilyHub.Data.Models.PictureAlbums;
     using FamilyHub.Data.Models.Planner;
     using FamilyHub.Data.Models.Survey;
     using Microsoft.AspNetCore.Identity;
@@ -29,6 +29,8 @@ namespace FamilyHub.Data.Models
             this.CreatedLists = new HashSet<List>();
             this.Conversations = new HashSet<UserConversation>();
             this.Messages = new HashSet<Message>();
+            this.PictureAlbums = new HashSet<Album>();
+            this.Pictures = new HashSet<UserPicture>();
         }
 
         // Audit info
@@ -64,5 +66,9 @@ namespace FamilyHub.Data.Models
         public ICollection<UserConversation> Conversations { get; set; }
 
         public ICollection<Message> Messages { get; set; }
+
+        public ICollection<Album> PictureAlbums { get; set; }
+
+        public ICollection<UserPicture> Pictures { get; set; }
     }
 }
