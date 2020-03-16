@@ -27,5 +27,14 @@
 
             return query.To<T>().ToList();
         }
+
+        public T GetByName<T>(string name)
+        {
+            var currentEvent = this.eventsRepository
+                .All().Where(x => x.Title == name)
+                .To<T>().FirstOrDefault();
+
+            return currentEvent;
+        }
     }
 }

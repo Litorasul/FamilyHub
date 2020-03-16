@@ -1,0 +1,16 @@
+﻿@model FamilyHub.Web.ViewModels.Events.EventViewModel
+
+
+<div class="card">
+    <h3 class="alert-info">@Model.Title</h3>
+    <div class="card-body">
+        <h5 class="card-title">@Model.StartTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Created By: @Model.CreatorUserName</h6>
+        <p class="card-text">@Model.Description</p>
+        @foreach (var user in Model.AssignedUsersUserName)
+        {
+            <a href="#" class="card-link">@user</a>
+        }
+
+    </div>
+</div>
