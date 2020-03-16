@@ -18,8 +18,12 @@
         <div class="card col-6">
             <h5 class="card-header">@planedEvent.StartTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
             <div class="card-body">
-                <h5 class="card-title"><a href="@planedEvent.Url">@planedEvent.Title</a></h5>
-                <p>@planedEvent.CreatorUserName</p>
+                <h4 class="card-title"><a href="@planedEvent.Url">@planedEvent.Title</a></h4>
+                <h6>Created by: @planedEvent.CreatorUserName</h6><p>Assigned @planedEvent.AssignedUsersCount people:</p>
+                @foreach (var user in planedEvent.AssignedUsersUserName)
+                {
+                    <p>@user</p>
+                }
             </div>
         </div>
     }
