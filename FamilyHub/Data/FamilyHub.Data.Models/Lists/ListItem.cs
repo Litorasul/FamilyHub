@@ -24,6 +24,6 @@
         [ForeignKey("DoneByUser")]
         public string DoneByUserId { get; set; }
 
-        public ApplicationUser DoneByUser { get; set; }
+        public virtual ApplicationUser DoneByUser { get; set; }
     }
 }

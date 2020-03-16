@@ -33,10 +33,10 @@
         [ForeignKey("Creator")]
         public string CreatorId { get; set; }
 
-        public ApplicationUser Creator { get; set; }
+        public virtual ApplicationUser Creator { get; set; }
 
-        public ICollection<UserList> AssignedUsers { get; set; }
+        public virtual ICollection<UserList> AssignedUsers { get; set; }
 
-        public ICollection<ListItem> ListItems { get; set; }
+        public virtual ICollection<ListItem> ListItems { get; set; }
     }
 }

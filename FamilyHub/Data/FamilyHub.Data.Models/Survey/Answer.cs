@@ -22,8 +22,8 @@
         [ForeignKey("Question")]
         public int QuestionId { get; set; }
 
-        public Question Question { get; set; }
+        public virtual Question Question { get; set; }
 
-        public ICollection<Response> Responses { get; set; }
+        public virtual ICollection<Response> Responses { get; set; }
     }
 }

@@ -9,16 +9,16 @@
         [ForeignKey("Creator")]
         public string CreatorId { get; set; }
 
-        public ApplicationUser Creator { get; set; }
+        public virtual ApplicationUser Creator { get; set; }
 
         [ForeignKey("Question")]
         public int QuestionId { get; set; }
 
-        public Question Question { get; set; }
+        public virtual Question Question { get; set; }
 
         [ForeignKey("Answer")]
         public int AnswerId { get; set; }
 
-        public Answer Answer { get; set; }
+        public virtual Answer Answer { get; set; }
     }
 }

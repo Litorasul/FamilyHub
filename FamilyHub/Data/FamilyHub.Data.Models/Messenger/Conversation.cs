@@ -15,8 +15,8 @@
         }
 
         [Required]
-        public ICollection<UserConversation> Users { get; set; }
+        public virtual ICollection<UserConversation> Users { get; set; }
 
-        public ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }

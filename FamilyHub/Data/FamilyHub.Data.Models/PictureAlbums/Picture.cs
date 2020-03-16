@@ -15,6 +15,6 @@
         [Required]
         public string Url { get; set; }
 
-        public ICollection<UserPicture> Users { get; set; }
+        public virtual ICollection<UserPicture> Users { get; set; }
     }
 }

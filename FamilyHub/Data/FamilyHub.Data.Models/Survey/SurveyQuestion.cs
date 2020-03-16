@@ -4,10 +4,10 @@
     {
         public int SurveyId { get; set; }
 
-        public Survey Survey { get; set; }
+        public virtual Survey Survey { get; set; }
 
         public int QuestionId { get; set; }
 
-        public Question Question { get; set; }
+        public virtual Question Question { get; set; }
     }
 }

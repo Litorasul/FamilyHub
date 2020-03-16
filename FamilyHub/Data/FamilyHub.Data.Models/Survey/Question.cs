@@ -20,10 +20,10 @@
         [MaxLength(TextMaxLength)]
         public string Text { get; set; }
 
-        public ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
 
-        public ICollection<SurveyQuestion> Surveys { get; set; }
+        public virtual ICollection<SurveyQuestion> Surveys { get; set; }
 
-        public ICollection<Response> Responses { get; set; }
+        public virtual ICollection<Response> Responses { get; set; }
     }
 }

@@ -30,8 +30,8 @@
         [ForeignKey("Creator")]
         public string CreatorId { get; set; }
 
-        public ApplicationUser Creator { get; set; }
+        public virtual ApplicationUser Creator { get; set; }
 
-        public ICollection<SurveyQuestion> Questions { get; set; }
+        public virtual ICollection<SurveyQuestion> Questions { get; set; }
     }
 }

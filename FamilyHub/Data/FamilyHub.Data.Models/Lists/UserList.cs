@@ -4,10 +4,10 @@
     {
         public string UserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public int ListId { get; set; }
 
-        public List List { get; set; }
+        public virtual List List { get; set; }
     }
 }

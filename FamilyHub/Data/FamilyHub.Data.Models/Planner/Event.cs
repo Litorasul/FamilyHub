@@ -36,8 +36,8 @@
         [ForeignKey("Creator")]
         public string CreatorId { get; set; }
 
-        public ApplicationUser Creator { get; set; }
+        public virtual ApplicationUser Creator { get; set; }
 
-        public ICollection<UserEvent> AssignedUsers { get; set; }
+        public virtual ICollection<UserEvent> AssignedUsers { get; set; }
     }
 }

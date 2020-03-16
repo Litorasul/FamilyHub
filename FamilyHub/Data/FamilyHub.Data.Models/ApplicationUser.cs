@@ -49,26 +49,26 @@ namespace FamilyHub.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public ICollection<UserEvent> AssignedEvents { get; set; }
+        public virtual ICollection<UserEvent> AssignedEvents { get; set; }
 
-        public ICollection<Event> CreatedEvents { get; set; }
+        public virtual ICollection<Event> CreatedEvents { get; set; }
 
-        public ICollection<Survey.Survey> CreatedSurveys { get; set; }
+        public virtual ICollection<Survey.Survey> CreatedSurveys { get; set; }
 
-        public ICollection<Response> Responses { get; set; }
+        public virtual ICollection<Response> Responses { get; set; }
 
-        public ICollection<UserList> AssignedLists { get; set; }
+        public virtual ICollection<UserList> AssignedLists { get; set; }
 
-        public ICollection<List> CreatedLists { get; set; }
+        public virtual ICollection<List> CreatedLists { get; set; }
 
-        public ICollection<ListItem> ListItemsDone { get; set; }
+        public virtual ICollection<ListItem> ListItemsDone { get; set; }
 
-        public ICollection<UserConversation> Conversations { get; set; }
+        public virtual ICollection<UserConversation> Conversations { get; set; }
 
-        public ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
 
-        public ICollection<Album> PictureAlbums { get; set; }
+        public virtual ICollection<Album> PictureAlbums { get; set; }
 
-        public ICollection<UserPicture> Pictures { get; set; }
+        public virtual ICollection<UserPicture> Pictures { get; set; }
     }
 }
