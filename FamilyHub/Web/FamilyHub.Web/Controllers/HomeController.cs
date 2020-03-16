@@ -2,15 +2,29 @@
 {
     using System.Diagnostics;
 
+    using FamilyHub.Services.Data;
     using FamilyHub.Web.ViewModels;
-
+    using FamilyHub.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly IEventService eventService;
+
+        public HomeController(IEventService eventService)
+        {
+            this.eventService = eventService;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var viewModel = new IndexViewModel
+            {
+                Events =
+                    this.eventService.GetAll<IndexEventViewModel>(),
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

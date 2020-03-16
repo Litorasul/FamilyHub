@@ -1,9 +1,26 @@
 ﻿@using FamilyHub.Common
+@model FamilyHub.Web.ViewModels.Home.IndexViewModel;
 @{
-    this.ViewData["Title"] = "Home Page";
+    this.ViewData["Title"] = $"Welcome to {@GlobalConstants.SystemName!}";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-lg-left">
+    <h1 class="display-4">@this.ViewData["Title"]</h1>
+</div>
+
+<div class="text-lg-right">
+    <h1 class="display-4">@DateTime.Now.ToString("dddd, dd MMMM yyyy")</h1>
+</div>
+
+<div class="row">
+    @foreach (var planedEvent in Model.Events)
+    {
+        <div class="card col-6">
+            <h5 class="card-header">@planedEvent.StartTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
+            <div class="card-body">
+                <h5 class="card-title"><a href="@planedEvent.Url">@planedEvent.Title</a></h5>
+                <p>@planedEvent.CreatorUserName</p>
+            </div>
+        </div>
+    }
 </div>
