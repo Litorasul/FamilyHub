@@ -3,7 +3,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class Picture
+    using FamilyHub.Data.Common.Models;
+
+    public class Picture : BaseDeletableModel<int>
     {
         public Picture()
         {
