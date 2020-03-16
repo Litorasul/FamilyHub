@@ -2,20 +2,26 @@
 {
     using System.Diagnostics;
 
+    using FamilyHub.Data.Models;
     using FamilyHub.Services.Data;
     using FamilyHub.Web.ViewModels;
     using FamilyHub.Web.ViewModels.Home;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
         private readonly IEventService eventService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public HomeController(IEventService eventService)
+        public HomeController(IEventService eventService, UserManager<ApplicationUser> userManager)
         {
             this.eventService = eventService;
+            this.userManager = userManager;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             var viewModel = new IndexViewModel
