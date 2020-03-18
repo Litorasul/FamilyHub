@@ -19,11 +19,13 @@
             <h5 class="card-header">@planedEvent.StartTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
             <div class="card-body">
                 <h4 class="card-title"><a href="@planedEvent.Url">@planedEvent.Title</a></h4>
-                <h6>Created by: @planedEvent.CreatorUserName</h6><p>Assigned @planedEvent.AssignedUsersCount people:</p>
-                @foreach (var user in planedEvent.AssignedUsersUserName)
-                {
-                    <p>@user</p>
-                }
+                <h6>Created by: @planedEvent.CreatorName</h6><p>Assigned @planedEvent.AssignedUsersCount people:</p>
+                <ul>
+                    @foreach (var user in planedEvent.AssignedUsersName)
+                    {
+                        <li>@user</li>
+                    }
+                </ul>
             </div>
         </div>
     }

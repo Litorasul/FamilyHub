@@ -43,6 +43,8 @@ namespace FamilyHub.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
+        public string Name { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }

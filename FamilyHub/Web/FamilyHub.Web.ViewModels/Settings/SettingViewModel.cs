@@ -1,9 +1,9 @@
 ﻿namespace FamilyHub.Web.ViewModels.Settings
 {
+    using AutoMapper;
+
     using FamilyHub.Data.Models;
     using FamilyHub.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {

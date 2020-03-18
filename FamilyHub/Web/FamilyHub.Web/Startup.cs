@@ -104,7 +104,9 @@
                 endpoints =>
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapControllerRoute("eventByName", "/Events/{name:minlength(3)}",
+                        endpoints.MapControllerRoute(
+                            "eventByName",
+                            "/Events/{name:minlength(3)}",
                             new { controller = "Events", action = "ByName" });
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

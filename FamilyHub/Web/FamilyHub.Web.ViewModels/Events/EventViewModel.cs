@@ -24,16 +24,16 @@
 
         public int AssignedUsersCount { get; set; }
 
-        public IEnumerable<string> AssignedUsersUserName { get; set; }
+        public IEnumerable<string> AssignedUsersName { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration
                 .CreateMap<Event, EventViewModel>()
                 .ForMember(
-                    x => x.AssignedUsersUserName,
+                    x => x.AssignedUsersName,
                     c
-                        => c.MapFrom(e => e.AssignedUsers.Select(a => a.User.UserName)));
+                        => c.MapFrom(e => e.AssignedUsers.Select(a => a.User.Name)));
         }
     }
 }

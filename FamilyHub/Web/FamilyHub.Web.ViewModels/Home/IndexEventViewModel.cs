@@ -12,18 +12,18 @@
     {
         public IndexEventViewModel()
         {
-            this.AssignedUsersUserName = new HashSet<string>();
+            this.AssignedUsersName = new HashSet<string>();
         }
 
         public string Title { get; set; }
 
         public DateTime StartTime { get; set; }
 
-        public string CreatorUserName { get; set; }
+        public string CreatorName { get; set; }
 
         public int AssignedUsersCount { get; set; }
 
-        public ICollection<string> AssignedUsersUserName { get; set; }
+        public ICollection<string> AssignedUsersName { get; set; }
 
         public string Url => $"/Events/{this.Title.Replace(' ', '-')}";
 
@@ -32,9 +32,9 @@
             configuration
                 .CreateMap<Event, IndexEventViewModel>()
                 .ForMember(
-                    x => x.AssignedUsersUserName,
+                    x => x.AssignedUsersName,
                     c
-                        => c.MapFrom(e => e.AssignedUsers.Select(a => a.User.UserName)));
+                        => c.MapFrom(e => e.AssignedUsers.Select(a => a.User.Name)));
         }
     }
 }
