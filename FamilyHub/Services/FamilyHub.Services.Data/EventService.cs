@@ -1,4 +1,7 @@
-﻿namespace FamilyHub.Services.Data
+﻿using System;
+using System.Threading.Tasks;
+
+namespace FamilyHub.Services.Data
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -35,6 +38,47 @@
                 .To<T>().FirstOrDefault();
 
             return currentEvent;
+        }
+
+        public async Task<int> CreateAsync(
+            string title,
+            string description,
+            DateTime starTime,
+            DateTime? endTime,
+            bool isFullDayEvent,
+            bool isRecurring,
+            string creatorId,
+            IEnumerable<string> assignedUsersId)
+        {
+            var eventToAdd = new Event
+            {
+                Title = title,
+                Description = description,
+                StartTime = starTime,
+                EndTime = endTime,
+                IsFullDayEvent = isFullDayEvent,
+                IsRecurring = isRecurring,
+                CreatorId = creatorId,
+                AssignedUsers = new HashSet<UserEvent>(),
+            };
+
+            await this.eventsRepository.AddAsync(eventToAdd);
+            await this.eventsRepository.SaveChangesAsync();
+
+            foreach (var userId in assignedUsersId)
+            {
+                var userEvent = new UserEvent
+                {
+                    EventId = eventToAdd.Id,
+                    UserId = userId,
+                };
+
+                eventToAdd.AssignedUsers.Add(userEvent);
+            }
+
+            await this.eventsRepository.SaveChangesAsync();
+
+            return eventToAdd.Id;
         }
     }
 }
