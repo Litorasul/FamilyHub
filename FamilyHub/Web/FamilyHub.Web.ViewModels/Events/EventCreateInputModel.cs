@@ -23,7 +23,7 @@
         [Required]
         public DateTime StartTime { get; set; }
 
-        public DateTime? EndTime { get; set; }
+        public TimeSpan Duration { get; set; }
 
         [Display(Name = "Full Day Event")]
         public bool IsFullDayEvent { get; set; }

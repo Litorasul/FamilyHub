@@ -1,4 +1,6 @@
-﻿namespace FamilyHub.Services.Data
+﻿using FamilyHub.Services.Data.Dtos;
+
+namespace FamilyHub.Services.Data
 {
     using System;
     using System.Collections.Generic;
@@ -11,14 +13,6 @@
 
         T GetByName<T>(string name);
 
-        Task<int> CreateAsync(
-            string title,
-            string description,
-            DateTime starTime,
-            DateTime? endTime,
-            bool isFullDayEvent,
-            bool isRecurring,
-            string creatorId,
-            IEnumerable<string> assignedUsersId);
+        Task<int> CreateAsync(CreateEventDto dto);
     }
 }

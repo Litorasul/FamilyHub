@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using FamilyHub.Data.Models;
 using FamilyHub.Data.Models.Planner;
+using FamilyHub.Services.Data.Dtos;
 using FamilyHub.Services.Mapping;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -39,7 +40,7 @@ namespace FamilyHub.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(EventCreateInputModel input)
         {
-            //var eventToAdd = AutoMapperConfig.MapperInstance.Map<Event>(input);
+            var eventToAdd = AutoMapperConfig.MapperInstance.Map<CreateEventDto>(input);
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
@@ -47,15 +48,7 @@ namespace FamilyHub.Web.Controllers
 
             var user = await this.userManager.GetUserAsync(this.User);
 
-            var eventId = await this.eventService.CreateAsync(
-                input.Title,
-                input.Description,
-                input.StartTime,
-                input.EndTime,
-                input.IsFullDayEvent,
-                input.IsRecurring,
-                user.Id,
-                input.AssignedUsersId);
+            var eventId = await this.eventService.CreateAsync(eventToAdd);
 
             return this.Redirect("/");
         }

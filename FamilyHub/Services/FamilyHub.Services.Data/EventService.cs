@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FamilyHub.Services.Data.Dtos;
 
 namespace FamilyHub.Services.Data
 {
@@ -40,37 +41,30 @@ namespace FamilyHub.Services.Data
             return currentEvent;
         }
 
-        public async Task<int> CreateAsync(
-            string title,
-            string description,
-            DateTime starTime,
-            DateTime? endTime,
-            bool isFullDayEvent,
-            bool isRecurring,
-            string creatorId,
-            IEnumerable<string> assignedUsersId)
+        public async Task<int> CreateAsync(CreateEventDto dto)
         {
-            var eventToAdd = new Event
-            {
-                Title = title,
-                Description = description,
-                StartTime = starTime,
-                EndTime = endTime,
-                IsFullDayEvent = isFullDayEvent,
-                IsRecurring = isRecurring,
-                CreatorId = creatorId,
-                AssignedUsers = new HashSet<UserEvent>(),
-            };
+            var eventToAdd = AutoMapperConfig.MapperInstance.Map<Event>(dto);
+            //var eventToAdd = new Event
+            //{
+            //    Title = title,
+            //    Description = description,
+            //    StartTime = starTime,
+            //    EndTime = endTime,
+            //    IsFullDayEvent = isFullDayEvent,
+            //    IsRecurring = isRecurring,
+            //    CreatorId = creatorId,
+            //    AssignedUsers = new HashSet<UserEvent>(),
+            //};
 
             await this.eventsRepository.AddAsync(eventToAdd);
             await this.eventsRepository.SaveChangesAsync();
 
-            foreach (var userId in assignedUsersId)
+            foreach (var user in eventToAdd.AssignedUsers)
             {
                 var userEvent = new UserEvent
                 {
                     EventId = eventToAdd.Id,
-                    UserId = userId,
+                    UserId = user.UserId,
                 };
 
                 eventToAdd.AssignedUsers.Add(userEvent);
