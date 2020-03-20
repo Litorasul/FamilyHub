@@ -1,10 +1,7 @@
-﻿using FamilyHub.Services.Data.Dtos;
-
-namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.InteropServices.ComTypes;
     using System.Threading.Tasks;
 
     public interface IEventService
@@ -13,6 +10,14 @@ namespace FamilyHub.Services.Data
 
         T GetByName<T>(string name);
 
-        Task<int> CreateAsync(CreateEventDto dto);
+        Task<int> CreateAsync(
+            string title,
+            string description,
+            DateTime starTime,
+            TimeSpan duration,
+            bool isFullDayEvent,
+            bool isRecurring,
+            string creatorId,
+            IEnumerable<string> assignedUsersId);
     }
 }

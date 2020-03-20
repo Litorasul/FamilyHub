@@ -1,14 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
-using FamilyHub.Services.Data.Dtos;
-
-namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using FamilyHub.Data.Common.Repositories;
     using FamilyHub.Data.Models.Planner;
+    using FamilyHub.Services.Data.Dtos;
     using FamilyHub.Services.Mapping;
 
     public class EventService : IEventService
@@ -41,30 +40,37 @@ namespace FamilyHub.Services.Data
             return currentEvent;
         }
 
-        public async Task<int> CreateAsync(CreateEventDto dto)
+        public async Task<int> CreateAsync(
+            string title,
+            string description,
+            DateTime starTime,
+            TimeSpan duration,
+            bool isFullDayEvent,
+            bool isRecurring,
+            string creatorId,
+            IEnumerable<string> assignedUsersId)
         {
-            var eventToAdd = AutoMapperConfig.MapperInstance.Map<Event>(dto);
-            //var eventToAdd = new Event
-            //{
-            //    Title = title,
-            //    Description = description,
-            //    StartTime = starTime,
-            //    EndTime = endTime,
-            //    IsFullDayEvent = isFullDayEvent,
-            //    IsRecurring = isRecurring,
-            //    CreatorId = creatorId,
-            //    AssignedUsers = new HashSet<UserEvent>(),
-            //};
+            var eventToAdd = new Event
+            {
+                Title = title,
+                Description = description,
+                StartTime = starTime,
+                Duration = duration,
+                IsFullDayEvent = isFullDayEvent,
+                IsRecurring = isRecurring,
+                CreatorId = creatorId,
+                AssignedUsers = new HashSet<UserEvent>(),
+            };
 
             await this.eventsRepository.AddAsync(eventToAdd);
             await this.eventsRepository.SaveChangesAsync();
 
-            foreach (var user in eventToAdd.AssignedUsers)
+            foreach (var userId in assignedUsersId)
             {
                 var userEvent = new UserEvent
                 {
                     EventId = eventToAdd.Id,
-                    UserId = user.UserId,
+                    UserId = userId,
                 };
 
                 eventToAdd.AssignedUsers.Add(userEvent);

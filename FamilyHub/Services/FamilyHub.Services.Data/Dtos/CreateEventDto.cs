@@ -1,11 +1,12 @@
-﻿using FamilyHub.Services.Mapping;
-
-namespace FamilyHub.Services.Data.Dtos
+﻿namespace FamilyHub.Services.Data.Dtos
 {
     using System;
     using System.Collections.Generic;
 
-    public class CreateEventDto
+    using FamilyHub.Data.Models.Planner;
+    using FamilyHub.Services.Mapping;
+
+    public class CreateEventDto : IMapTo<Event>
     {
         public string Title { get; set; }
 
