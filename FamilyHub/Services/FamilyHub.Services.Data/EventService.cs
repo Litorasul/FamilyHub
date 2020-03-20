@@ -7,7 +7,6 @@
 
     using FamilyHub.Data.Common.Repositories;
     using FamilyHub.Data.Models.Planner;
-    using FamilyHub.Services.Data.Dtos;
     using FamilyHub.Services.Mapping;
 
     public class EventService : IEventService

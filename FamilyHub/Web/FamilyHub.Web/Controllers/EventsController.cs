@@ -5,7 +5,6 @@
     using FamilyHub.Data.Models;
     using FamilyHub.Data.Models.Planner;
     using FamilyHub.Services.Data;
-    using FamilyHub.Services.Data.Dtos;
     using FamilyHub.Services.Mapping;
     using FamilyHub.Web.ViewModels.Events;
     using FamilyHub.Web.ViewModels.Users;
@@ -49,7 +48,6 @@
         [Authorize]
         public async Task<IActionResult> Create(EventCreateInputModel input)
         {
-            //var eventToAdd = AutoMapperConfig.MapperInstance.Map<CreateEventDto>(input);
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);

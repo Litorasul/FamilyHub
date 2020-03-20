@@ -17,21 +17,24 @@
     <hr/>
 </div>
 
-<div class="container-fluid">
-    <div class="card-deck row">
+<div class="container pre-scrollable">
+    <div class="row">
         @foreach (var planedEvent in Model.Events)
         {
-            <div class="card col-md-6">
-                <h5 class="card-header">@planedEvent.StartTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
-                <div class="card-body">
-                    <h4 class="card-title"><a href="@planedEvent.Url">@planedEvent.Title</a></h4>
-                    <h6>Created by: @planedEvent.CreatorName</h6><p>Assigned @planedEvent.AssignedUsersCount people:</p>
-                    <ul>
-                        @foreach (var user in planedEvent.AssignedUsersName)
-                        {
-                            <li>@user</li>
-                        }
-                    </ul>
+            <div class="col-md-auto">
+                <div class="card">
+                    <h5 class="card-header">@planedEvent.StartTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="@planedEvent.Url">@planedEvent.Title</a></h4>
+                        <h6>Created by: @planedEvent.CreatorName</h6>
+                        <p>Assigned @planedEvent.AssignedUsersCount people:</p>
+                        <ul>
+                            @foreach (var user in planedEvent.AssignedUsersName)
+                            {
+                                <li>@user</li>
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
         }

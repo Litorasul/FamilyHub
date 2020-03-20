@@ -1,6 +1,4 @@
-﻿using FamilyHub.Services.Mapping;
-
-namespace FamilyHub.Web.ViewModels.Events
+﻿namespace FamilyHub.Web.ViewModels.Events
 {
     using System;
     using System.Collections.Generic;
@@ -13,26 +11,26 @@ namespace FamilyHub.Web.ViewModels.Events
     public class EventCreateInputModel
 
     {
-    public EventCreateInputModel()
-    {
-        this.AssignedUsersId = new HashSet<string>();
-    }
+        public EventCreateInputModel()
+        {
+            this.AssignedUsersId = new HashSet<string>();
+        }
 
-    [Required] [MaxLength(TitleMaxLength)] public string Title { get; set; }
+        [Required] [MaxLength(TitleMaxLength)] public string Title { get; set; }
 
-    [MaxLength(DescriptionMaxLength)] public string Description { get; set; }
+        [MaxLength(DescriptionMaxLength)] public string Description { get; set; }
 
-    [Required] public DateTime StartTime { get; set; }
+        [Required] public DateTime StartTime { get; set; }
 
-    public TimeSpan Duration { get; set; }
+        public TimeSpan Duration { get; set; }
 
-    [Display(Name = "Full Day Event")] public bool IsFullDayEvent { get; set; }
+        [Display(Name = "Full Day Event")] public bool IsFullDayEvent { get; set; }
 
-    [Display(Name = "Recurring")] public bool IsRecurring { get; set; }
+        [Display(Name = "Recurring")] public bool IsRecurring { get; set; }
 
-    [Display(Name = "For Family-members:")]
-    public IEnumerable<string> AssignedUsersId { get; set; }
+        [Display(Name = "For Family-members:")]
+        public IEnumerable<string> AssignedUsersId { get; set; }
 
-    public IEnumerable<UserDropDownViewModel> Users { get; set; }
+        public IEnumerable<UserDropDownViewModel> Users { get; set; }
     }
 }
