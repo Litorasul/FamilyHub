@@ -1,4 +1,7 @@
-﻿namespace FamilyHub.Web.Controllers
+﻿using System.Threading.Tasks;
+using FamilyHub.Web.ViewModels.Notifications;
+
+namespace FamilyHub.Web.Controllers
 {
     using System.Diagnostics;
 
@@ -11,19 +14,25 @@
 
     public class HomeController : BaseController
     {
-        private readonly IEventService eventService;
+        private readonly INotificationsService notificationsService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public HomeController(IEventService eventService, UserManager<ApplicationUser> userManager)
+        public HomeController(INotificationsService notificationsService, UserManager<ApplicationUser> userManager)
         {
-            this.eventService = eventService;
+            this.notificationsService = notificationsService;
             this.userManager = userManager;
         }
 
         [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return this.View();
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var viewModel = new NotificationAllViewModel
+            {
+                Notifications = this.notificationsService.GetAllByUser<NotificationSingleViewModel>(user.Id),
+            };
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

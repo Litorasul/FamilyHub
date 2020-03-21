@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface IUserService
+    public interface IUsersService
     {
         IEnumerable<T> GetAll<T>(int? count = null);
     }

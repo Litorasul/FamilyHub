@@ -1,1 +1,47 @@
-﻿
+﻿@model FamilyHub.Web.ViewModels.Notifications.NotificationAllViewModel
+
+@{
+    this.ViewData["Title"] = "Welcome to FamilyHub! ";
+}
+
+<div class="text-muted text-lg-right">
+    <h1 class="display-4">@DateTime.Now.ToString("dddd, dd MMMM yyyy")</h1>
+</div>
+
+@if (!Model.Notifications.Any())
+{
+    <div class="container">
+        <h3> You have no notifications! </h3>
+    </div>
+}
+else
+{
+    <div class="accordion" id="notificationAccordion">
+        @foreach(var notification in Model.Notifications)
+        {
+            int count = 0;
+            string heading = $"heading{count}";
+            string collapse = $"collapse{count}";
+
+            <div class="card">
+                <div class="card-header" id="@heading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#@collapse" aria-expanded="true" aria-controls="@collapse">
+                            <h4>@notification.CreatedOn</h4> <h5>@notification.Message</h5>
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="@collapse" class="collapse show" aria-labelledby="@heading" data-parent="#notificationAccordion">
+                    <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
+            </div>
+
+            count++;
+        }
+    </div>
+
+}
+

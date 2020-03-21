@@ -6,16 +6,19 @@
     using System.Threading.Tasks;
 
     using FamilyHub.Data.Common.Repositories;
+    using FamilyHub.Data.Models.Notification;
     using FamilyHub.Data.Models.Planner;
     using FamilyHub.Services.Mapping;
 
-    public class EventService : IEventService
+    public class EventsService : IEventsService
     {
         private readonly IDeletableEntityRepository<Event> eventsRepository;
+        private readonly INotificationsService notificationsService;
 
-        public EventService(IDeletableEntityRepository<Event> eventsRepository)
+        public EventsService(IDeletableEntityRepository<Event> eventsRepository, INotificationsService notificationsService)
         {
             this.eventsRepository = eventsRepository;
+            this.notificationsService = notificationsService;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -73,6 +76,7 @@
                 };
 
                 eventToAdd.AssignedUsers.Add(userEvent);
+                await this.notificationsService.CreateNotificationAsync(NotificationType.Event, eventToAdd.Id, userId);
             }
 
             await this.eventsRepository.SaveChangesAsync();

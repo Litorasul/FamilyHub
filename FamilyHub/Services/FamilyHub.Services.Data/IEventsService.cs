@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface IEventService
+    public interface IEventsService
     {
         IEnumerable<T> GetAll<T>(int? count = null);
 

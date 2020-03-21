@@ -7,11 +7,11 @@
     using FamilyHub.Data.Models;
     using FamilyHub.Services.Mapping;
 
-    public class UserService : IUserService
+    public class UsersService : IUsersService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
-        public UserService(IDeletableEntityRepository<ApplicationUser> userRepository)
+        public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             this.userRepository = userRepository;
         }

@@ -14,15 +14,15 @@
 
     public class EventsController : Controller
     {
-        private readonly IEventService eventService;
+        private readonly IEventsService eventsService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IUserService userService;
+        private readonly IUsersService usersService;
 
-        public EventsController(IEventService eventService, UserManager<ApplicationUser> userManager, IUserService userService)
+        public EventsController(IEventsService eventsService, UserManager<ApplicationUser> userManager, IUsersService usersService)
         {
-            this.eventService = eventService;
+            this.eventsService = eventsService;
             this.userManager = userManager;
-            this.userService = userService;
+            this.usersService = usersService;
         }
 
         [Authorize]
@@ -31,7 +31,7 @@
             var viewModel = new EventAllViewModel()
             {
                 Events =
-                    this.eventService.GetAll<EventSingleViewModel>(),
+                    this.eventsService.GetAll<EventSingleViewModel>(),
             };
 
             return this.View(viewModel);
@@ -40,7 +40,7 @@
         [Authorize]
         public IActionResult ByName(string name)
         {
-            var viewModel = this.eventService.GetByName<EventViewModel>(name);
+            var viewModel = this.eventsService.GetByName<EventViewModel>(name);
 
             return this.View(viewModel);
         }
@@ -48,7 +48,7 @@
         [Authorize]
         public IActionResult Create()
         {
-            var users = this.userService.GetAll<UserDropDownViewModel>();
+            var users = this.usersService.GetAll<UserDropDownViewModel>();
             var viewModel = new EventCreateInputModel
             {
                 Users = users,
@@ -67,7 +67,7 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
 
-            var eventId = await this.eventService.CreateAsync(
+            var eventId = await this.eventsService.CreateAsync(
                 input.Title,
                 input.Description,
                 input.StartTime,
