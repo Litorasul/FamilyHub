@@ -10,6 +10,7 @@
     using FamilyHub.Data.Models;
     using FamilyHub.Data.Models.Lists;
     using FamilyHub.Data.Models.Messenger;
+    using FamilyHub.Data.Models.Notification;
     using FamilyHub.Data.Models.PictureAlbums;
     using FamilyHub.Data.Models.Planner;
     using FamilyHub.Data.Models.Survey;
@@ -61,6 +62,8 @@
         public DbSet<Picture> Pictures { get; set; }
 
         public DbSet<UserPicture> UserPictures { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

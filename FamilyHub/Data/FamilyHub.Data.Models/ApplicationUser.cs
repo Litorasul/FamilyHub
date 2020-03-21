@@ -31,6 +31,7 @@ namespace FamilyHub.Data.Models
             this.Messages = new HashSet<Message>();
             this.PictureAlbums = new HashSet<Album>();
             this.Pictures = new HashSet<UserPicture>();
+            this.Notifications = new HashSet<Notification.Notification>();
         }
 
         // Audit info
@@ -72,5 +73,7 @@ namespace FamilyHub.Data.Models
         public virtual ICollection<Album> PictureAlbums { get; set; }
 
         public virtual ICollection<UserPicture> Pictures { get; set; }
+
+        public virtual ICollection<Notification.Notification> Notifications { get; set; }
     }
 }
