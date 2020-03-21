@@ -5,7 +5,6 @@
     using FamilyHub.Data.Models;
     using FamilyHub.Services.Data;
     using FamilyHub.Web.ViewModels;
-    using FamilyHub.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;

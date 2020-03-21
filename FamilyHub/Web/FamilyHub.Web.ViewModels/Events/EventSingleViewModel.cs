@@ -1,4 +1,4 @@
-﻿namespace FamilyHub.Web.ViewModels.Home
+﻿namespace FamilyHub.Web.ViewModels.Events
 {
     using System;
     using System.Collections.Generic;
@@ -8,12 +8,8 @@
     using FamilyHub.Data.Models.Planner;
     using FamilyHub.Services.Mapping;
 
-    public class IndexEventViewModel : IMapFrom<Event>, IHaveCustomMappings
+    public class EventSingleViewModel : IMapFrom<Event>, IHaveCustomMappings
     {
-        public IndexEventViewModel()
-        {
-            this.AssignedUsersName = new HashSet<string>();
-        }
 
         public string Title { get; set; }
 
@@ -30,7 +26,7 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration
-                .CreateMap<Event, IndexEventViewModel>()
+                .CreateMap<Event, global::FamilyHub.Web.ViewModels.Events.EventSingleViewModel>()
                 .ForMember(
                     x => x.AssignedUsersName,
                     c
@@ -38,3 +34,4 @@
         }
     }
 }
+

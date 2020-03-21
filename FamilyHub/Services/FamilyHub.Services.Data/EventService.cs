@@ -33,7 +33,7 @@
         public T GetByName<T>(string name)
         {
             var currentEvent = this.eventsRepository
-                .All().Where(x => x.Title == name)
+                .All().Where(x => x.Title.Replace(" ", "-") == name)
                 .To<T>().FirstOrDefault();
 
             return currentEvent;

@@ -1,6 +1,4 @@
-﻿using FamilyHub.Web.ViewModels.Home;
-
-namespace FamilyHub.Web.Controllers
+﻿namespace FamilyHub.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -30,13 +28,13 @@ namespace FamilyHub.Web.Controllers
         [Authorize]
         public IActionResult All()
         {
-            var viewModel = new IndexViewModel
+            var viewModel = new EventAllViewModel()
             {
                 Events =
-                    this.eventService.GetAll<IndexEventViewModel>(),
+                    this.eventService.GetAll<EventSingleViewModel>(),
             };
 
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
         [Authorize]

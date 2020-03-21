@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\Services\FamilyHub.Services.Mapping\FamilyHub.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Home\" />
+  </ItemGroup>
+
 </Project>
