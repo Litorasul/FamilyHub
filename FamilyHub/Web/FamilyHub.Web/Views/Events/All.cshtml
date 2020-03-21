@@ -1,0 +1,38 @@
+﻿@using FamilyHub.Common
+@model FamilyHub.Web.ViewModels.Home.IndexViewModel;
+@{
+    this.ViewData["Title"] = "All Events";
+}
+
+<div class="text-muted text-lg-right">
+    <h1 class="display-4">@DateTime.Now.ToString("dddd, dd MMMM yyyy")</h1>
+</div>
+
+<div class="text-center mx-auto">
+    <a asp-controller="Events" asp-action="Create" class="btn btn-dark btn-lg">Create new event!</a>
+    <hr />
+</div>
+
+<div class="container pre-scrollable">
+    <div class="row">
+        @foreach (var planedEvent in Model.Events)
+        {
+            <div class="col-md-auto">
+                <div class="card">
+                    <h5 class="card-header">@planedEvent.StartTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="@planedEvent.Url">@planedEvent.Title</a></h4>
+                        <h6>Created by: @planedEvent.CreatorName</h6>
+                        <p>Assigned @planedEvent.AssignedUsersCount people:</p>
+                        <ul>
+                            @foreach (var user in planedEvent.AssignedUsersName)
+                            {
+                                <li>@user</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

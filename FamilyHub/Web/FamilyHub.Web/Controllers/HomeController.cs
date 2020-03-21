@@ -24,13 +24,7 @@
         [Authorize]
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel
-            {
-                Events =
-                    this.eventService.GetAll<IndexEventViewModel>(),
-            };
-
-            return this.View(viewModel);
+            return this.View();
         }
 
         public IActionResult Privacy()

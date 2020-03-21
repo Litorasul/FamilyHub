@@ -1,4 +1,6 @@
-﻿namespace FamilyHub.Web.Controllers
+﻿using FamilyHub.Web.ViewModels.Home;
+
+namespace FamilyHub.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -23,6 +25,18 @@
             this.eventService = eventService;
             this.userManager = userManager;
             this.userService = userService;
+        }
+
+        [Authorize]
+        public IActionResult All()
+        {
+            var viewModel = new IndexViewModel
+            {
+                Events =
+                    this.eventService.GetAll<IndexEventViewModel>(),
+            };
+
+            return View(viewModel);
         }
 
         [Authorize]
