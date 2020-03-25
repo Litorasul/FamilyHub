@@ -5,50 +5,128 @@
     var users = Model.Users.Select(x => new SelectListItem(x.Name, x.Id));
 }
 
-<form method="post" asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Title"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control" rows="10"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-gray-dark ">
+            <div class="card-header">
+                <h3 class="card-title">@ViewData["Title"]</h3>
+            </div>
+            <div class="card-body">
+                <form role="form" method="post" asp-action="Create">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Title"></label>
+                                <input asp-for="Title" class="form-control" placeholder="Pleace enter a Title." />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
 
-    <div class="form-group">
-        <label asp-for="Start"></label>
-        <input asp-for="Start" class="form-control" />
-        <span asp-validation-for="Start" class="text-danger"></span>
-    </div>
+                            <div class="form-group">
+                                <label asp-for="Description"></label>
+                                <textarea asp-for="Description" class="form-control" rows="10"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
 
-    <div class="form-group">
-        <label asp-for="End"></label>
-        <input asp-for="End" class="form-control" />
-        <span asp-validation-for="End" class="text-danger"></span>
-    </div>
+                            <div class="form-group">
+                                <label asp-for="Start"></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input asp-for="Start" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask />
+                                    <span asp-validation-for="Start" class="text-danger"></span>
 
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" asp-for="IsAllDay" />
-        <label class="form-check-label" asp-for="IsAllDay"></label>
-    </div>
+                                </div>
+                            </div>
 
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" asp-for="IsRecurring" value="Recurring"/>
-        <label class="form-check-label" asp-for="IsRecurring"></label>
-    </div>
+                            <div class="form-group">
+                                <label asp-for="End"></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input asp-for="End" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask />
+                                    <span asp-validation-for="End" class="text-danger"></span>
 
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            For family members:
-        </button>
-            <div class="dropdown-menu">
-                <select asp-for="AssignedUsersId" asp-items="@users" class="dropdown-item-text" multiple ></select>
+                                </div>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="IsAllDay" />
+                                <label class="form-check-label" asp-for="IsAllDay"></label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" asp-for="IsRecurring" value="Recurring" />
+                                <label class="form-check-label" asp-for="IsRecurring"></label>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Color"></label>
+
+                                <div class="input-group my-colorpicker2">
+                                    <input asp-for="Color" type="text" class="form-control">
+
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-square"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="AssignedUsersId"></label>
+                                <div class="select2-blue">
+                                    <select class="select2bs4" multiple="multiple" data-placeholder="Select Family member" style="width: 100%;" asp-for="AssignedUsersId" asp-items="@users"></select>
+                                </div>
+                            </div>
+
+                            <hr />
+                            <input type="submit" class="btn btn-dark" value="Create" />
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+</section>
 
-    <hr />
-    <input type="submit" class="btn btn-dark" value="Create" />
-</form>
+@section Scripts
+{
+    <!-- Select2 -->
+    <script src="~/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+
+    <!-- InputMask -->
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <script src="~/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+
+    <!-- bootstrap color picker -->
+    <script src="~/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2();
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+        })
+
+        //Datemask dd/mm/yyyy
+        $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
+
+        //Colorpicker
+        $('.my-colorpicker1').colorpicker();
+        //color picker with addon
+        $('.my-colorpicker2').colorpicker();
+
+        $('.my-colorpicker2').on('colorpickerChange', function (event) {
+            $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+        });
+
+    </script>
+}

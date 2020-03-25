@@ -1,16 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using FamilyHub.Data.Models.Planner;
-using FamilyHub.Web.ViewModels.Events;
-using FamilyHub.Web.ViewModels.Notifications;
-
-namespace FamilyHub.Web.Controllers
+﻿namespace FamilyHub.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     using FamilyHub.Data.Models;
     using FamilyHub.Services.Data;
     using FamilyHub.Web.ViewModels;
+    using FamilyHub.Web.ViewModels.Events;
+    using FamilyHub.Web.ViewModels.Notifications;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;

@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="~/plugins/fullcalendar-daygrid/main.min.css">
     <link rel="stylesheet" href="~/plugins/fullcalendar-timegrid/main.min.css">
     <link rel="stylesheet" href="~/plugins/fullcalendar-bootstrap/main.min.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="../../plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
@@ -155,17 +160,17 @@
                         with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fas fa-calendar-alt"></i>
                                 <p>
-                                    Dashboard
-                                    <i class="right fas fa-angle-left"></i>
+                                    Calendar
+                                   
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a class="nav-link text" asp-area="" asp-controller="Events" asp-action="Create">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v1</p>
+                                        <p>Create new Event.</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -186,7 +191,7 @@
                 </nav>
             </div>
         </aside>
-        <div>
+        <div class="content-wrapper">
             @RenderBody()
         </div>
         <footer class="main-footer">

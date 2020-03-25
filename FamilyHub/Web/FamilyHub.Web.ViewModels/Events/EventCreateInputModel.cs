@@ -16,13 +16,14 @@
             this.AssignedUsersId = new HashSet<string>();
         }
 
-        [Required] [MaxLength(TitleMaxLength)] 
+        [Required]
+        [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
 
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
-        [Required] 
+        [Required]
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }
@@ -32,6 +33,8 @@
 
         [Display(Name = "Recurring")]
         public bool IsRecurring { get; set; }
+
+        public string Color { get; set; }
 
         [Display(Name = "For Family-members:")]
         public IEnumerable<string> AssignedUsersId { get; set; }
