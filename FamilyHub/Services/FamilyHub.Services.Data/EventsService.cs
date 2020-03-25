@@ -23,7 +23,7 @@
 
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
-            IQueryable<Event> query = this.eventsRepository.All().OrderBy(e => e.StartTime);
+            IQueryable<Event> query = this.eventsRepository.All().OrderBy(e => e.Start);
 
             if (count.HasValue)
             {
@@ -54,9 +54,9 @@
         public async Task<int> CreateAsync(
             string title,
             string description,
-            DateTime starTime,
-            TimeSpan duration,
-            bool isFullDayEvent,
+            DateTime start,
+            DateTime end,
+            bool isAllDay,
             bool isRecurring,
             string creatorId,
             IEnumerable<string> assignedUsersId)
@@ -65,9 +65,9 @@
             {
                 Title = title,
                 Description = description,
-                StartTime = starTime,
-                Duration = duration,
-                IsFullDayEvent = isFullDayEvent,
+                Start = start,
+                End = end,
+                IsAllDay = isAllDay,
                 IsRecurring = isRecurring,
                 CreatorId = creatorId,
                 AssignedUsers = new HashSet<UserEvent>(),

@@ -16,17 +16,22 @@
             this.AssignedUsersId = new HashSet<string>();
         }
 
-        [Required] [MaxLength(TitleMaxLength)] public string Title { get; set; }
+        [Required] [MaxLength(TitleMaxLength)] 
+        public string Title { get; set; }
 
-        [MaxLength(DescriptionMaxLength)] public string Description { get; set; }
+        [MaxLength(DescriptionMaxLength)]
+        public string Description { get; set; }
 
-        [Required] public DateTime StartTime { get; set; }
+        [Required] 
+        public DateTime Start { get; set; }
 
-        public TimeSpan Duration { get; set; }
+        public DateTime End { get; set; }
 
-        [Display(Name = "Full Day Event")] public bool IsFullDayEvent { get; set; }
+        [Display(Name = "Full Day Event")]
+        public bool IsAllDay { get; set; }
 
-        [Display(Name = "Recurring")] public bool IsRecurring { get; set; }
+        [Display(Name = "Recurring")]
+        public bool IsRecurring { get; set; }
 
         [Display(Name = "For Family-members:")]
         public IEnumerable<string> AssignedUsersId { get; set; }

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using FamilyHub.Data.Models.Planner;
 using FamilyHub.Web.ViewModels.Events;
 using FamilyHub.Web.ViewModels.Notifications;
 
@@ -47,6 +49,14 @@ namespace FamilyHub.Web.Controllers
             }
 
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        public JsonResult GetEvents()
+        {
+            var events = this.eventsService.GetAll<EventCalendarViewModel>();
+
+            return new JsonResult(events);
         }
 
         public IActionResult Privacy()

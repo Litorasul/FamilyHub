@@ -23,15 +23,25 @@
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
+        /// <summary>
+        /// Gets or sets start time of the Event. Required.
+        /// </summary>
         [Required]
-        public DateTime StartTime { get; set; }
+        public DateTime Start { get; set; }
 
-        [Required]
-        public TimeSpan Duration { get; set; }
+        /// <summary>
+        /// Gets or sets end time of the Event. Not Required.
+        /// </summary>
+        public DateTime? End { get; set; }
 
-        public bool IsFullDayEvent { get; set; }
+        public bool IsAllDay { get; set; }
 
         public bool IsRecurring { get; set; }
+
+        /// <summary>
+        /// Gets or sets the color of the Event in Hex. Nor Required.
+        /// </summary>
+        public string Color { get; set; }
 
         [Required]
         [ForeignKey("Creator")]

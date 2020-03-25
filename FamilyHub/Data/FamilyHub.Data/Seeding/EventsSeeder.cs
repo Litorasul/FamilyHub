@@ -21,7 +21,7 @@
                 Title = "Laundry",
                 Description = "Wash all pillows, sheets, towels.",
                 CreatorId = "5176a3b7-02f9-4ce7-aeca-f349e065eb60",
-                StartTime = DateTime.Now.AddDays(3),
+                Start = DateTime.Now.AddDays(3),
                 AssignedUsers = new List<UserEvent>
                 {
                     new UserEvent
@@ -42,7 +42,7 @@
                 Title = "Parent meeting",
                 Description = "Parent meeting at Ivan school.",
                 CreatorId = "5176a3b7-02f9-4ce7-aeca-f349e065eb60",
-                StartTime = DateTime.Now.AddDays(4),
+                Start = DateTime.Now.AddDays(4),
                 AssignedUsers = new List<UserEvent>
                 {
                     new UserEvent

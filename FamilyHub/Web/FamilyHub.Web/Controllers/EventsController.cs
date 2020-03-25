@@ -70,9 +70,9 @@
             var eventId = await this.eventsService.CreateAsync(
                 input.Title,
                 input.Description,
-                input.StartTime,
-                input.Duration,
-                input.IsFullDayEvent,
+                input.Start,
+                input.End,
+                input.IsAllDay,
                 input.IsRecurring,
                 user.Id,
                 input.AssignedUsersId);

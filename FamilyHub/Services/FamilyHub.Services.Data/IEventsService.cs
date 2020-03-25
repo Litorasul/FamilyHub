@@ -13,9 +13,9 @@
         Task<int> CreateAsync(
             string title,
             string description,
-            DateTime starTime,
-            TimeSpan duration,
-            bool isFullDayEvent,
+            DateTime start,
+            DateTime end,
+            bool isAllDay,
             bool isRecurring,
             string creatorId,
             IEnumerable<string> assignedUsersId);
