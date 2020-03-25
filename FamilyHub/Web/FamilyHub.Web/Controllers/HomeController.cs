@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using FamilyHub.Web.ViewModels.Events;
 using FamilyHub.Web.ViewModels.Notifications;
 
 namespace FamilyHub.Web.Controllers
@@ -15,11 +16,16 @@ namespace FamilyHub.Web.Controllers
     public class HomeController : BaseController
     {
         private readonly INotificationsService notificationsService;
+        private readonly IEventsService eventsService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public HomeController(INotificationsService notificationsService, UserManager<ApplicationUser> userManager)
+        public HomeController(
+            INotificationsService notificationsService, 
+            IEventsService eventsService,
+            UserManager<ApplicationUser> userManager)
         {
             this.notificationsService = notificationsService;
+            this.eventsService = eventsService;
             this.userManager = userManager;
         }
 
@@ -32,6 +38,14 @@ namespace FamilyHub.Web.Controllers
             {
                 Notifications = this.notificationsService.GetAllByUser<NotificationSingleViewModel>(user.Id),
             };
+            foreach (var notification in viewModel.Notifications)
+            {
+                var currentEvent =
+                    this.eventsService.GetById<EventNotificationViewModel>(notification.NotificationTypeId);
+                notification.NotificationTypeTitle = $"{currentEvent.StartTime:dddd, dd MMMM yyyy} - {currentEvent.Title}";
+                notification.NotificationTypeDescription = currentEvent.Description;
+            }
+
             return this.View(viewModel);
         }
 

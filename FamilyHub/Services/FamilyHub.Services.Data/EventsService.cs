@@ -33,6 +33,15 @@
             return query.To<T>().ToList();
         }
 
+        public T GetById<T>(int id)
+        {
+            var currentEvent = this.eventsRepository
+                .All().Where(x => x.Id == id)
+                .To<T>().FirstOrDefault();
+
+            return currentEvent;
+        }
+
         public T GetByName<T>(string name)
         {
             var currentEvent = this.eventsRepository

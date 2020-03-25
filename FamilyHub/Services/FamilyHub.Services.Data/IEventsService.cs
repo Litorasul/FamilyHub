@@ -19,5 +19,7 @@
             bool isRecurring,
             string creatorId,
             IEnumerable<string> assignedUsersId);
+
+        T GetById<T>(int id);
     }
 }

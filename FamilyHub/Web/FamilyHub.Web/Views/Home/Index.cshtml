@@ -1,47 +1,84 @@
-﻿@model FamilyHub.Web.ViewModels.Notifications.NotificationAllViewModel
-
-@{
-    this.ViewData["Title"] = "Welcome to FamilyHub! ";
+﻿@{
+    ViewData["title"] = "Welcome to FamilyHub!";
 }
 
-<div class="text-muted text-lg-right">
-    <h1 class="display-4">@DateTime.Now.ToString("dddd, dd MMMM yyyy")</h1>
-</div>
-
-@if (!Model.Notifications.Any())
-{
-    <div class="container">
-        <h3> You have no notifications! </h3>
-    </div>
-}
-else
-{
-    <div class="accordion" id="notificationAccordion">
-        @foreach(var notification in Model.Notifications)
-        {
-            int count = 0;
-            string heading = $"heading{count}";
-            string collapse = $"collapse{count}";
-
-            <div class="card">
-                <div class="card-header" id="@heading">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#@collapse" aria-expanded="true" aria-controls="@collapse">
-                            <h4>@notification.CreatedOn</h4> <h5>@notification.Message</h5>
-                        </button>
-                    </h2>
-                </div>
-
-                <div id="@collapse" class="collapse show" aria-labelledby="@heading" data-parent="#notificationAccordion">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <p> @DateTime.Now; <i class="fas fa-cloud-sun"></i></p>
                     </div>
+                    <div class="card-body">
+                        Feels Like: 3 °C
+                        Forecast: 10 / 4 °C
+                        Wind: 11 km/h ↑ from Southwest
+                    </div>
+
                 </div>
             </div>
-
-            count++;
-        }
+            <div class="col-md-9">
+                <div class="card card-primary"></div>
+                <div class="card-body p-0">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
     </div>
+</section>
 
+@section Scripts
+{
+    <!-- fullCalendar 2.2.5 -->
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <script src="~/plugins/fullcalendar/main.min.js"></script>
+    <script src="~/plugins/fullcalendar-daygrid/main.min.js"></script>
+    <script src="~/plugins/fullcalendar-timegrid/main.min.js"></script>
+    <script src="~/plugins/fullcalendar-interaction/main.min.js"></script>
+    <script src="~/plugins/fullcalendar-bootstrap/main.min.js"></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function (events) {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: ['dayGrid', 'timeGrid', 'list'],
+                height: "auto",
+                contentHeight: "auto",
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                defaultView: 'timeGridDay',
+                firstDay: 1,
+                editable: true,
+                droppable: true,
+                eventLimit: true,
+                eventColor: '#D18C54',
+                events:
+                    {
+                        url: '/Home/GetEvents',
+                    method: 'GET',
+                    failure: function() {
+                        alert('there was an error while fetching events!');
+                    }
+                },
+                drop: function (info) {
+                    // is the "remove after drop" checkbox checked?
+                    if (checkbox.checked) {
+                        // if so, remove the element from the "Draggable Events" list
+                        info.draggedEl.parentNode.removeChild(info.draggedEl);
+                    }
+                }
+
+            });
+
+            calendar.render();
+        });
+
+    </script>
 }
-
