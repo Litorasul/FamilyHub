@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["title"] = "Calendar";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <p> @DateTime.Now; <i class="fas fa-cloud-sun"></i></p>
+                    </div>
+                    <div class="card-body">
+                        Feels Like: 3 °C
+                        Forecast: 10 / 4 °C
+                        Wind: 11 km/h ↑ from Southwest
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card card-primary"></div>
+                <div class="card-body p-0">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+{
+    <!-- fullCalendar 2.2.5 -->
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <script src="~/plugins/fullcalendar/main.min.js"></script>
+    <script src="~/plugins/fullcalendar-daygrid/main.min.js"></script>
+    <script src="~/plugins/fullcalendar-timegrid/main.min.js"></script>
+    <script src="~/plugins/fullcalendar-interaction/main.min.js"></script>
+    <script src="~/plugins/fullcalendar-bootstrap/main.min.js"></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function (events) {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: ['dayGrid', 'timeGrid', 'list'],
+                height: "auto",
+                contentHeight: "auto",
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                defaultView: 'timeGridDay',
+                firstDay: 1,
+                editable: true,
+                droppable: true,
+                eventLimit: true,
+                eventColor: '#D18C54',
+                events:
+                    {
+                        url: '/Events/GetEvents',
+                    method: 'GET',
+                    failure: function() {
+                        alert('there was an error while fetching events!');
+                    }
+                },
+                drop: function (info) {
+                    // is the "remove after drop" checkbox checked?
+                    if (checkbox.checked) {
+                        // if so, remove the element from the "Draggable Events" list
+                        info.draggedEl.parentNode.removeChild(info.draggedEl);
+                    }
+                }
+
+            });
+
+            calendar.render();
+        });
+
+    </script>
+}

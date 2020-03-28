@@ -2,83 +2,101 @@
     ViewData["title"] = "Welcome to FamilyHub!";
 }
 
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-2">
-                <div class="card">
-                    <div class="card-header">
-                        <p> @DateTime.Now; <i class="fas fa-cloud-sun"></i></p>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+            <!-- Box Comment -->
+            <div class="card card-widget">
+                <div class="card-header">
+                    <div class="user-block">
+                        <img class="img-circle" src="~/dist/img/user1-128x128.jpg" alt="User Image">
+                        <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
+                        <span class="description">Shared publicly - 7:30 PM Today</span>
                     </div>
-                    <div class="card-body">
-                        Feels Like: 3 °C
-                        Forecast: 10 / 4 °C
-                        Wind: 11 km/h ↑ from Southwest
+                    <!-- /.user-block -->
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Mark as read">
+                            <i class="far fa-circle"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <img class="img-fluid pad" src="~/dist/img/photo2.png" alt="Photo">
 
+                    <p>I took this photo this morning. What do you guys think?</p>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
+                    <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
+                    <span class="float-right text-muted">127 likes - 3 comments</span>
                 </div>
-            </div>
-            <div class="col-md-9">
-                <div class="card card-primary"></div>
-                <div class="card-body p-0">
-                    <div id="calendar"></div>
+                <!-- /.card-body -->
+                <div class="card-footer card-comments">
+                    <div class="card-comment">
+                        <!-- User image -->
+                        <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
+
+                        <div class="comment-text">
+                            <span class="username">
+                                Maria Gonzales
+                                <span class="text-muted float-right">8:03 PM Today</span>
+                            </span><!-- /.username -->
+                            It is a long established fact that a reader will be distracted
+                            by the readable content of a page when looking at its layout.
+                        </div>
+                        <!-- /.comment-text -->
+                    </div>
+                    <!-- /.card-comment -->
+                    <div class="card-comment">
+                        <!-- User image -->
+                        <img class="img-circle img-sm" src="~/dist/img/user4-128x128.jpg" alt="User Image">
+
+                        <div class="comment-text">
+                            <span class="username">
+                                Luna Stark
+                                <span class="text-muted float-right">8:03 PM Today</span>
+                            </span><!-- /.username -->
+                            It is a long established fact that a reader will be distracted
+                            by the readable content of a page when looking at its layout.
+                        </div>
+                        <!-- /.comment-text -->
+                    </div>
+                    <!-- /.card-comment -->
                 </div>
+                <!-- /.card-footer -->
+                <div class="card-footer">
+                    <form action="#" method="post">
+                        <img class="img-fluid img-circle img-sm" src="~/dist/img/user4-128x128.jpg" alt="Alt Text">
+                        <!-- .img-push is used to add margin to elements next to floating images -->
+                        <div class="img-push">
+                            <input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card-footer -->
             </div>
+            <!--/.card -->
         </div>
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>18 °C</h3>
+
+                    <p>Oslo, Norway</p>
+                </div>
+                <div class="icon">
+                    <<i class="fas fa-cloud-sun-rain"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div><!-- /.col -->
     </div>
-</section>
-
-@section Scripts
-{
-    <!-- fullCalendar 2.2.5 -->
-    <script src="~/plugins/moment/moment.min.js"></script>
-    <script src="~/plugins/fullcalendar/main.min.js"></script>
-    <script src="~/plugins/fullcalendar-daygrid/main.min.js"></script>
-    <script src="~/plugins/fullcalendar-timegrid/main.min.js"></script>
-    <script src="~/plugins/fullcalendar-interaction/main.min.js"></script>
-    <script src="~/plugins/fullcalendar-bootstrap/main.min.js"></script>
-
-    <script>
-
-        document.addEventListener('DOMContentLoaded', function (events) {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: ['dayGrid', 'timeGrid', 'list'],
-                height: "auto",
-                contentHeight: "auto",
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                defaultView: 'timeGridDay',
-                firstDay: 1,
-                editable: true,
-                droppable: true,
-                eventLimit: true,
-                eventColor: '#D18C54',
-                events:
-                    {
-                        url: '/Home/GetEvents',
-                    method: 'GET',
-                    failure: function() {
-                        alert('there was an error while fetching events!');
-                    }
-                },
-                drop: function (info) {
-                    // is the "remove after drop" checkbox checked?
-                    if (checkbox.checked) {
-                        // if so, remove the element from the "Draggable Events" list
-                        info.draggedEl.parentNode.removeChild(info.draggedEl);
-                    }
-                }
-
-            });
-
-            calendar.render();
-        });
-
-    </script>
-}

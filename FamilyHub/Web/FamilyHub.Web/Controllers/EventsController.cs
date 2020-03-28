@@ -38,6 +38,20 @@
         }
 
         [Authorize]
+        public IActionResult Calendar()
+        {
+            return this.View();
+        }
+
+        [Authorize]
+        public JsonResult GetEvents()
+        {
+            var events = this.eventsService.GetAll<EventCalendarViewModel>();
+
+            return new JsonResult(events);
+        }
+
+        [Authorize]
         public IActionResult ByName(string name)
         {
             var viewModel = this.eventsService.GetByName<EventViewModel>(name);
