@@ -21,6 +21,11 @@
 
         public DateTime? DoneDateTime { get; set; }
 
+        [ForeignKey("List")]
+        public int ListId { get; set; }
+
+        public List List { get; set; }
+
         [ForeignKey("DoneByUser")]
         public string DoneByUserId { get; set; }
 
