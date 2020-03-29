@@ -1,4 +1,7 @@
-﻿namespace FamilyHub.Web
+﻿using FamilyHub.Web.Areas.Identity;
+using Microsoft.AspNetCore.Identity;
+
+namespace FamilyHub.Web
 {
     using System.Reflection;
 
@@ -37,7 +40,8 @@
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddSignInManager<CustomSignInManager>();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
