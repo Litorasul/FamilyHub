@@ -66,6 +66,7 @@ namespace FamilyHub.Web
             services.AddTransient<IEventsService, EventsService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<INotificationsService, NotificationsService>();
+            services.AddTransient<IListsService, ListsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
