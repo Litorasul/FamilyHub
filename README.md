@@ -1,2 +1,2 @@
 # FamilyHub
-Organizer for the whole family.
+Social Network for the Organized Family.
