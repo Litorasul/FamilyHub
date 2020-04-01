@@ -2,7 +2,10 @@
 {
     using System;
 
-    public class ListItemViewModel
+    using FamilyHub.Data.Models.Lists;
+    using FamilyHub.Services.Mapping;
+
+    public class ListItemViewModel : IMapFrom<ListItem>
     {
         public string Text { get; set; }
 

@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
 
     using FamilyHub.Data.Models;
+    using FamilyHub.Data.Models.Lists;
     using FamilyHub.Services.Data;
     using FamilyHub.Web.ViewModels.Lists;
     using Microsoft.AspNetCore.Authorization;
@@ -23,19 +24,45 @@
         [Authorize]
         public IActionResult AllToDo()
         {
-            return this.View();
+            var type = ListType.ToDoList;
+            var viewModel = new ListsAllViewModel()
+            {
+                Lists = this.listsService.GetAllByType<ListsSingleViewModel>(type),
+            };
+
+            return this.View(viewModel);
         }
 
         [Authorize]
         public IActionResult AllShopping()
         {
-            return this.View();
+            var type = ListType.ShoppingList;
+            var viewModel = new ListsAllViewModel()
+            {
+                Lists = this.listsService.GetAllByType<ListsSingleViewModel>(type),
+            };
+
+            return this.View(viewModel);
         }
 
         [Authorize]
         public IActionResult AllChores()
         {
-            return this.View();
+            var type = ListType.ChoresList;
+            var viewModel = new ListsAllViewModel()
+            {
+                Lists = this.listsService.GetAllByType<ListsSingleViewModel>(type),
+            };
+
+            return this.View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult ByName(string name)
+        {
+            var viewModel = this.listsService.GetByName<ListViewModel>(name);
+
+            return this.View(viewModel);
         }
 
         [Authorize]

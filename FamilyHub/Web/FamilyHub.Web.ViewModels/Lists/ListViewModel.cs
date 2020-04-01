@@ -6,9 +6,9 @@
     using FamilyHub.Data.Models.Lists;
     using FamilyHub.Services.Mapping;
 
-    public class ListsSingleViewModel : IMapFrom<List>
+    public class ListViewModel : IMapFrom<List>
     {
-        public ListsSingleViewModel()
+        public ListViewModel()
         {
             this.ListItems = new HashSet<ListItemViewModel>();
         }
@@ -20,8 +20,6 @@
         public ListType Type { get; set; }
 
         public DateTime? DueDate { get; set; }
-
-        public string Url => $"/Lists/{this.Title.Replace(' ', '-')}";
 
         public ICollection<ListItemViewModel> ListItems { get; set; }
     }

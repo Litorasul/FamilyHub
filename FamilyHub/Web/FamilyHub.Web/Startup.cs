@@ -115,6 +115,10 @@ namespace FamilyHub.Web
                             "eventByName",
                             "/Events/{name:minlength(3)}",
                             new { controller = "Events", action = "ByName" });
+                        endpoints.MapControllerRoute(
+                            "listByName",
+                            "/Lists/{name:minlength(3)}",
+                            new { controller = "Lists", action = "ByName" });
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
                     });

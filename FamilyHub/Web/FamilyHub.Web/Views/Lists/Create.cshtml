@@ -34,11 +34,13 @@
                             <label asp-for="Type"></label>
                             <select asp-for="Type" asp-items="Html.GetEnumSelectList<ListType>()"></select>
                         </div>
-
-                        <div id="listItemsContainer">
-                            @Html.EditorFor(m => m.ListItems)
+                        
+                        <div>
+                            <div id="listItemsContainer">
+                                @Html.EditorFor(m => m.ListItems)
+                            </div>
+                            <input class="btn btn-default" type="button" id="btnAdd" value="Add Item." />
                         </div>
-                        <input class="btn btn-flat" type="button" id="btnAdd" value="Add Item."/>
 
                         <hr />
 
