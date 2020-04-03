@@ -11,6 +11,7 @@ namespace FamilyHub.Data.Models
     using FamilyHub.Data.Models.PictureAlbums;
     using FamilyHub.Data.Models.Planner;
     using FamilyHub.Data.Models.Survey;
+    using FamilyHub.Data.Models.WallPosts;
     using Microsoft.AspNetCore.Identity;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
@@ -32,6 +33,8 @@ namespace FamilyHub.Data.Models
             this.PictureAlbums = new HashSet<Album>();
             this.Pictures = new HashSet<UserPicture>();
             this.Notifications = new HashSet<Notification.Notification>();
+            this.WallPosts = new HashSet<Post>();
+            this.Comments = new HashSet<Comment>();
         }
 
         // Audit info
@@ -44,7 +47,10 @@ namespace FamilyHub.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
+        // ToDo: Remove the name and use the UserName from Identity
         public string Name { get; set; }
+
+        public string ProfilePictureUrl { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
@@ -52,28 +58,39 @@ namespace FamilyHub.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
+        // Planner
         public virtual ICollection<UserEvent> AssignedEvents { get; set; }
 
         public virtual ICollection<Event> CreatedEvents { get; set; }
 
+        // Surveys
         public virtual ICollection<Survey.Survey> CreatedSurveys { get; set; }
 
         public virtual ICollection<Response> Responses { get; set; }
 
+        // Lists
         public virtual ICollection<UserList> AssignedLists { get; set; }
 
         public virtual ICollection<List> CreatedLists { get; set; }
 
         public virtual ICollection<ListItem> ListItemsDone { get; set; }
 
+        // Messenger
         public virtual ICollection<UserConversation> Conversations { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }
 
+        // Picture Albums
         public virtual ICollection<Album> PictureAlbums { get; set; }
 
         public virtual ICollection<UserPicture> Pictures { get; set; }
 
+        // Notification
         public virtual ICollection<Notification.Notification> Notifications { get; set; }
+
+        // Wall Posts
+        public virtual ICollection<Post> WallPosts { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

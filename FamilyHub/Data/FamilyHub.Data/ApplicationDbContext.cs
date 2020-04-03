@@ -14,6 +14,7 @@
     using FamilyHub.Data.Models.PictureAlbums;
     using FamilyHub.Data.Models.Planner;
     using FamilyHub.Data.Models.Survey;
+    using FamilyHub.Data.Models.WallPosts;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -31,10 +32,12 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        // Planner
         public DbSet<Event> Events { get; set; }
 
         public DbSet<UserEvent> UserEvents { get; set; }
 
+        // Surveys
         public DbSet<Survey> Surveys { get; set; }
 
         public DbSet<Question> Questions { get; set; }
@@ -45,25 +48,35 @@
 
         public DbSet<Answer> Answers { get; set; }
 
+        // Lists
         public DbSet<List> Lists { get; set; }
 
         public DbSet<UserList> UserLists { get; set; }
 
         public DbSet<ListItem> ListItems { get; set; }
 
+
+        // Messenger
         public DbSet<Conversation> Conversations { get; set; }
 
         public DbSet<Message> Messages { get; set; }
 
         public DbSet<UserConversation> UserConversations { get; set; }
 
+        // Picture Albums
         public DbSet<Album> PictureAlbums { get; set; }
 
         public DbSet<Picture> Pictures { get; set; }
 
         public DbSet<UserPicture> UserPictures { get; set; }
 
+        // Notifications
         public DbSet<Notification> Notifications { get; set; }
+
+        // Wall Posts
+        public DbSet<Post> Posts { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
