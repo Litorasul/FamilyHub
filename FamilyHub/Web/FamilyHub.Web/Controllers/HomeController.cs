@@ -8,42 +8,32 @@
     using FamilyHub.Web.ViewModels;
     using FamilyHub.Web.ViewModels.Events;
     using FamilyHub.Web.ViewModels.Notifications;
+    using FamilyHub.Web.ViewModels.WallPosts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
-        private readonly INotificationsService notificationsService;
+        private readonly IWallPostsService wallPostsService;
         private readonly IEventsService eventsService;
-        private readonly UserManager<ApplicationUser> userManager;
+
 
         public HomeController(
-            INotificationsService notificationsService, 
-            IEventsService eventsService,
-            UserManager<ApplicationUser> userManager)
+            IWallPostsService wallPostsService,
+            IEventsService eventsService)
         {
-            this.notificationsService = notificationsService;
+            this.wallPostsService = wallPostsService;
             this.eventsService = eventsService;
-            this.userManager = userManager;
         }
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-
-            var viewModel = new NotificationAllViewModel
+            var viewModel = new PostsAllViewModel()
             {
-                Notifications = this.notificationsService.GetAllByUser<NotificationSingleViewModel>(user.Id),
+                Posts = this.wallPostsService.GetAll<PostsSingleViewModel>(),
             };
-            foreach (var notification in viewModel.Notifications)
-            {
-                var currentEvent =
-                    this.eventsService.GetById<EventNotificationViewModel>(notification.NotificationTypeId);
-                notification.NotificationTypeTitle = $"{currentEvent.StartTime:dddd, dd MMMM yyyy} - {currentEvent.Title}";
-                notification.NotificationTypeDescription = currentEvent.Description;
-            }
 
             return this.View(viewModel);
         }

@@ -18,6 +18,13 @@
 
         public virtual ApplicationUser User { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Id of the Assigned Entity if any.
+        /// </summary>
+        public int? AssignedEntity { get; set; }
+
+        public string Content { get; set; }
+
         [Required]
         public PostType PostType { get; set; }
 

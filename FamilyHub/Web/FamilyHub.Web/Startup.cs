@@ -1,7 +1,4 @@
-﻿using FamilyHub.Web.Areas.Identity;
-using Microsoft.AspNetCore.Identity;
-
-namespace FamilyHub.Web
+﻿namespace FamilyHub.Web
 {
     using System.Reflection;
 
@@ -14,11 +11,12 @@ namespace FamilyHub.Web
     using FamilyHub.Services.Data;
     using FamilyHub.Services.Mapping;
     using FamilyHub.Services.Messaging;
+    using FamilyHub.Web.Areas.Identity;
     using FamilyHub.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -67,6 +65,7 @@ namespace FamilyHub.Web
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<INotificationsService, NotificationsService>();
             services.AddTransient<IListsService, ListsService>();
+            services.AddTransient<IWallPostsService, WallPostsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

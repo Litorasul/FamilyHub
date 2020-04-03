@@ -1,8 +1,8 @@
-﻿using FamilyHub.Data.Common.Models;
-
-namespace FamilyHub.Data.Models.WallPosts
+﻿namespace FamilyHub.Data.Models.WallPosts
 {
     using System.ComponentModel.DataAnnotations.Schema;
+
+    using FamilyHub.Data.Common.Models;
 
     public class Comment : BaseDeletableModel<int>
     {
