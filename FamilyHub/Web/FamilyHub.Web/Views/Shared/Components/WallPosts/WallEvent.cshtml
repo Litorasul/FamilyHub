@@ -1,1 +1,23 @@
-﻿
+﻿@model FamilyHub.Web.ViewModels.WallPosts.WallEventViewModel
+
+<div class="card card-outline card-primary">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="ion ion-ios-calendar-outline mr-1"></i>
+             New Event: 
+            <a href="@Model.Url"> @Model.Title</a>
+        </h3>
+
+        <!-- /.card-tools -->
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div><i class="ion ion-ios-clock-outline mr-1"></i> - @Model.Start.ToString("f")</div>
+        <div><i class="ion ion-compose mr-1"></i> - @Model.Description</div>
+    </div>
+    <!-- /.card-body -->
+    
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary">Join</button>
+    </div>
+</div>

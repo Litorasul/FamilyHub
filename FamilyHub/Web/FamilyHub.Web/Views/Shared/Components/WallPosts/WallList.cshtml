@@ -1,1 +1,22 @@
-﻿
+﻿@model FamilyHub.Web.ViewModels.WallPosts.WallListViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="ion ion-ios-list-outline mr-1"></i>
+            New List: 
+            <a href="@Model.Url"> @Model.Title</a>
+        </h3>
+
+    </div>
+
+    <div class="card-body">
+        <p class="card-text">@Model.Description</p>
+        <ul class="todo-list" data-widget="todo-list">
+            @foreach (var item in Model.ListItems)
+            {
+                <li><span class="text">@item.Text</span></li>
+            }
+        </ul>
+    </div>
+</div>

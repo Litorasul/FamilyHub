@@ -18,7 +18,7 @@
 
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
-            IQueryable<Post> query = this.postRepository.All().OrderBy(e => e.CreatedOn);
+            IQueryable<Post> query = this.postRepository.All().OrderByDescending(e => e.CreatedOn);
 
             if (count.HasValue)
             {
