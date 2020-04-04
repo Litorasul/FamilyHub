@@ -6,6 +6,16 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-6">
+            <form method="post">
+                <div class="card mt-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="What is on your mind?">
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-primary">Share</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
             <!-- Box Comment -->
             @foreach (var post in Model.Posts)
             {
@@ -72,6 +82,9 @@
             <!--/.card -->
         </div>
         <div class="col-lg-3 col-6">
+            <div class="text-muted">
+                <h1 class="display-4">@DateTime.Now.ToString("D")</h1>
+            </div>
             <!-- small card -->
             <div class="small-box bg-info">
                 <div class="inner">
