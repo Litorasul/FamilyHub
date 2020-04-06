@@ -66,6 +66,7 @@
             services.AddTransient<INotificationsService, NotificationsService>();
             services.AddTransient<IListsService, ListsService>();
             services.AddTransient<IWallPostsService, WallPostsService>();
+            services.AddTransient<ICommentsService, CommentsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

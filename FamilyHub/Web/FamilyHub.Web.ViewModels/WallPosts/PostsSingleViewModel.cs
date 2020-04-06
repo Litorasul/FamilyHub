@@ -8,6 +8,8 @@
 
     public class PostsSingleViewModel : IMapFrom<Post>
     {
+        public int Id { get; set; }
+
         public PostType PostType { get; set; }
 
         public DateTime CreatedOn { get; set; }
