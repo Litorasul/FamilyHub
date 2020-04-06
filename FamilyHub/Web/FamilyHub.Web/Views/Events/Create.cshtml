@@ -1,7 +1,7 @@
 ﻿@model FamilyHub.Web.ViewModels.Events.EventCreateInputModel
 
 @{
-    this.ViewData["Title"] = "Create new Event";
+    this.ViewData["Title"] = "CreateAsync new Event";
     var users = Model.Users.Select(x => new SelectListItem(x.Name, x.Id));
 }
 
@@ -83,7 +83,7 @@
                             </div>
 
                             <hr />
-                            <input type="submit" class="btn btn-dark" value="Create" />
+                            <input type="submit" class="btn btn-dark" value="CreateAsync" />
                         </div>
                     </div>
                 </form>

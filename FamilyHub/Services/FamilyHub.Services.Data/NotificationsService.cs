@@ -20,7 +20,7 @@ namespace FamilyHub.Services.Data
         }
 
         /// <summary>
-        /// Create a single Notification.
+        /// CreateAsync a single Notification.
         /// </summary>
         /// <returns>The Id of the created Notification.</returns>
         public async Task<int> CreateNotificationAsync(NotificationType type, int typeId, string userId)

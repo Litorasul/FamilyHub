@@ -1,23 +1,28 @@
-﻿using System.Threading.Tasks;
-
-namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using FamilyHub.Data.Common.Repositories;
     using FamilyHub.Data.Models.Lists;
+    using FamilyHub.Data.Models.WallPosts;
     using FamilyHub.Services.Mapping;
 
     public class ListsService : IListsService
     {
         private readonly IDeletableEntityRepository<List> listRepository;
         private readonly IDeletableEntityRepository<ListItem> listItemRepository;
+        private readonly IWallPostsService postsService;
 
-        public ListsService(IDeletableEntityRepository<List> listRepository, IDeletableEntityRepository<ListItem> listItemRepository)
+        public ListsService(
+            IDeletableEntityRepository<List> listRepository,
+            IDeletableEntityRepository<ListItem> listItemRepository,
+            IWallPostsService postsService)
         {
             this.listRepository = listRepository;
             this.listItemRepository = listItemRepository;
+            this.postsService = postsService;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -77,6 +82,8 @@ namespace FamilyHub.Services.Data
 
             await this.listRepository.AddAsync(listToAdd);
             await this.listRepository.SaveChangesAsync();
+
+            await this.postsService.CreateAsync(creatorId, PostType.NewList, listToAdd.Id, null);
 
             return listToAdd.Id;
         }

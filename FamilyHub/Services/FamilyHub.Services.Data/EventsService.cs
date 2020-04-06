@@ -8,17 +8,23 @@
     using FamilyHub.Data.Common.Repositories;
     using FamilyHub.Data.Models.Notification;
     using FamilyHub.Data.Models.Planner;
+    using FamilyHub.Data.Models.WallPosts;
     using FamilyHub.Services.Mapping;
 
     public class EventsService : IEventsService
     {
         private readonly IDeletableEntityRepository<Event> eventsRepository;
         private readonly INotificationsService notificationsService;
+        private readonly IWallPostsService postsService;
 
-        public EventsService(IDeletableEntityRepository<Event> eventsRepository, INotificationsService notificationsService)
+        public EventsService(
+            IDeletableEntityRepository<Event> eventsRepository,
+            INotificationsService notificationsService,
+            IWallPostsService postsService)
         {
             this.eventsRepository = eventsRepository;
             this.notificationsService = notificationsService;
+            this.postsService = postsService;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -75,6 +81,8 @@
 
             await this.eventsRepository.AddAsync(eventToAdd);
             await this.eventsRepository.SaveChangesAsync();
+
+            await this.postsService.CreateAsync(creatorId, PostType.NewEvent, eventToAdd.Id, null);
 
             foreach (var userId in assignedUsersId)
             {

@@ -9,7 +9,7 @@
 </div>
 
 <div class="text-center mx-auto">
-    <a asp-controller="Events" asp-action="Create" class="btn btn-dark btn-lg">Create new event!</a>
+    <a asp-controller="Events" asp-action="Create" class="btn btn-dark btn-lg">CreateAsync new event!</a>
     <hr />
 </div>
 
@@ -22,7 +22,7 @@
                     <h5 class="card-header">@planedEvent.StartTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
                     <div class="card-body">
                         <h4 class="card-title"><a href="@planedEvent.Url">@planedEvent.Title</a></h4>
-                        <h6>Created by: @planedEvent.CreatorName</h6>
+                        <h6>CreateAsyncd by: @planedEvent.CreatorName</h6>
                         <p>Assigned @planedEvent.AssignedUsersCount people:</p>
                         <ul>
                             @foreach (var user in planedEvent.AssignedUsersName)
