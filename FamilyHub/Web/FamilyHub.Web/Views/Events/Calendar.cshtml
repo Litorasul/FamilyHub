@@ -45,7 +45,7 @@
             var calendarEl = document.getElementById('calendar');
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: ['dayGrid', 'timeGrid', 'list'],
+                plugins: ['interaction','dayGrid', 'timeGrid', 'list'],
                 height: "auto",
                 contentHeight: "auto",
                 header: {
@@ -58,6 +58,8 @@
                 editable: true,
                 droppable: true,
                 eventLimit: true,
+                selectable: true,
+                unselectAuto: true,
                 eventColor: '#D18C54',
                 events:
                     {

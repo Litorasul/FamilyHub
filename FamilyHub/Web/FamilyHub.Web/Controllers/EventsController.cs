@@ -89,6 +89,7 @@
                 input.IsAllDay,
                 input.IsRecurring,
                 user.Id,
+                input.Color,
                 input.AssignedUsersId);
 
             return this.Redirect("/");

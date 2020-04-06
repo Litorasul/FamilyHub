@@ -65,6 +65,7 @@
             bool isAllDay,
             bool isRecurring,
             string creatorId,
+            string color,
             IEnumerable<string> assignedUsersId)
         {
             var eventToAdd = new Event
@@ -76,6 +77,7 @@
                 IsAllDay = isAllDay,
                 IsRecurring = isRecurring,
                 CreatorId = creatorId,
+                Color = color,
                 AssignedUsers = new HashSet<UserEvent>(),
             };
 

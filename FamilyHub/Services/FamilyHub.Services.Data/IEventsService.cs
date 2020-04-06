@@ -18,6 +18,7 @@
             bool isAllDay,
             bool isRecurring,
             string creatorId,
+            string color,
             IEnumerable<string> assignedUsersId);
 
         T GetById<T>(int id);
