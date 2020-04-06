@@ -9,6 +9,6 @@
     {
         IEnumerable<T> GetAll<T>(int? count = null);
 
-        Task CreateAsync(string creatorId, PostType type, int assignedEntity, string content);
+        Task CreateAsync(string creatorId, PostType type, int? assignedEntity, string content);
     }
 }

@@ -6,12 +6,12 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-6">
-            <form method="post">
+            <form asp-controller="WallPosts" asp-action="Create" method="post">
                 <div class="card mt-3">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="What is on your mind?">
+                        <input name="Content" id="Content" type="text" class="form-control" placeholder="What is on your mind?">
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-primary">Share</button>
+                            <input type="submit" class="btn btn-primary" value="Share"/>
                         </span>
                     </div>
                 </div>

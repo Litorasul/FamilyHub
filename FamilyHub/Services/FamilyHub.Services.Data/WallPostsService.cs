@@ -29,7 +29,7 @@
             return query.To<T>().ToList();
         }
 
-        public async Task CreateAsync(string creatorId, PostType type, int assignedEntity, string content)
+        public async Task CreateAsync(string creatorId, PostType type, int? assignedEntity, string content)
         {
             var post = new Post
             {
