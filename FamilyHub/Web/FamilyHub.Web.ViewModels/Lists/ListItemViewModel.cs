@@ -7,6 +7,8 @@
 
     public class ListItemViewModel : IMapFrom<ListItem>
     {
+        public int Id { get; set; }
+
         public string Text { get; set; }
 
         public double? Amount { get; set; }

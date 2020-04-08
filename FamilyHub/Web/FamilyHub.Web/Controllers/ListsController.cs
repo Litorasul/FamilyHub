@@ -1,4 +1,6 @@
-﻿namespace FamilyHub.Web.Controllers
+﻿using System;
+
+namespace FamilyHub.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -60,7 +62,7 @@
         [Authorize]
         public IActionResult ByName(string name)
         {
-            var viewModel = this.listsService.GetByName<ListViewModel>(name);
+            var viewModel = this.listsService.GetByName<ListByNameViewModel>(name);
 
             return this.View(viewModel);
         }
@@ -89,6 +91,7 @@
 
             return this.Redirect("/");
         }
+
 
         [HttpPost]
         [Authorize]

@@ -1,5 +1,6 @@
 ﻿namespace FamilyHub.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -67,8 +68,6 @@
             return list;
         }
 
-
-
         public async Task<int> CreateAsync(string title, string description, ListType type, string creatorId)
         {
             var listToAdd = new List
@@ -97,6 +96,18 @@
             };
 
             await this.listItemRepository.AddAsync(listItem);
+            await this.listItemRepository.SaveChangesAsync();
+        }
+
+        public async Task ListItemUpdateDone(int itemId, string userId, DateTime doneTime)
+        {
+            var listItem = this.listItemRepository.All().FirstOrDefault(x => x.Id == itemId);
+            if (listItem != null)
+            {
+                listItem.DoneByUserId = userId;
+                listItem.DoneDateTime = doneTime;
+            }
+
             await this.listItemRepository.SaveChangesAsync();
         }
     }

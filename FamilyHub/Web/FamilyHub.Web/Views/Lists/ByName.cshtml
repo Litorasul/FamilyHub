@@ -1,1 +1,76 @@
-﻿
+﻿@model FamilyHub.Web.ViewModels.Lists.ListByNameViewModel
+<!-- TO DO List -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            @Model.Title
+        </h3>
+
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <form id="votesForm" method="post"></form>
+        <ul class="todo-list" data-widget="todo-list">
+            @foreach (var item in Model.ListItems)
+            {
+                <li>
+                    <!-- checkbox -->
+
+                    <!-- Emphasis label -->
+                    @if (item.DoneByUserUserName != null)
+                    {
+                        <div class="icheck-primary d-inline ml-2">
+                            <input type="checkbox" class="checkbox" value="" name="todo" id="@item.Id"checked="checked" disabled="disabled">
+                            <label for="@item.Id"></label>
+                        </div>
+
+                        <span class="text">@item.Text</span>
+
+                        <small class="badge badge-danger"><i class="far fa-clock"></i> @item.DoneByUserUserName</small>
+                    }
+                    else
+                    {
+                        <div class="icheck-primary d-inline ml-2">
+                            <input type="checkbox" class="checkbox" value="" name="todo" id="@item.Id" onclick="doneBy(@item.Id)">
+                            <label for="@item.Id"></label>
+                        </div>
+
+                        <span class="text">@item.Text</span>
+                    }
+                    <!-- General tools such as edit or delete-->
+                    @*<div class="tools">
+                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-trash"></i>
+                    </div>*@
+                </li>
+            }
+
+        </ul>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+        <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add item</button>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        function doneBy(itemId) {
+            var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+            var json = { ItemId: itemId };
+            console.log(json);
+            $.ajax({
+                url: "/ListsApi",
+                type: "POST",
+                data: JSON.stringify(json),
+                headers: { 'X-CSRF-TOKEN': token },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function() {
+
+                }
+            });
+        }
+    </script>
+}

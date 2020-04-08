@@ -1,5 +1,6 @@
 ﻿namespace FamilyHub.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -18,5 +19,7 @@
         Task<int> CreateAsync(string title, string description, ListType type, string creatorId);
 
         Task AddItemToList(int listId, string itemText);
+
+        Task ListItemUpdateDone(int itemId, string userId, DateTime doneTime);
     }
 }
