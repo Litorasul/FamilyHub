@@ -32,9 +32,15 @@
         }
 
         [Authorize]
-        public IActionResult Chat()
+        public IActionResult Chat(int id)
         {
-            return this.View();
+            var viewModel = new MessagesPerConversationViewModel()
+            {
+                Name = this.messengerService.GetConversationNameById(id),
+                Messages = this.messengerService.GetAllMessagesForConversation<MessageViewModel>(id),
+            };
+
+            return this.View(viewModel);
         }
     }
 }

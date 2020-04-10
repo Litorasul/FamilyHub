@@ -19,9 +19,10 @@
 
         public DateTime CreatedOn { get; set; }
 
+        public string Url => $"/Messenger/Chat/{this.Id}";
+
         public ICollection<ConversationUserViewModel> Users { get; set; }
 
         public ICollection<MessageViewModel> Messages { get; set; }
-
     }
 }

@@ -113,7 +113,7 @@
             app.UseEndpoints(
                 endpoints =>
                 {
-                    endpoints.MapHub<MessengerHub>("/controller=Messenger/action=chat/{id}");
+                    endpoints.MapHub<MessengerHub>("/controller=Messenger/action=Chat/{id}");
                     endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapControllerRoute(
                         "eventByName",
