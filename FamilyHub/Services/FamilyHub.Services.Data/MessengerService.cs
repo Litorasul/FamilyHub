@@ -23,17 +23,17 @@
 
         public IEnumerable<T> GetAllConversation<T>(string userId, int? count = null)
         {
-            var userConversations = this.userConversationRepository.All().Where(x => x.UserId == userId);
+            //var userConversations = this.userConversationRepository.All().Where(x => x.UserId == userId).ToList();
             IQueryable<Conversation> query = this.conversationRepository.All()
-                .Where(c => c.Users == userConversations)
+                .Where(c => c.Users.Any(u => u.UserId == userId))
                 .OrderBy(c => c.CreatedOn);
 
             if (count.HasValue)
             {
                 query = query.Take(count.Value);
             }
-
-            return query.To<T>().ToList();
+            var queryList = query.To<T>().ToList();
+            return queryList;
         }
     }
 }

@@ -3,3 +3,56 @@
 @{
     this.ViewData["Title"] = "All Conversations.";
 }
+
+<section class="content mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Conversations</h3>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-striped projects">
+            <thead>
+                <tr>
+                    <th style="width: 30%">
+                        Name
+                    </th>
+                    <th style="width: 50%">
+                        Members
+                    </th>
+                    <th style="width: 20%">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var conversation in Model.Conversations)
+                {
+                    <tr>
+
+                        <td>
+                            <a>
+                                @conversation.Name
+                            </a>
+                            <br />
+                            <small>
+                                @conversation.CreatedOn.ToString("f");
+                            </small>
+                        </td>
+                        <td>
+                            <ul class="list-inline">
+                                @foreach (var user in conversation.Users)
+                                {
+                                    <li class="list-inline-item">
+                                        <img alt="Pic" class="table-avatar" src="@user.UserProfilePictureUrl">
+                                        @user.UserUserName
+                                    </li>
+                                }
+                            </ul>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

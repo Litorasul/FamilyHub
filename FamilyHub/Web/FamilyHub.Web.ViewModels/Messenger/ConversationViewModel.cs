@@ -1,5 +1,6 @@
 ﻿namespace FamilyHub.Web.ViewModels.Messenger
 {
+    using System;
     using System.Collections.Generic;
 
     using FamilyHub.Data.Models.Messenger;
@@ -7,13 +8,18 @@
 
     public class ConversationViewModel : IMapFrom<Conversation>
     {
+        public ConversationViewModel()
+        {
+            this.Users = new HashSet<ConversationUserViewModel>();
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public ICollection<string> UserId { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public ICollection<string> UserUserName { get; set; }
+        public ICollection<ConversationUserViewModel> Users { get; set; }
 
         public ICollection<MessageViewModel> Messages { get; set; }
 
