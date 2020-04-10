@@ -12,6 +12,7 @@
     using FamilyHub.Services.Mapping;
     using FamilyHub.Services.Messaging;
     using FamilyHub.Web.Areas.Identity;
+    using FamilyHub.Web.Hubs;
     using FamilyHub.Web.ViewModels;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -48,6 +49,7 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
+            services.AddSignalR();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -67,6 +69,7 @@
             services.AddTransient<IListsService, ListsService>();
             services.AddTransient<IWallPostsService, WallPostsService>();
             services.AddTransient<ICommentsService, CommentsService>();
+            services.AddTransient<IMessengerService, MessengerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,19 +112,20 @@
 
             app.UseEndpoints(
                 endpoints =>
-                    {
-                        endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapControllerRoute(
-                            "eventByName",
-                            "/Events/{name:minlength(3)}",
-                            new { controller = "Events", action = "ByName" });
-                        endpoints.MapControllerRoute(
-                            "listByName",
-                            "/Lists/{name:minlength(3)}",
-                            new { controller = "Lists", action = "ByName" });
-                        endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapRazorPages();
-                    });
+                {
+                    endpoints.MapHub<MessengerHub>("/controller=Messenger/action=chat/{id}");
+                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapControllerRoute(
+                        "eventByName",
+                        "/Events/{name:minlength(3)}",
+                        new { controller = "Events", action = "ByName" });
+                    endpoints.MapControllerRoute(
+                        "listByName",
+                        "/Lists/{name:minlength(3)}",
+                        new { controller = "Lists", action = "ByName" });
+                    endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapRazorPages();
+                });
         }
     }
 }

@@ -49,13 +49,29 @@
     </div>
     <!-- /.card-body -->
     <div class="card-footer clearfix">
-        <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add item</button>
+        <form method="post" id="form" style="display: none">
+            <input type="hidden" name="ListId" value="@this.Model.Id" />
+            <div id="listItemsContainer">
+                @Html.EditorFor(m => m.ListItems)
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary float-right" id="btnSubmit" value="Save Changes" />
+            </div>
+            <div>
+                <button type="button" class="btn btn-dark" id="btnAdd"><i class="fas fa-plus"></i> New Item</button>
+            </div>
+        </form>
+        <button type="button" class="btn btn-info float-right" id="btnUpdate" onclick="showUpdateForm()">Change</button>
     </div>
 </div>
 
 @section Scripts
 {
     <script>
+        function showUpdateForm() {
+            $("#form").show();
+            $("#btnUpdate").hide();
+        }
         function doneBy(itemId) {
             var token = $("#votesForm input[name=__RequestVerificationToken]").val();
             var json = { ItemId: itemId };
@@ -68,9 +84,40 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function() {
-
+                    
                 }
             });
         }
+    </script>
+    
+    <script type="text/javascript">
+        $("#btnAdd").on('click', function() {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/Lists/AddListItem',
+                success: function(partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#listItemsContainer').html(partialView);
+                }
+            });
+
+        })
+
+        $("#form").submit(function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var url = "/Lists/UpdateAddNewListItem";
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+
+            });
+        });
+
     </script>
 }

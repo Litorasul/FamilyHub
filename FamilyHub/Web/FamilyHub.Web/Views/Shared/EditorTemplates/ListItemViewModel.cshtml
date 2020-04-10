@@ -1,8 +1,11 @@
 ﻿@model FamilyHub.Web.ViewModels.Lists.ListItemViewModel
 
+    
+
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
+            <input type="hidden" asp-for="Id" name="Id" value="@this.Model.Id" />
             <label asp-for="Text"></label>
             <input asp-for="Text" class="form-control" />
             <span asp-validation-for="Text" class="text-danger"></span>

@@ -20,6 +20,8 @@
 
         Task AddItemToList(int listId, string itemText);
 
+        Task ListItemUpdate(int listItemId, string text);
+
         Task ListItemUpdateDone(int itemId, string userId, DateTime doneTime);
     }
 }

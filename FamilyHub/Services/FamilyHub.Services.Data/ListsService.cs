@@ -99,6 +99,17 @@
             await this.listItemRepository.SaveChangesAsync();
         }
 
+        public async Task ListItemUpdate(int listItemId, string text)
+        {
+            var listItem = this.listItemRepository.All().FirstOrDefault(x => x.Id == listItemId);
+            if (listItem != null)
+            {
+                listItem.Text = text;
+            }
+
+            await this.listItemRepository.SaveChangesAsync();
+        }
+
         public async Task ListItemUpdateDone(int itemId, string userId, DateTime doneTime)
         {
             var listItem = this.listItemRepository.All().FirstOrDefault(x => x.Id == itemId);

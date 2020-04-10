@@ -15,6 +15,8 @@
         }
 
         [Required]
+        public string Name { get; set; }
+
         public virtual ICollection<UserConversation> Users { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }

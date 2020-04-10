@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FamilyHub.Web.Controllers
+﻿namespace FamilyHub.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -92,13 +90,26 @@ namespace FamilyHub.Web.Controllers
             return this.Redirect("/");
         }
 
-
         [HttpPost]
         [Authorize]
         public IActionResult AddListItem([Bind("ListItems")] ListsSingleViewModel lists)
         {
             lists.ListItems.Add(new ListItemViewModel());
             return this.PartialView("ListItems", lists);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult UpdateAddNewListItem(ListUpdateViewModel viewModel)
+        {
+            var list = this.listsService.GetById<ListsSingleViewModel>(viewModel.ListId);
+            foreach (var item in viewModel.ListItems)
+            {
+                var id = item.Id;
+                this.listsService.ListItemUpdate(id, item.Text);
+            }
+
+            return this.RedirectToAction(nameof(this.ByName), new { name = list.Title.Replace(' ', '-') });
         }
     }
 }
