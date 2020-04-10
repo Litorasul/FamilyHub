@@ -36,6 +36,7 @@
         {
             var viewModel = new MessagesPerConversationViewModel()
             {
+                ConversationId = id,
                 Name = this.messengerService.GetConversationNameById(id),
                 Messages = this.messengerService.GetAllMessagesForConversation<MessageViewModel>(id),
             };

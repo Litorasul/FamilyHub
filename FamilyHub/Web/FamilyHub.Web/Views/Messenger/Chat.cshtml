@@ -8,67 +8,100 @@
     var userId = this.UserManager.GetUserId(this.User);
 }
 
-    <section class="content mt-3">
+<section class="content mt-3">
 
-        <div class="card direct-chat direct-chat-primary">
-            <div class="card-header">
-                <h3 class="card-title">@Model.Name</h3>
-            </div>
+    <div class="card direct-chat direct-chat-primary">
+        <div class="card-header">
+            <h3 class="card-title">@Model.Name</h3>
+        </div>
 
 
-            <div class="card-body">
-                <div class="direct-chat-messages">
-                    @foreach (var message in Model.Messages)
+        <div class="card-body">
+            <div class="direct-chat-messages">
+                @foreach (var message in Model.Messages)
+                {
+                    if (userId == message.User.Id)
                     {
-                        if (userId == message.User.Id)
-                        {
-                            <!-- Message to the right -->
-                            <div class="direct-chat-msg right">
-                                <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-right">@message.User.UserName</span>
-                                    <span class="direct-chat-timestamp float-left">@message.CreatedOn</span>
-                                </div>
-                                <!-- /.direct-chat-infos -->
-                                <img class="direct-chat-img" src="@message.User.ProfilePictureUrl" alt="message user image">
-                                <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
-                                    @message.Text
-                                </div>
-                                <!-- /.direct-chat-text -->
+                        <!-- Message to the right -->
+                        <div class="direct-chat-msg right">
+                            <div class="direct-chat-infos clearfix">
+                                <span class="direct-chat-name float-right">@message.User.UserName</span>
+                                <span class="direct-chat-timestamp float-left">@message.CreatedOn</span>
                             </div>
-                        }
-                        else
-                        {
-                            <div class="direct-chat-msg">
-                                <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-left">@message.User.UserName</span>
-                                    <span class="direct-chat-timestamp float-right">@message.CreatedOn</span>
-                                </div>
-                                <!-- /.direct-chat-infos -->
-                                <img class="direct-chat-img" src="@message.User.ProfilePictureUrl" alt="message user image">
-                                <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
-                                    @message.Text
-                                </div>
-                                <!-- /.direct-chat-text -->
+
+                            <img class="direct-chat-img" src="@message.User.ProfilePictureUrl" alt="message user image">
+
+                            <div class="direct-chat-text">
+                                @message.Text
                             </div>
-                        }
+
+                        </div>
                     }
+                    else
+                    {
+                        <div class="direct-chat-msg">
+                            <div class="direct-chat-infos clearfix">
+                                <span class="direct-chat-name float-left">@message.User.UserName</span>
+                                <span class="direct-chat-timestamp float-right">@message.CreatedOn</span>
+                            </div>
+
+                            <img class="direct-chat-img" src="@message.User.ProfilePictureUrl" alt="message user image">
+
+                            <div class="direct-chat-text">
+                                @message.Text
+                            </div>
+
+                        </div>
+                    }
+                }
+
+                <div id="messagesList">
 
                 </div>
             </div>
-
-            <div class="card-footer">
-                <form action="#" method="post">
-                    <div class="input-group">
-                        <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-primary">Send</button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-
         </div>
 
-    </section>
+        <div class="card-footer">
+            <form action="#" method="post">
+                <div class="input-group" id="message-holder">
+                    <input type="text" name="message" id="messageInput" placeholder="Type Message ..." class="form-control">
+                    <span class="input-group-append">
+                        <button type="button" id="sendButton" class="btn btn-primary">Send</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</section>
+
+@section Scripts {
+    <script>
+
+        var url = `/Messenger/Chat/${@Model.ConversationId}`;
+        var connection =
+            new signalR.HubConnectionBuilder()
+                .withUrl(url)
+                .build();
+        connection.on("NewMessage",
+            function(message) {
+                var chatInfo =
+                    `<div class="direct-chat-msg"><div class="direct-chat-infos clearfix"><span class="direct-chat-name float-left">${
+                        message.user.username}</span><span class="direct-chat-timestamp float-right">${message.CreatedOn
+                        }</span></div><img class="direct-chat-img" src="${message.User.ProfilePictureUrl
+                        }" alt="message user image"><div class="direct-chat-text"> ${message.Text} </div></div>`;
+
+                $("#messagesList").append(chatInfo);
+            });
+
+        $("#sendButton").click(function() {
+            var message = $("#messageInput").val();
+            connection.invoke("Send", message, @Model.ConversationId);
+        });
+        connection.start().catch(function(err) {
+            return console.error(err.toString());
+        });
+
+    </script>
+}

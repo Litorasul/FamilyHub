@@ -54,5 +54,20 @@
 
             return name;
         }
+
+        public async Task<Message> AddMessage(string userId, int conversationId, string text)
+        {
+            var message = new Message
+            {
+                UserId = userId,
+                ConversationId = conversationId,
+                Text = text,
+            };
+
+            await this.messageRepository.AddAsync(message);
+            await this.messageRepository.SaveChangesAsync();
+
+            return message;
+        }
     }
 }
