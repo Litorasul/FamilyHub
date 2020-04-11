@@ -9,10 +9,10 @@
     {
         IEnumerable<T> GetAllConversation<T>(string userId, int? count = null);
 
-        IEnumerable<T> GetAllMessagesForConversation<T>(int conversationId);
+        IEnumerable<T> GetAllMessages<T>();
 
         string GetConversationNameById(int conversationId);
 
-        Task<Message> AddMessage(string userId, int conversationId, string text);
+        Task<T> AddMessage<T>(string userId, string text);
     }
 }

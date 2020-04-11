@@ -19,26 +19,11 @@
         }
 
         [Authorize]
-        public IActionResult Index()
-        {
-            var userId = this.userManager.GetUserId(this.User);
-
-            var viewModel = new ConversationAllViewModel()
-            {
-                Conversations = this.messengerService.GetAllConversation<ConversationViewModel>(userId),
-            };
-
-            return this.View(viewModel);
-        }
-
-        [Authorize]
-        public IActionResult Chat(int id)
+        public IActionResult Chat()
         {
             var viewModel = new MessagesPerConversationViewModel()
             {
-                ConversationId = id,
-                Name = this.messengerService.GetConversationNameById(id),
-                Messages = this.messengerService.GetAllMessagesForConversation<MessageViewModel>(id),
+                Messages = this.messengerService.GetAllMessages<MessageViewModel>(),
             };
 
             return this.View(viewModel);

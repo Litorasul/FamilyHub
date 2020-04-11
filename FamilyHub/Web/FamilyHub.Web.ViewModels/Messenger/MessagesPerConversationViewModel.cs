@@ -4,11 +4,6 @@
 
     public class MessagesPerConversationViewModel
     {
-
-        public int ConversationId { get; set; }
-
-        public string Name { get; set; }
-
         public IEnumerable<MessageViewModel> Messages { get; set; }
     }
 }

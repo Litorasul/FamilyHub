@@ -11,7 +11,6 @@
         public Conversation()
         {
             this.Users = new HashSet<UserConversation>();
-            this.Messages = new HashSet<Message>();
         }
 
         [Required]
@@ -19,6 +18,5 @@
 
         public virtual ICollection<UserConversation> Users { get; set; }
 
-        public virtual ICollection<Message> Messages { get; set; }
     }
 }

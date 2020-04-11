@@ -13,8 +13,6 @@
 
         public MessageUserViewModel User { get; set; }
 
-        public string ConversationName { get; set; }
-
         public DateTime CreatedOn { get; set; }
     }
 }

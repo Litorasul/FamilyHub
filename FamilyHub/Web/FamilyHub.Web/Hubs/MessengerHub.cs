@@ -4,6 +4,7 @@
 
     using FamilyHub.Data.Models;
     using FamilyHub.Services.Data;
+    using FamilyHub.Web.ViewModels.Messenger;
     using Ganss.XSS;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -21,11 +22,11 @@
             this.userManager = userManager;
         }
 
-        public async Task Send(string text, int conversationId)
+        public async Task Send(string text)
         {
             var sanitizedText = new HtmlSanitizer().Sanitize(text);
             var userId = this.userManager.GetUserId(this.Context.User);
-            var message = this.messengerService.AddMessage(userId, conversationId, sanitizedText);
+            var message = await this.messengerService.AddMessage<MessageInHubViewModel>(userId, sanitizedText);
             await this.Clients.All.SendAsync(
                 "NewMessage",
                 message);

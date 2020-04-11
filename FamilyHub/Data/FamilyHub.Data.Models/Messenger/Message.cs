@@ -19,10 +19,5 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        [Required]
-        [ForeignKey("Conversation")]
-        public int ConversationId { get; set; }
-
-        public virtual Conversation Conversation { get; set; }
     }
 }

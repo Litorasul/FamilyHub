@@ -37,10 +37,9 @@
             return queryList;
         }
 
-        public IEnumerable<T> GetAllMessagesForConversation<T>(int conversationId)
+        public IEnumerable<T> GetAllMessages<T>()
         {
-            IQueryable<Message> query = this.messageRepository.All().Where(m => m.ConversationId == conversationId)
-                .OrderByDescending(m => m.CreatedOn);
+            IQueryable<Message> query = this.messageRepository.All().OrderBy(m => m.CreatedOn);
 
             return query.To<T>().ToList();
         }
@@ -55,19 +54,20 @@
             return name;
         }
 
-        public async Task<Message> AddMessage(string userId, int conversationId, string text)
+        public async Task<T> AddMessage<T>(string userId, string text)
         {
             var message = new Message
             {
                 UserId = userId,
-                ConversationId = conversationId,
                 Text = text,
             };
 
             await this.messageRepository.AddAsync(message);
             await this.messageRepository.SaveChangesAsync();
 
-            return message;
+            var messageTo = this.messageRepository.All().Where(x => x.Id == message.Id).To<T>().FirstOrDefault();
+
+            return messageTo;
         }
     }
 }

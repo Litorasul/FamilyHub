@@ -8,16 +8,17 @@
     var userId = this.UserManager.GetUserId(this.User);
 }
 
-<section class="content mt-3">
+<div class="content mt-3">
 
-    <div class="card direct-chat direct-chat-primary">
+    <div class="card direct-chat direct-chat-primary" >
         <div class="card-header">
-            <h3 class="card-title">@Model.Name</h3>
+            <h3 class="card-title">@this.ViewData["Title"]</h3>
         </div>
 
 
         <div class="card-body">
             <div class="direct-chat-messages">
+
                 @foreach (var message in Model.Messages)
                 {
                     if (userId == message.User.Id)
@@ -54,50 +55,52 @@
                         </div>
                     }
                 }
-
+                
                 <div id="messagesList">
 
                 </div>
+
             </div>
         </div>
 
         <div class="card-footer">
-            <form action="#" method="post">
+
                 <div class="input-group" id="message-holder">
                     <input type="text" name="message" id="messageInput" placeholder="Type Message ..." class="form-control">
                     <span class="input-group-append">
                         <button type="button" id="sendButton" class="btn btn-primary">Send</button>
                     </span>
                 </div>
-            </form>
+
         </div>
 
     </div>
 
-</section>
+</div>
 
 @section Scripts {
     <script>
 
-        var url = `/Messenger/Chat/${@Model.ConversationId}`;
+
         var connection =
             new signalR.HubConnectionBuilder()
-                .withUrl(url)
+                .withUrl("/Messenger/Message")
                 .build();
+
         connection.on("NewMessage",
             function(message) {
-                var chatInfo =
-                    `<div class="direct-chat-msg"><div class="direct-chat-infos clearfix"><span class="direct-chat-name float-left">${
-                        message.user.username}</span><span class="direct-chat-timestamp float-right">${message.CreatedOn
-                        }</span></div><img class="direct-chat-img" src="${message.User.ProfilePictureUrl
-                        }" alt="message user image"><div class="direct-chat-text"> ${message.Text} </div></div>`;
+                var chatInfo = 
+                `<div class="direct-chat-msg"><div class="direct-chat-infos clearfix"><span class="direct-chat-name float-left">${
+                    message.userUserName}</span><span class="direct-chat-timestamp float-right">${message.createdOn
+                    }</span></div><img class="direct-chat-img" src="${message.userProfilePictureUrl
+                    }" alt="message user image"><div class="direct-chat-text"> ${message.text} </div></div>`;
 
                 $("#messagesList").append(chatInfo);
             });
 
         $("#sendButton").click(function() {
             var message = $("#messageInput").val();
-            connection.invoke("Send", message, @Model.ConversationId);
+            connection.invoke("Send", message);
         });
         connection.start().catch(function(err) {
             return console.error(err.toString());
