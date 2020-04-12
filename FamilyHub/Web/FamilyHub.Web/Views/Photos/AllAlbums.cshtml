@@ -1,0 +1,28 @@
+﻿@model FamilyHub.Web.ViewModels.PhotoAlbums.PhotoAlbumsAllViewModel
+@{
+    this.ViewData["Title"] = "All Photo Albums.";
+}
+
+<div class="card-deck">
+    @foreach (var album in Model.Albums)
+    {
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <a href="@album.Url"> @album.Title</a>
+                </h3>
+                
+                <p>@album.CreatedOn.ToString("f")</p>
+            </div>
+            
+            <div class="card-body">
+                <p>@album.Description</p>
+            </div>
+            
+            <div class="card-footer">
+                <p>Created by: @album.UserUserName</p>
+            </div>
+        </div>
+    }
+
+</div>

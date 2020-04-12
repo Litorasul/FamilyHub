@@ -70,6 +70,7 @@
             services.AddTransient<IWallPostsService, WallPostsService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IMessengerService, MessengerService>();
+            services.AddTransient<IPhotoAlbumsService, PhotoAlbumsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
