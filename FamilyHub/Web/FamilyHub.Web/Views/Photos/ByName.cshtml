@@ -1,1 +1,57 @@
-﻿
+﻿@model FamilyHub.Web.ViewModels.PhotoAlbums.PhotoAlbumsByNameViewModel
+@{
+    this.ViewData["Title"] = $"Album - {Model.Title}";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <div class="card-title">
+                            @Model.Title
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach (var picture in Model.Pictures)
+                            {
+                                <div class="col-sm-2">
+                                    <a href="@picture.Url" data-toggle="lightbox" data-title="@Model.Title" data-gallery="gallery">
+                                        <img src="@picture.ThumbUrl" class="img-fluid mb-2" alt="white sample" />
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+@section Scripts
+{
+    <!-- Ekko Lightbox -->
+    <script src="~/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+    
+    <script>
+        $(function () {
+            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({
+                    alwaysShowClose: true
+                });
+            });
+
+            $('.filter-container').filterizr({gutterPixels: 3});
+            $('.btn[data-filter]').on('click', function() {
+                $('.btn[data-filter]').removeClass('active');
+                $(this).addClass('active');
+            });
+        })
+    </script>
+}

@@ -16,6 +16,8 @@
         [Required]
         public string Url { get; set; }
 
+        public string ThumbUrl { get; set; }
+
         public virtual ICollection<UserPicture> Users { get; set; }
 
         [ForeignKey("Album")]

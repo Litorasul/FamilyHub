@@ -27,5 +27,13 @@
 
             return query.To<T>().ToList();
         }
+
+        public T GetByName<T>(string name)
+        {
+            var album = this.albumRepository.All().Where(x => x.Title.Replace(" ", "-") == name)
+                .To<T>().FirstOrDefault();
+
+            return album;
+        }
     }
 }

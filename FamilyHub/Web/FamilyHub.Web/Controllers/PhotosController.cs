@@ -24,5 +24,13 @@
 
             return this.View(viewModel);
         }
+
+        [Authorize]
+        public IActionResult ByName(string name)
+        {
+            var viewModel = this.albumsService.GetByName<PhotoAlbumsByNameViewModel>(name);
+
+            return this.View(viewModel);
+        }
     }
 }
