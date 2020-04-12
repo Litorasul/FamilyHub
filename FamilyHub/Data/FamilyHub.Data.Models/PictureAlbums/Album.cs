@@ -1,5 +1,6 @@
 ﻿namespace FamilyHub.Data.Models.PictureAlbums
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,6 +10,11 @@
 
     public class Album : BaseDeletableModel<int>
     {
+        public Album()
+        {
+            this.Pictures = new HashSet<Picture>();
+        }
+
         [Required]
         [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
@@ -22,5 +28,7 @@
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+
+        public virtual ICollection<Picture> Pictures { get; set; }
     }
 }

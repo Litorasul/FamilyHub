@@ -121,6 +121,10 @@
                         "/Events/{name:minlength(3)}",
                         new { controller = "Events", action = "ByName" });
                     endpoints.MapControllerRoute(
+                        "PhotoAlbumByName",
+                        "/Photos/{name:minlength(3)}",
+                        new { controller = "Photos", action = "ByName" });
+                    endpoints.MapControllerRoute(
                         "listByName",
                         "/Lists/{name:minlength(3)}",
                         new { controller = "Lists", action = "ByName" });
