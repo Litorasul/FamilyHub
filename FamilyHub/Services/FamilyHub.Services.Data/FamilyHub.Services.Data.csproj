@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.10.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -21,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\FamilyHub.Data.Common\FamilyHub.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\FamilyHub.Data.Models\FamilyHub.Data.Models.csproj" />
+    <ProjectReference Include="..\..\FamilyHub.Common\FamilyHub.Common.csproj" />
     <ProjectReference Include="..\FamilyHub.Services.Mapping\FamilyHub.Services.Mapping.csproj" />
   </ItemGroup>
 

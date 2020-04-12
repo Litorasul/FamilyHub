@@ -1,4 +1,6 @@
-﻿namespace FamilyHub.Web.Controllers
+﻿using System.Threading.Tasks;
+
+namespace FamilyHub.Web.Controllers
 {
     using FamilyHub.Services.Data;
     using FamilyHub.Web.ViewModels.PhotoAlbums;
@@ -31,6 +33,13 @@
             var viewModel = this.albumsService.GetByName<PhotoAlbumsByNameViewModel>(name);
 
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult UploadPicture(PictureInputModel input)
+        {
+            return this.ByName(input.AlbumName);
         }
     }
 }

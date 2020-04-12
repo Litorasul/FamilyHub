@@ -25,6 +25,20 @@
                             }
                         </div>
                     </div>
+                    <div class="card-footer">
+                        <form asp-controller="Photos" asp-action="UploadPicture" method="post">
+                            <div class="row">
+                                <div class="col-11">
+                                    <input type="hidden" name="AlbumId" value="@Model.Id" />
+                                    <input type="hidden" name="AlbumName" value="@Model.Title" />
+                                    <input type="file" name="File" id="File"/>
+                                </div>
+                                <div class="col-1">
+                                    <input type="submit" name="AddPicture" class="btn btn-primary" value="Upload"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
