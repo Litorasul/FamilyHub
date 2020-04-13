@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace FamilyHub.Web.Controllers
 {
@@ -31,15 +32,17 @@ namespace FamilyHub.Web.Controllers
         public IActionResult ByName(string name)
         {
             var viewModel = this.albumsService.GetByName<PhotoAlbumsByNameViewModel>(name);
-
             return this.View(viewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult UploadPicture(PictureInputModel input)
+        public async Task<IActionResult> UploadPicture(PictureInputModel input)
         {
-            return this.ByName(input.AlbumName);
+            string name = input.AlbumName.Replace(" ", "-");
+
+            await this.albumsService.AddPhotoInAlbum(input.AlbumId, input.File);
+            return this.RedirectToAction(nameof(this.ByName), new { name });
         }
     }
 }

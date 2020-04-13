@@ -1,7 +1,10 @@
-﻿namespace FamilyHub.Web
+﻿using System;
+
+namespace FamilyHub.Web
 {
     using System.Reflection;
 
+    using FamilyHub.Common;
     using FamilyHub.Data;
     using FamilyHub.Data.Common;
     using FamilyHub.Data.Common.Repositories;
@@ -42,15 +45,23 @@
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddSignInManager<CustomSignInManager>();
 
-            services.Configure<CookiePolicyOptions>(
-                options =>
+            services.Configure<CookiePolicyOptions>(options =>
                     {
                         options.CheckConsentNeeded = context => true;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromDays(2);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddSignalR();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddSessionStateTempDataProvider();
             services.AddRazorPages();
 
             services.AddSingleton(this.configuration);
@@ -59,6 +70,8 @@
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
+
+            services.Configure<CloudinarySettings>(this.configuration.GetSection("CloudinarySettings"));
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
@@ -102,6 +115,7 @@
                 app.UseHsts();
             }
 
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

@@ -26,14 +26,14 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <form asp-controller="Photos" asp-action="UploadPicture" method="post">
+                        <form asp-controller="Photos" asp-action="UploadPicture" enctype="multipart/form-data" id="form" method="post">
                             <div class="row">
-                                <div class="col-11">
+                                <div class="col">
                                     <input type="hidden" name="AlbumId" value="@Model.Id" />
                                     <input type="hidden" name="AlbumName" value="@Model.Title" />
                                     <input type="file" name="File" id="File"/>
                                 </div>
-                                <div class="col-1">
+                                <div class="col">
                                     <input type="submit" name="AddPicture" class="btn btn-primary" value="Upload"/>
                                 </div>
                             </div>

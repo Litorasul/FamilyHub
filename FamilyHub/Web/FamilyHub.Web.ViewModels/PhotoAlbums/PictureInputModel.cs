@@ -2,6 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
+
     public class PictureInputModel
     {
         [Required]
@@ -12,6 +14,6 @@
 
         [Required]
         [FileExtensions]
-        public byte[] File { get; set; }
+        public IFormFile File { get; set; }
     }
 }
