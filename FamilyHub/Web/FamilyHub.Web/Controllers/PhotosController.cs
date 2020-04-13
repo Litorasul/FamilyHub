@@ -1,8 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using FamilyHub.Data.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace FamilyHub.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using FamilyHub.Services.Data;
     using FamilyHub.Web.ViewModels.PhotoAlbums;
     using Microsoft.AspNetCore.Authorization;
@@ -11,10 +14,12 @@ namespace FamilyHub.Web.Controllers
     public class PhotosController : Controller
     {
         private readonly IPhotoAlbumsService albumsService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public PhotosController(IPhotoAlbumsService albumsService)
+        public PhotosController(IPhotoAlbumsService albumsService, UserManager<ApplicationUser> userManager)
         {
             this.albumsService = albumsService;
+            this.userManager = userManager;
         }
 
         [Authorize]
@@ -42,6 +47,24 @@ namespace FamilyHub.Web.Controllers
             string name = input.AlbumName.Replace(" ", "-");
 
             await this.albumsService.AddPhotoInAlbum(input.AlbumId, input.File);
+            return this.RedirectToAction(nameof(this.ByName), new { name });
+        }
+
+        [Authorize]
+        public IActionResult CreateAlbum()
+        {
+            return this.View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreateAlbum(CreatePhotoAlbumInputModel input)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+            await this.albumsService.CreateAlbum(input.Title, input.Description, input.Picture, userId);
+
+            string name = input.Title.Replace(" ", "-");
+
             return this.RedirectToAction(nameof(this.ByName), new { name });
         }
     }

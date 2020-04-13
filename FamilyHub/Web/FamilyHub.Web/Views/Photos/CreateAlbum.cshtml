@@ -1,0 +1,47 @@
+﻿@model FamilyHub.Web.ViewModels.PhotoAlbums.CreatePhotoAlbumInputModel
+
+@{
+    this.ViewData["Title"] = "Create new album.";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-gray-dark ">
+            <div class="card-header">
+                <h3 class="card-title">@ViewData["Title"]</h3>
+            </div>
+            <div class="card-body">
+                <form role="form" method="post" enctype="multipart/form-data" asp-action="CreateAlbum">
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="form-group">
+                                <label asp-for="Title"></label>
+                                <input asp-for="Title" class="form-control" placeholder="Pleace enter a Title." />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Description"></label>
+                                <textarea asp-for="Description" class="form-control" rows="10"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Picture"></label>
+                                <input asp-for="Picture" class="form-control">
+                                <span asp-validation-for="Picture" class="text-danger"></span>
+                            </div>
+                            <hr />
+                            <input type="submit" class="btn btn-primary" value="Create" />
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                
+            </div>
+        </div>
+    </div>
+</section>

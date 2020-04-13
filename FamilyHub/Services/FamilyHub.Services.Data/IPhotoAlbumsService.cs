@@ -12,5 +12,9 @@
         T GetByName<T>(string name);
 
         Task AddPhotoInAlbum(int albumId, IFormFile file);
+
+        Task<bool> CreateAlbum(string title, string description, IFormFile picture, string userId);
+
+        T GetById<T>(int id);
     }
 }

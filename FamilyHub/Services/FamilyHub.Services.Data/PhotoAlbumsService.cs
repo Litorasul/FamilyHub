@@ -1,4 +1,6 @@
-﻿namespace FamilyHub.Services.Data
+﻿using FamilyHub.Data.Models.WallPosts;
+
+namespace FamilyHub.Services.Data
 {
     using System;
     using System.Collections.Generic;
@@ -19,16 +21,19 @@
         private readonly IDeletableEntityRepository<Album> albumRepository;
         private readonly IDeletableEntityRepository<Picture> pictureRepository;
         private readonly IOptions<CloudinarySettings> cloudinaryConfig;
+        private readonly IWallPostsService postsService;
         private Cloudinary cloudinary;
 
         public PhotoAlbumsService(
             IDeletableEntityRepository<Album> albumRepository,
             IDeletableEntityRepository<Picture> pictureRepository,
-            IOptions<CloudinarySettings> cloudinaryConfig)
+            IOptions<CloudinarySettings> cloudinaryConfig,
+            IWallPostsService postsService)
         {
             this.albumRepository = albumRepository;
             this.pictureRepository = pictureRepository;
             this.cloudinaryConfig = cloudinaryConfig;
+            this.postsService = postsService;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -90,6 +95,33 @@
                 await this.pictureRepository.AddAsync(picture);
                 await this.pictureRepository.SaveChangesAsync();
             }
+        }
+
+        public async Task<bool> CreateAlbum(string title, string description, IFormFile picture, string userId)
+        {
+            var album = new Album
+            {
+                Title = title,
+                Description = description,
+                UserId = userId,
+                Pictures = new HashSet<Picture>(),
+            };
+
+            await this.albumRepository.AddAsync(album);
+            await this.albumRepository.SaveChangesAsync();
+
+            await this.AddPhotoInAlbum(album.Id, picture);
+
+            await this.postsService.CreateAsync(userId, PostType.NewPicture, album.Id, null);
+
+            return true;
+        }
+
+        public T GetById<T>(int id)
+        {
+            var album = this.albumRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
+
+            return album;
         }
     }
 }

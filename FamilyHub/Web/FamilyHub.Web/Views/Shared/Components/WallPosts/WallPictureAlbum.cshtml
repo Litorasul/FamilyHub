@@ -1,0 +1,17 @@
+﻿@model FamilyHub.Web.ViewModels.WallPosts.WallPictureAlbumViewModel
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-camera-retro"></i>
+                New Photo Album:
+                <a href="@Model.Url"> @Model.Title</a>
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+            <p class="card-text">@Model.Description</p>
+            <img src="@Model.PictureThumb" alt="Image" class="img-bordered"/>
+        </div>
+    </div>

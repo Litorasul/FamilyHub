@@ -90,6 +90,33 @@
                         <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
 
+                        <!-- Photo Album -->
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-camera-retro"></i>
+                                <p>
+                                     Photo Albums
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a class="nav-link text" asp-area="" asp-controller="Photos" asp-action="AllAlbums">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>All Albums</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text" asp-area="" asp-controller="Photos" asp-action="CreateAlbum">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Create new Album</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
                         <!-- Calendar -->
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">

@@ -10,14 +10,17 @@
     {
         private readonly IListsService listsService;
         private readonly IEventsService eventsService;
+        private readonly IPhotoAlbumsService photoAlbumsService;
 
-        // ToDo: Add IPictureAlbumsService and IFoodService
+        // ToDo: Add IFoodService
         public WallPostsViewComponent(
             IListsService listsService,
-            IEventsService eventsService)
+            IEventsService eventsService,
+            IPhotoAlbumsService photoAlbumsService)
         {
             this.listsService = listsService;
             this.eventsService = eventsService;
+            this.photoAlbumsService = photoAlbumsService;
         }
 
         public IViewComponentResult Invoke(PostsSingleViewModel model)
@@ -35,6 +38,13 @@
             {
                 var viewModel = this.listsService.GetById<WallListViewModel>((int)model.AssignedEntity);
                 wallView = "WallList";
+
+                return this.View(wallView, viewModel);
+            }
+            else if (model.PostType == PostType.NewPicture)
+            {
+                var viewModel = this.photoAlbumsService.GetById<WallPictureAlbumViewModel>((int) model.AssignedEntity);
+                wallView = "WallPictureAlbum";
 
                 return this.View(wallView, viewModel);
             }
