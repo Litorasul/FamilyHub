@@ -21,18 +21,21 @@
         private readonly IDeletableEntityRepository<Picture> pictureRepository;
         private readonly IOptions<CloudinarySettings> cloudinaryConfig;
         private readonly IWallPostsService postsService;
+        private readonly IDeletableEntityRepository<Post> postRepository;
         private Cloudinary cloudinary;
 
         public PhotoAlbumsService(
             IDeletableEntityRepository<Album> albumRepository,
             IDeletableEntityRepository<Picture> pictureRepository,
             IOptions<CloudinarySettings> cloudinaryConfig,
-            IWallPostsService postsService)
+            IWallPostsService postsService,
+            IDeletableEntityRepository<Post> postRepository)
         {
             this.albumRepository = albumRepository;
             this.pictureRepository = pictureRepository;
             this.cloudinaryConfig = cloudinaryConfig;
             this.postsService = postsService;
+            this.postRepository = postRepository;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -144,6 +147,21 @@
                 album.IsDeleted = false;
                 album.DeletedOn = null;
                 await this.pictureRepository.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteAlbum(int albumId)
+        {
+            var album = this.albumRepository.All().FirstOrDefault(a => a.Id == albumId);
+            var post = this.postRepository.All()
+                .FirstOrDefault(p => p.PostType == PostType.NewPicture && p.AssignedEntity == albumId);
+
+            if (album != null)
+            {
+                this.albumRepository.Delete(album);
+                this.postRepository.Delete(post);
+                await this.albumRepository.SaveChangesAsync();
+                await this.postRepository.SaveChangesAsync();
             }
         }
     }

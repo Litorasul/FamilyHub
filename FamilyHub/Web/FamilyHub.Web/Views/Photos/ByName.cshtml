@@ -1,4 +1,8 @@
-﻿@model FamilyHub.Web.ViewModels.PhotoAlbums.PhotoAlbumsByNameViewModel
+﻿@using FamilyHub.Data.Models
+@using Microsoft.AspNetCore.Identity
+@model FamilyHub.Web.ViewModels.PhotoAlbums.PhotoAlbumsByNameViewModel
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     this.ViewData["Title"] = $"Album - {Model.Title}";
 }
@@ -26,18 +30,30 @@
                         </div>
                     </div>
                     <div class="card-footer">
+
                         <form asp-controller="Photos" asp-action="UploadPicture" enctype="multipart/form-data" id="form" method="post">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-4">
                                     <input type="hidden" name="AlbumId" value="@Model.Id" />
                                     <input type="hidden" name="AlbumName" value="@Model.Title" />
-                                    <input type="file" name="File" id="File"/>
+                                    <input type="file" name="File" id="File" />
                                 </div>
-                                <div class="col">
-                                    <input type="submit" name="AddPicture" class="btn btn-primary" value="Upload"/>
+                                <div class="col-4">
+                                    <input type="submit" name="AddPicture" class="btn btn-primary" value="Upload" />
                                 </div>
                             </div>
                         </form>
+
+                        @if (this.UserManager.GetUserId(this.User) == Model.UserId)
+                        {
+                            <form asp-controller="Photos" asp-action="DeleteAlbum" method="post">
+                                <div class="m-auto">
+                                    <input type="hidden" name="AlbumId" value="@Model.Id" />
+                                    <input type="submit" name="DeleteAlbum" class="btn btn-danger" value="Delete album" />
+                                </div>
+                            </form>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -51,18 +67,18 @@
 {
     <!-- Ekko Lightbox -->
     <script src="~/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
-    
+
     <script>
         $(function () {
-            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
                 event.preventDefault();
                 $(this).ekkoLightbox({
                     alwaysShowClose: true
                 });
             });
 
-            $('.filter-container').filterizr({gutterPixels: 3});
-            $('.btn[data-filter]').on('click', function() {
+            $('.filter-container').filterizr({ gutterPixels: 3 });
+            $('.btn[data-filter]').on('click', function () {
                 $('.btn[data-filter]').removeClass('active');
                 $(this).addClass('active');
             });

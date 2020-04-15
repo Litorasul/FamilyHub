@@ -17,6 +17,8 @@
 
         T GetById<T>(int id);
 
+        Task DeleteAlbum(int albumId);
+
         IEnumerable<T> GetAllDeleted<T>(int? count = null);
 
         Task UnDelete(int albumId);

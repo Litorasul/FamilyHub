@@ -1,14 +1,12 @@
-﻿using FamilyHub.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.CSharp;
-
-namespace FamilyHub.Web.Controllers
+﻿namespace FamilyHub.Web.Controllers
 {
     using System.Threading.Tasks;
 
+    using FamilyHub.Data.Models;
     using FamilyHub.Services.Data;
     using FamilyHub.Web.ViewModels.PhotoAlbums;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class PhotosController : Controller
@@ -66,6 +64,14 @@ namespace FamilyHub.Web.Controllers
             string name = input.Title.Replace(" ", "-");
 
             return this.RedirectToAction(nameof(this.ByName), new { name });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> DeleteAlbum(int albumId)
+        {
+            await this.albumsService.DeleteAlbum(albumId);
+            return this.RedirectToAction(nameof(this.AllAlbums));
         }
     }
 }
