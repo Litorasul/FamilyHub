@@ -7,16 +7,28 @@
 
     public class DashboardController : AdministrationController
     {
-        private readonly ISettingsService settingsService;
+        private readonly IEventsService eventsService;
+        private readonly IListsService listsService;
+        private readonly IPhotoAlbumsService photoAlbumsService;
 
-        public DashboardController(ISettingsService settingsService)
+        public DashboardController(
+            IEventsService eventsService,
+            IListsService listsService,
+            IPhotoAlbumsService photoAlbumsService)
         {
-            this.settingsService = settingsService;
+            this.eventsService = eventsService;
+            this.listsService = listsService;
+            this.photoAlbumsService = photoAlbumsService;
         }
 
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCount(), };
+            var viewModel = new IndexViewModel
+            {
+                Events = this.eventsService.GetAllDeleted<EventsDashboardViewModel>(),
+                Lists = this.listsService.GetAllDeleted<ListsDashboardViewModel>(),
+                Albums = this.photoAlbumsService.GetAllDeleted<PhotoAlbumsDashboardViewModel>(),
+            };
             return this.View(viewModel);
         }
     }

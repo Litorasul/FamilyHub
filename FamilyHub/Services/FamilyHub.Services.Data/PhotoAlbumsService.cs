@@ -1,6 +1,4 @@
-﻿using FamilyHub.Data.Models.WallPosts;
-
-namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data
 {
     using System;
     using System.Collections.Generic;
@@ -12,6 +10,7 @@ namespace FamilyHub.Services.Data
     using FamilyHub.Common;
     using FamilyHub.Data.Common.Repositories;
     using FamilyHub.Data.Models.PictureAlbums;
+    using FamilyHub.Data.Models.WallPosts;
     using FamilyHub.Services.Mapping;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
@@ -122,6 +121,22 @@ namespace FamilyHub.Services.Data
             var album = this.albumRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
 
             return album;
+        }
+
+        public IEnumerable<T> GetAllDeleted<T>(int? count = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task UnDelete(int albumId)
+        {
+            var album = this.pictureRepository.AllWithDeleted().FirstOrDefault(e => e.Id == albumId);
+            if (album != null && album.IsDeleted == true)
+            {
+                album.IsDeleted = false;
+                album.DeletedOn = null;
+                await this.pictureRepository.SaveChangesAsync();
+            }
         }
     }
 }

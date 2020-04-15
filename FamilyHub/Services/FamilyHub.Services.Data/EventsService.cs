@@ -48,6 +48,30 @@
             return currentEvent;
         }
 
+        public IEnumerable<T> GetAllDeleted<T>(int? count = null)
+        {
+            IQueryable<Event> query = this.eventsRepository.AllWithDeleted()
+                .Where(e => e.IsDeleted == true).OrderBy(e => e.Start);
+
+            if (count.HasValue)
+            {
+                query = query.Take(count.Value);
+            }
+
+            return query.To<T>().ToList();
+        }
+
+        public async Task UnDelete(int eventId)
+        {
+            var eventTo = this.eventsRepository.AllWithDeleted().FirstOrDefault(e => e.Id == eventId);
+            if (eventTo != null && eventTo.IsDeleted == true)
+            {
+                eventTo.IsDeleted = false;
+                eventTo.DeletedOn = null;
+                await this.eventsRepository.SaveChangesAsync();
+            }
+        }
+
         public T GetByName<T>(string name)
         {
             var currentEvent = this.eventsRepository

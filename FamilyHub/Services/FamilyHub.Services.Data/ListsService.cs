@@ -121,5 +121,29 @@
 
             await this.listItemRepository.SaveChangesAsync();
         }
+
+        public IEnumerable<T> GetAllDeleted<T>(int? count = null)
+        {
+            IQueryable<List> query = this.listRepository.AllWithDeleted()
+                .Where(l => l.IsDeleted == true).OrderBy(l => l.Title);
+
+            if (count.HasValue)
+            {
+                query = query.Take(count.Value);
+            }
+
+            return query.To<T>().ToList();
+        }
+
+        public async Task UnDelete(int listId)
+        {
+            var list = this.listRepository.AllWithDeleted().FirstOrDefault(e => e.Id == listId);
+            if (list != null && list.IsDeleted == true)
+            {
+                list.IsDeleted = false;
+                list.DeletedOn = null;
+                await this.listRepository.SaveChangesAsync();
+            }
+        }
     }
 }

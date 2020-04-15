@@ -16,5 +16,9 @@
         Task<bool> CreateAlbum(string title, string description, IFormFile picture, string userId);
 
         T GetById<T>(int id);
+
+        IEnumerable<T> GetAllDeleted<T>(int? count = null);
+
+        Task UnDelete(int albumId);
     }
 }

@@ -22,5 +22,9 @@
             IEnumerable<string> assignedUsersId);
 
         T GetById<T>(int id);
+
+        IEnumerable<T> GetAllDeleted<T>(int? count = null);
+
+        Task UnDelete(int eventId);
     }
 }

@@ -23,5 +23,9 @@
         Task ListItemUpdate(int listItemId, string text);
 
         Task ListItemUpdateDone(int itemId, string userId, DateTime doneTime);
+
+        IEnumerable<T> GetAllDeleted<T>(int? count = null);
+
+        Task UnDelete(int listId);
     }
 }
