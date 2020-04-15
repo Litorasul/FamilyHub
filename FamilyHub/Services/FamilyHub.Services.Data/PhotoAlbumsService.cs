@@ -125,7 +125,15 @@
 
         public IEnumerable<T> GetAllDeleted<T>(int? count = null)
         {
-            throw new NotImplementedException();
+            IQueryable<Album> query = this.albumRepository.AllWithDeleted()
+                .Where(l => l.IsDeleted == true).OrderBy(l => l.Title);
+
+            if (count.HasValue)
+            {
+                query = query.Take(count.Value);
+            }
+
+            return query.To<T>().ToList();
         }
 
         public async Task UnDelete(int albumId)

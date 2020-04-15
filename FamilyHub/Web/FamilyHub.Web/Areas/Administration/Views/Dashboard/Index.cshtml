@@ -5,3 +5,134 @@
 
 <h1>@this.ViewData["Title"]</h1>
 
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Deleted Items</h3>
+
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-striped projects">
+            <thead>
+                <tr>
+                    <th style="width: 1%">
+                        Id
+                    </th>
+                    <th style="width: 20%">
+                        Type
+                    </th>
+                    <th style="width: 30%">
+                        Title
+                    </th>
+                    <th>
+                        Deleted on
+                    </th>
+                    <th style="width: 20%">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var eventTo in Model.Events)
+                {
+                    <tr>
+
+                        <td>
+                            @eventTo.Id
+                        </td>
+                        <td>
+                            Event
+                        </td>
+                        <td>
+                            @eventTo.Title
+                        </td>
+                        <td>
+                            @if (eventTo.DeletedOn == null)
+                            {
+                                <p>Null</p>
+                            }
+                            else
+                            {
+                                <p> @eventTo.DeletedOn.Value.ToString("f");</p>
+                            }
+                        </td>
+
+                        <td class="project-actions text-right">
+                            <form asp-controller="Dashboard" asp-action="RestoreEvent" method="post">
+                                <input type="hidden" name="eventId" value="@eventTo.Id" />
+                                <input type="submit" class="btn btn-danger" value="Restore" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @foreach (var list in Model.Lists)
+                {
+                    <tr>
+
+                        <td>
+                            @list.Id
+                        </td>
+                        <td>
+                            List
+                        </td>
+                        <td>
+                            @list.Title
+                        </td>
+                        <td>
+                            @if (list.DeletedOn == null)
+                            {
+                                <p>Null</p>
+                            }
+                            else
+                            {
+                                <p> @list.DeletedOn.Value.ToString("f");</p>
+                            }
+                        </td>
+
+                        <td class="project-actions text-right">
+                            <form asp-controller="Dashboard" asp-action="RestoreList" method="post">
+                                <input type="hidden" name="listId" value="@list.Id" />
+                                <input type="submit" class="btn btn-danger" value="Restore" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @foreach (var album in Model.Albums)
+                {
+                    <tr>
+                        <td>
+                            @album.Id
+                        </td>
+                        <td>
+                            Photo Album
+                        </td>
+                        <td>
+                            @album.Title
+                        </td>
+                        <td>
+                            @if (album.DeletedOn == null)
+                            {
+                                <p>Null</p>
+                            }
+                            else
+                            {
+                                <p> @album.DeletedOn.Value.ToString("f");</p>
+                            }
+                        </td>
+
+                        <td class="project-actions text-right">
+                            <form asp-controller="Dashboard" asp-action="RestoreAlbum" method="post">
+                                <input type="hidden" name="albumId" value="@album.Id" />
+                                <input type="submit" class="btn btn-danger" value="Restore" />
+                            </form>
+                        </td>
+                    </tr>
+
+                }
+
+
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
