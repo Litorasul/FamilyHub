@@ -103,22 +103,20 @@
         [HttpPost]
         public async Task<IActionResult> UpdateAddNewListItem(ListUpdateViewModel viewModel)
         {
-            var list = this.listsService.GetById<ListsSingleViewModel>(viewModel.ListId);
-            var listItems = new HashSet<ListItem>();
-
             foreach (var item in viewModel.ListItems)
             {
-               var listItem = new ListItem
-               {
-                   Text = item.Text,
-                   ListId = viewModel.ListId,
-               };
-               listItems.Add(listItem);
+                if (item.Id == 0)
+                {
+                    await this.listsService.AddItemToList(viewModel.ListId, item.Text);
+                }
+                else
+                {
+                    var id = item.Id;
+                    await this.listsService.ListItemUpdate(id, item.Text);
+                }
             }
 
-            await this.listsService.ListItemUpdate(viewModel.ListId, listItems);
-
-            return this.RedirectToAction(nameof(this.ByName), new { name = list.Title.Replace(' ', '-') });
+            return this.Json(new { success = true });
         }
 
         [Authorize]

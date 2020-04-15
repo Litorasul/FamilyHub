@@ -96,8 +96,10 @@
                 headers: { 'X-CSRF-TOKEN': token },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function() {
-                    
+                success: function(data) {
+                    if (data.success == true) {
+                        location.reload(true);
+                    }
                 }
             });
         }
@@ -128,6 +130,11 @@
                 type: "POST",
                 url: url,
                 data: form.serialize(),
+                success: function(data) {
+                    if (data.success == true) {
+                        location.reload(true);
+                    }
+                }
 
             });
         });

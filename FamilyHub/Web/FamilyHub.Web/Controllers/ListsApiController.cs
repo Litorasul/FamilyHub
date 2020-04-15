@@ -30,7 +30,7 @@
             var userId = this.userManager.GetUserId(this.User);
             await this.listsService.ListItemUpdateDone(model.ItemId, userId, DateTime.UtcNow);
 
-            return this.Ok();
+            return this.Ok(new { success = true });
         }
     }
 }

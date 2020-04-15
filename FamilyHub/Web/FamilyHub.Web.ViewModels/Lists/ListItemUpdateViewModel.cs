@@ -5,7 +5,7 @@
     using FamilyHub.Data.Models.Lists;
     using FamilyHub.Services.Mapping;
 
-    public class ListItemUpdateViewModel 
+    public class ListItemUpdateViewModel
     {
         public int Id { get; set; }
 

@@ -20,7 +20,7 @@
 
         Task AddItemToList(int listId, string itemText);
 
-        Task ListItemUpdate(int listId, ICollection<ListItem> items);
+        Task ListItemUpdate(int listItemId, string text);
 
         Task ListItemUpdateDone(int itemId, string userId, DateTime doneTime);
 

@@ -102,20 +102,15 @@
             await this.listItemRepository.SaveChangesAsync();
         }
 
-        public async Task ListItemUpdate(int listId, ICollection<ListItem> items)
+        public async Task ListItemUpdate(int listItemId, string text)
         {
-            if (listId != 0 && items != null)
+            var listItem = this.listItemRepository.All().FirstOrDefault(x => x.Id == listItemId);
+            if (listItem != null)
             {
-                var list = this.listRepository.All().FirstOrDefault(l => l.Id == listId);
-                foreach (var item in list.ListItems)
-                {
-                    this.listItemRepository.Delete(item);
-                }
-
-                await this.listItemRepository.SaveChangesAsync();
-                list.ListItems = items;
-                await this.listRepository.SaveChangesAsync();
+                listItem.Text = text;
             }
+
+            await this.listItemRepository.SaveChangesAsync();
         }
 
         public async Task ListItemUpdateDone(int itemId, string userId, DateTime doneTime)
