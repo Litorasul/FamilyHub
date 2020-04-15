@@ -1,4 +1,6 @@
-﻿namespace FamilyHub.Web.Areas.Identity.Pages.Account
+﻿using FamilyHub.Common;
+
+namespace FamilyHub.Web.Areas.Identity.Pages.Account
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +20,7 @@
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
 
-    [AllowAnonymous]
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
