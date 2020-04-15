@@ -1,5 +1,6 @@
 ﻿namespace FamilyHub.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using FamilyHub.Data.Models;
@@ -100,16 +101,32 @@
 
         [Authorize]
         [HttpPost]
-        public IActionResult UpdateAddNewListItem(ListUpdateViewModel viewModel)
+        public async Task<IActionResult> UpdateAddNewListItem(ListUpdateViewModel viewModel)
         {
             var list = this.listsService.GetById<ListsSingleViewModel>(viewModel.ListId);
+            var listItems = new HashSet<ListItem>();
+
             foreach (var item in viewModel.ListItems)
             {
-                var id = item.Id;
-                this.listsService.ListItemUpdate(id, item.Text);
+               var listItem = new ListItem
+               {
+                   Text = item.Text,
+                   ListId = viewModel.ListId,
+               };
+               listItems.Add(listItem);
             }
 
+            await this.listsService.ListItemUpdate(viewModel.ListId, listItems);
+
             return this.RedirectToAction(nameof(this.ByName), new { name = list.Title.Replace(' ', '-') });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> DeleteList(int listId)
+        {
+            await this.listsService.DeleteList(listId);
+            return this.Redirect("/");
         }
     }
 }

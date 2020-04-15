@@ -1,4 +1,7 @@
-﻿@model FamilyHub.Web.ViewModels.Lists.ListByNameViewModel
+﻿@using FamilyHub.Data.Models
+@using Microsoft.AspNetCore.Identity
+@model FamilyHub.Web.ViewModels.Lists.ListByNameViewModel
+@inject UserManager<ApplicationUser> UserManager
 <!-- TO DO List -->
 <div class="card">
     <div class="card-header">
@@ -62,6 +65,16 @@
             </div>
         </form>
         <button type="button" class="btn btn-info float-right" id="btnUpdate" onclick="showUpdateForm()">Change</button>
+        
+        @if (this.UserManager.GetUserId(this.User) == Model.CreatorId)
+        {
+            <form asp-controller="Lists" asp-action="DeleteList" method="post">
+                <div class="m-auto">
+                    <input type="hidden" name="listId" value="@Model.Id" />
+                    <input type="submit" name="DeleteList" class="btn btn-danger" value="Delete List" />
+                </div>
+            </form>
+        }
     </div>
 </div>
 

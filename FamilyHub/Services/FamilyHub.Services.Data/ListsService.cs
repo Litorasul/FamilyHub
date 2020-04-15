@@ -15,15 +15,18 @@
         private readonly IDeletableEntityRepository<List> listRepository;
         private readonly IDeletableEntityRepository<ListItem> listItemRepository;
         private readonly IWallPostsService postsService;
+        private readonly IDeletableEntityRepository<Post> postRepository;
 
         public ListsService(
             IDeletableEntityRepository<List> listRepository,
             IDeletableEntityRepository<ListItem> listItemRepository,
-            IWallPostsService postsService)
+            IWallPostsService postsService,
+            IDeletableEntityRepository<Post> postRepository)
         {
             this.listRepository = listRepository;
             this.listItemRepository = listItemRepository;
             this.postsService = postsService;
+            this.postRepository = postRepository;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -99,15 +102,20 @@
             await this.listItemRepository.SaveChangesAsync();
         }
 
-        public async Task ListItemUpdate(int listItemId, string text)
+        public async Task ListItemUpdate(int listId, ICollection<ListItem> items)
         {
-            var listItem = this.listItemRepository.All().FirstOrDefault(x => x.Id == listItemId);
-            if (listItem != null)
+            if (listId != 0 && items != null)
             {
-                listItem.Text = text;
-            }
+                var list = this.listRepository.All().FirstOrDefault(l => l.Id == listId);
+                foreach (var item in list.ListItems)
+                {
+                    this.listItemRepository.Delete(item);
+                }
 
-            await this.listItemRepository.SaveChangesAsync();
+                await this.listItemRepository.SaveChangesAsync();
+                list.ListItems = items;
+                await this.listRepository.SaveChangesAsync();
+            }
         }
 
         public async Task ListItemUpdateDone(int itemId, string userId, DateTime doneTime)
@@ -143,6 +151,22 @@
                 list.IsDeleted = false;
                 list.DeletedOn = null;
                 await this.listRepository.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteList(int listId)
+        {
+            var list = this.listRepository.All().FirstOrDefault(l => l.Id == listId);
+            var post = this.postRepository.All()
+                .FirstOrDefault(p => p.PostType == PostType.NewList && p.AssignedEntity == listId);
+
+            if (list != null)
+            {
+                this.listRepository.Delete(list);
+                this.postRepository.Delete(post);
+
+                await this.listRepository.SaveChangesAsync();
+                await this.postRepository.SaveChangesAsync();
             }
         }
     }

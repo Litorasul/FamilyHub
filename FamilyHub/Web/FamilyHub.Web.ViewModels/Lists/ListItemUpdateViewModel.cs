@@ -2,7 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class ListItemUpdateViewModel
+    using FamilyHub.Data.Models.Lists;
+    using FamilyHub.Services.Mapping;
+
+    public class ListItemUpdateViewModel 
     {
         public int Id { get; set; }
 

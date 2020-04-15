@@ -20,9 +20,11 @@
 
         Task AddItemToList(int listId, string itemText);
 
-        Task ListItemUpdate(int listItemId, string text);
+        Task ListItemUpdate(int listId, ICollection<ListItem> items);
 
         Task ListItemUpdateDone(int itemId, string userId, DateTime doneTime);
+
+        Task DeleteList(int listId);
 
         IEnumerable<T> GetAllDeleted<T>(int? count = null);
 
