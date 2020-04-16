@@ -89,15 +89,17 @@
         </div>
         <!-- small card -->
         <div class="small-box bg-info">
-            <div class="inner">
-                <div id="currentTemp">18 °C</div>
+            
+                <div class="inner">
+                    <h3><span id="currentTemp"></span> °</h3>
 
-                <div id="name">Oslo, Norway</div>
-            </div>
-            <div class="icon">
-                <i class="fas fa-cloud-sun-rain"></i>
-            </div>
+                    <h4><span id="name"></span>, <span id="country"></span></h4>
 
+                </div>
+                <div class="icon">
+                    <span id="icon"></span>
+                </div>
+            
         </div>
     </div><!-- /.col -->
 </div>
@@ -122,14 +124,18 @@
                         dataType: "json",
                         success: function (data) {
 
-                            $("#currentTemp").html(data.temperatureCurrent);
+                            $("#currentTemp").html(data.temperatureCurrent | 0);
                             $("#name").html(data.name);
+                            $("#icon").html(`<img src='${data.iconSrc}'/>`);
+                            $("#country").html(data.country);
 
                         }
                     });
 
-                    console.log('latitude', position.coords.latitude,
-                        'longitude', position.coords.longitude);
+                    console.log('latitude',
+                        position.coords.latitude,
+                        'longitude',
+                        position.coords.longitude);
                 },
                 function error(error_message) {
                     // for when getting location results in an error

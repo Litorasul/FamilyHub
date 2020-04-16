@@ -24,6 +24,7 @@
             var result = new WeatherResponse
             {
                 Name = query.Name,
+                Country = query.Sys.Country,
                 MainWeather = query.Weathers.FirstOrDefault().Main,
                 Description = query.Weathers.FirstOrDefault().Description,
                 Icon = query.Weathers.FirstOrDefault().Icon,
