@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace FamilyHub.Web
+﻿namespace FamilyHub.Web
 {
+    using System;
     using System.Reflection;
 
     using FamilyHub.Common;
@@ -72,6 +71,7 @@ namespace FamilyHub.Web
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             services.Configure<CloudinarySettings>(this.configuration.GetSection("CloudinarySettings"));
+            services.Configure<OpenWeatherSettings>(this.configuration.GetSection("OpenWeatherSettings"));
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
@@ -84,6 +84,7 @@ namespace FamilyHub.Web
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IMessengerService, MessengerService>();
             services.AddTransient<IPhotoAlbumsService, PhotoAlbumsService>();
+            services.AddTransient<IWeatherService, WeatherService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
