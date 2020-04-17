@@ -88,18 +88,14 @@
             <h1 class="display-4">@DateTime.Now.ToString("D")</h1>
         </div>
         <!-- small card -->
-        <div class="small-box bg-info">
-            
-                <div class="inner">
-                    <h3><span id="currentTemp"></span> °</h3>
+        <div class="card justify-content-center" style="width: 15rem;">
+            <span id="icon" class="align-self-center justify-content-center" style="width: 8rem;"></span>
+            <div class="card-body align-self-center justify-content-center">
+                <h1><span id="currentTemp"></span> °</h1>
+                <h4><span id="name"></span>, <span id="country"></span></h4>
+                <p><i class="fas fa-arrow-up"> </i><span id="maxTemp"></span>° - <i class="fas fa-arrow-down"></i> <span id="minTemp"></span>°</p>
 
-                    <h4><span id="name"></span>, <span id="country"></span></h4>
-
-                </div>
-                <div class="icon">
-                    <span id="icon"></span>
-                </div>
-            
+            </div>
         </div>
     </div><!-- /.col -->
 </div>
@@ -126,8 +122,10 @@
 
                             $("#currentTemp").html(data.temperatureCurrent | 0);
                             $("#name").html(data.name);
-                            $("#icon").html(`<img src='${data.iconSrc}'/>`);
+                            $("#icon").html(`<img class="card-img-top" alt="Weather Icon" src='${data.iconSrc}'/>`);
                             $("#country").html(data.country);
+                            $("#maxTemp").html(data.temperatureMaximum | 0);
+                            $("#minTemp").html(data.temperatureMinimum | 0);
 
                         }
                     });
