@@ -75,12 +75,6 @@
                 CreatedOn = DateTime.UtcNow,
             };
 
-            var posts = new List<Post>
-            {
-                postOne,
-                postTwo,
-            };
-
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var repository = new EfDeletableEntityRepository<Post>(new ApplicationDbContext(options.Options));

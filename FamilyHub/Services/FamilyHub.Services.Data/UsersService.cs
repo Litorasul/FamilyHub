@@ -18,7 +18,7 @@
 
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
-            IQueryable<ApplicationUser> query = this.userRepository.All().OrderBy(x => x.Name);
+            IQueryable<ApplicationUser> query = this.userRepository.All().OrderBy(x => x.UserName);
 
             if (count.HasValue)
             {
