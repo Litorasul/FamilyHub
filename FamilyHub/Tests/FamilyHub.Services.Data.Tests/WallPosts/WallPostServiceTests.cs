@@ -16,6 +16,24 @@
 
     public class WallPostServiceTests
     {
+        private readonly IDeletableEntityRepository<Post> postRepository;
+        private readonly ApplicationDbContext dbContext;
+
+        public WallPostServiceTests()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+            this.dbContext = new ApplicationDbContext(options);
+            this.postRepository = new EfDeletableEntityRepository<Post>(this.dbContext);
+            AutoMapperConfig.RegisterMappings(typeof(TestPostViewModel).Assembly);
+        }
+
+        public void Dispose()
+        {
+            this.dbContext.Dispose();
+            this.postRepository.Dispose();
+        }
+
         [Fact]
         public async Task CreateAsyncShouldCreateStatusUpdateTypeWallPost()
         {
@@ -75,15 +93,12 @@
                 CreatedOn = DateTime.UtcNow,
             };
 
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var repository = new EfDeletableEntityRepository<Post>(new ApplicationDbContext(options.Options));
-            await repository.AddAsync(postOne);
-            await repository.AddAsync(postTwo);
-            await repository.SaveChangesAsync();
+            this.dbContext.Posts.Add(postOne);
+            this.dbContext.Posts.Add(postTwo);
+            await this.dbContext.SaveChangesAsync();
 
-            var service = new WallPostsService(repository);
-            AutoMapperConfig.RegisterMappings(typeof(TestPostViewModel).Assembly);
+            var service = new WallPostsService(this.postRepository);
+           
 
             List<TestPostViewModel> models = service.GetAll<TestPostViewModel>().ToList();
 

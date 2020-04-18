@@ -15,6 +15,12 @@
 
     public class UserServiceTests
     {
+
+        public UserServiceTests()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(TestUserViewModel).Assembly);
+        }
+
         [Fact]
         public async Task GetAllShouldReturnCorrectUsers()
         {
@@ -31,15 +37,17 @@
             };
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var repository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+                .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+            var dbContext = new ApplicationDbContext(options);
 
-            await repository.AddAsync(userOne);
-            await repository.AddAsync(userTwo);
-            await repository.SaveChangesAsync();
+            dbContext.Users.Add(userOne);
+            dbContext.Users.Add(userTwo);
+            await dbContext.SaveChangesAsync();
+
+            var repository = new EfDeletableEntityRepository<ApplicationUser>(dbContext);
 
             var service = new UsersService(repository);
-            AutoMapperConfig.RegisterMappings(typeof(TestUserViewModel).Assembly);
+           
 
             List<TestUserViewModel> models = service.GetAll<TestUserViewModel>().ToList();
 

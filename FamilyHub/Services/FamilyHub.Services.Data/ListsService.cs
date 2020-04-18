@@ -143,8 +143,7 @@
             var list = this.listRepository.AllWithDeleted().FirstOrDefault(e => e.Id == listId);
             if (list != null && list.IsDeleted == true)
             {
-                list.IsDeleted = false;
-                list.DeletedOn = null;
+                this.listRepository.Undelete(list);
                 await this.listRepository.SaveChangesAsync();
             }
         }
