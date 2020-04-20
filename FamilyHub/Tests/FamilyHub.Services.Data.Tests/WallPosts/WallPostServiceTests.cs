@@ -1,4 +1,6 @@
-﻿namespace FamilyHub.Services.Data.Tests.WallPosts
+﻿using System.Reflection;
+
+namespace FamilyHub.Services.Data.Tests.WallPosts
 {
     using System;
     using System.Collections.Generic;
@@ -98,7 +100,6 @@
             await this.dbContext.SaveChangesAsync();
 
             var service = new WallPostsService(this.postRepository);
-           
 
             List<TestPostViewModel> models = service.GetAll<TestPostViewModel>().ToList();
 
