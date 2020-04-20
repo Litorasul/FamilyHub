@@ -7,7 +7,6 @@
     using FamilyHub.Services.Data;
     using FamilyHub.Web.ViewModels;
     using FamilyHub.Web.ViewModels.Events;
-    using FamilyHub.Web.ViewModels.Notifications;
     using FamilyHub.Web.ViewModels.WallPosts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;

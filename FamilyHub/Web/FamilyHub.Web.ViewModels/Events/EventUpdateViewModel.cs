@@ -10,6 +10,7 @@
 
     public class EventUpdateViewModel : IMapFrom<Event>
     {
+        [Required]
         public int Id { get; set; }
 
         [Required]

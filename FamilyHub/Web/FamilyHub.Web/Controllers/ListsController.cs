@@ -74,7 +74,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(ListsSingleViewModel model)
+        public async Task<IActionResult> Create(ListCreateInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
