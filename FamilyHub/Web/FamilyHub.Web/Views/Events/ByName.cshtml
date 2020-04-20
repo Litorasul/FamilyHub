@@ -4,16 +4,27 @@
 }
 
 
-<div class="card">
-    <h3 class="alert-info">@Model.Title</h3>
-    <div class="card-body">
-        <h5 class="card-title">@Model.StartTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Created By: @Model.CreatorUserName</h6>
-        <p class="card-text">@Model.Description</p>
-        @foreach (var user in Model.AssignedUsersName)
-        {
-            <a href="#" class="card-link">@user</a>
-        }
+    <section class="content">
+        <div class="card mt-3">
+            <div class="card-header">
+                <h2>@Model.Title</h2>
+                <h5 class="card-title">@Model.StartTime.ToString("f")</h5>
+            </div>
+            <div class="card-body">
 
-    </div>
-</div>
+                <h5 class="card-text">@Model.Description</h5>
+                <hr/>
+                <p class="card-subtitle mb-2 text-muted">Created By: @Model.CreatorUserName</p>
+
+            </div>
+            <div class="card-footer">
+                <p class="text-bold">For: </p>
+                <p>
+                @foreach (var user in Model.AssignedUsersName)
+                {
+                    <span>@user,</span>
+                }
+                </p>
+            </div>
+        </div>
+    </section>

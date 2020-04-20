@@ -2,82 +2,83 @@
 @using Microsoft.AspNetCore.Identity
 @model FamilyHub.Web.ViewModels.Lists.ListByNameViewModel
 @inject UserManager<ApplicationUser> UserManager
-<!-- TO DO List -->
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">
-            @Model.Title
-        </h3>
 
-    </div>
-    <!-- /.card-header -->
-    <div class="card-body">
-        <form id="votesForm" method="post"></form>
-        <ul class="todo-list" data-widget="todo-list">
-            @foreach (var item in Model.ListItems)
-            {
-                <li>
-                    <!-- checkbox -->
+<section class="content">
+    <!-- TO DO List -->
+    <div class="card m-3">
+        <div class="card-header">
+            <h3 class="card-title">
+                @Model.Title
+            </h3>
 
-                    <!-- Emphasis label -->
-                    @if (item.DoneByUserUserName != null)
-                    {
-                        <div class="icheck-primary d-inline ml-2">
-                            <input type="checkbox" class="checkbox" value="" name="todo" id="@item.Id"checked="checked" disabled="disabled">
-                            <label for="@item.Id"></label>
-                        </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <form id="votesForm" method="post"></form>
+            <ul class="todo-list" data-widget="todo-list">
+                @foreach (var item in Model.ListItems)
+                {
+                    <li>
+                        <!-- checkbox -->
+                        <!-- Emphasis label -->
+                        @if (item.DoneByUserUserName != null)
+                        {
+                            <div class="icheck-primary d-inline ml-2">
+                                <input type="checkbox" class="checkbox" value="" name="todo" id="@item.Id" checked="checked" disabled="disabled">
+                                <label for="@item.Id"></label>
+                            </div>
 
-                        <span class="text">@item.Text</span>
+                            <span class="text">@item.Text</span>
 
-                        <small class="badge badge-danger"><i class="far fa-clock"></i> @item.DoneByUserUserName</small>
-                    }
-                    else
-                    {
-                        <div class="icheck-primary d-inline ml-2">
-                            <input type="checkbox" class="checkbox" value="" name="todo" id="@item.Id" onclick="doneBy(@item.Id)">
-                            <label for="@item.Id"></label>
-                        </div>
+                            <small class="badge badge-danger"><i class="far fa-clock"></i> @item.DoneByUserUserName</small>
+                        }
+                        else
+                        {
+                            <div class="icheck-primary d-inline ml-2">
+                                <input type="checkbox" class="checkbox" value="" name="todo" id="@item.Id" onclick="doneBy(@item.Id)">
+                                <label for="@item.Id"></label>
+                            </div>
 
-                        <span class="text">@item.Text</span>
-                    }
-                    <!-- General tools such as edit or delete-->
-                    @*<div class="tools">
-                        <i class="fas fa-edit"></i>
-                        <i class="fas fa-trash"></i>
-                    </div>*@
-                </li>
-            }
+                            <span class="text">@item.Text</span>
+                        }
+                        <!-- General tools such as edit or delete-->
+                        @*<div class="tools">
+                                <i class="fas fa-edit"></i>
+                                <i class="fas fa-trash"></i>
+                            </div>*@
+                    </li>
+                }
 
-        </ul>
-    </div>
-    <!-- /.card-body -->
-    <div class="card-footer clearfix">
-        <form method="post" id="form" style="display: none">
-            <input type="hidden" name="ListId" value="@this.Model.Id" />
-            <div id="listItemsContainer">
-                @Html.EditorFor(m => m.ListItems)
-            </div>
-            <div>
-                <input type="submit" class="btn btn-primary float-right" id="btnSubmit" value="Save Changes" />
-            </div>
-            <div>
-                <button type="button" class="btn btn-dark" id="btnAdd"><i class="fas fa-plus"></i> New Item</button>
-            </div>
-        </form>
-        <button type="button" class="btn btn-info float-right" id="btnUpdate" onclick="showUpdateForm()">Change</button>
-        
-        @if (this.UserManager.GetUserId(this.User) == Model.CreatorId)
-        {
-            <form asp-controller="Lists" asp-action="DeleteList" method="post">
-                <div class="m-auto">
-                    <input type="hidden" name="listId" value="@Model.Id" />
-                    <input type="submit" name="DeleteList" class="btn btn-danger" value="Delete List" />
+            </ul>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+            <form method="post" id="form" style="display: none">
+                <input type="hidden" name="ListId" value="@this.Model.Id" />
+                <div id="listItemsContainer">
+                    @Html.EditorFor(m => m.ListItems)
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary float-right" id="btnSubmit" value="Save Changes" />
+                </div>
+                <div>
+                    <button type="button" class="btn btn-dark" id="btnAdd"><i class="fas fa-plus"></i> New Item</button>
                 </div>
             </form>
-        }
-    </div>
-</div>
+            <button type="button" class="btn btn-info float-right" id="btnUpdate" onclick="showUpdateForm()">Change</button>
 
+            @if (this.UserManager.GetUserId(this.User) == Model.CreatorId)
+            {
+                <form asp-controller="Lists" asp-action="DeleteList" method="post">
+                    <div class="m-auto">
+                        <input type="hidden" name="listId" value="@Model.Id" />
+                        <input type="submit" name="DeleteList" class="btn btn-danger" value="Delete List" />
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</section>
 @section Scripts
 {
     <script>
@@ -96,7 +97,7 @@
                 headers: { 'X-CSRF-TOKEN': token },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function(data) {
+                success: function (data) {
                     if (data.success == true) {
                         location.reload(true);
                     }
@@ -104,15 +105,15 @@
             });
         }
     </script>
-    
+
     <script type="text/javascript">
-        $("#btnAdd").on('click', function() {
+        $("#btnAdd").on('click', function () {
             $.ajax({
                 async: true,
                 data: $('#form').serialize(),
                 type: "POST",
                 url: '/Lists/AddListItem',
-                success: function(partialView) {
+                success: function (partialView) {
                     console.log("partialView: " + partialView);
                     $('#listItemsContainer').html(partialView);
                 }
@@ -120,7 +121,7 @@
 
         })
 
-        $("#form").submit(function(e) {
+        $("#form").submit(function (e) {
             e.preventDefault();
 
             var form = $(this);
@@ -130,7 +131,7 @@
                 type: "POST",
                 url: url,
                 data: form.serialize(),
-                success: function(data) {
+                success: function (data) {
                     if (data.success == true) {
                         location.reload(true);
                     }

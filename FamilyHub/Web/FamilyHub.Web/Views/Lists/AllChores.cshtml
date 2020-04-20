@@ -2,6 +2,11 @@
 @{
     this.ViewData["Title"] = "All To Do Lists.";
 }
+
+<div class="text-muted text-lg-right m-5">
+    <h1 class="display-4">@DateTime.Now.ToString("f")</h1>
+</div>
+
 <div class="card-deck">
     @foreach (var list in Model.Lists)
     {
