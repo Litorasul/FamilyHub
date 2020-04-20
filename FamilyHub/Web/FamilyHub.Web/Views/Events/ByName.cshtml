@@ -1,30 +1,46 @@
-﻿@model FamilyHub.Web.ViewModels.Events.EventViewModel
+﻿@using FamilyHub.Data.Models
+@using Microsoft.AspNetCore.Identity
+@model FamilyHub.Web.ViewModels.Events.EventViewModel
+@inject UserManager<ApplicationUser> UserManager
 @{
     this.ViewData["Title"] = @Model.Title;
 }
 
 
-    <section class="content">
-        <div class="card mt-3">
-            <div class="card-header">
-                <h2>@Model.Title</h2>
-                <h5 class="card-title">@Model.StartTime.ToString("f")</h5>
-            </div>
-            <div class="card-body">
+<section class="content">
+    <div class="card mt-3">
+        <div class="card-header">
+            <h2>@Model.Title</h2>
+            <h5 class="card-title">@Model.Start.ToString("f")</h5>
+        </div>
+        <div class="card-body">
 
-                <h5 class="card-text">@Model.Description</h5>
-                <hr/>
-                <p class="card-subtitle mb-2 text-muted">Created By: @Model.CreatorUserName</p>
+            <h5 class="card-text">@Model.Description</h5>
+            <hr />
+            <p class="card-subtitle mb-2 text-muted">Created By: @Model.CreatorUserName</p>
 
-            </div>
-            <div class="card-footer">
-                <p class="text-bold">For: </p>
-                <p>
+        </div>
+        <div class="card-footer">
+            <p class="text-bold">For: </p>
+            <p>
                 @foreach (var user in Model.AssignedUsersName)
                 {
                     <span>@user,</span>
                 }
-                </p>
-            </div>
+            </p>
         </div>
-    </section>
+    </div>
+
+    <a class="btn btn-primary m-3" asp-controller="Events" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+   
+    @if (this.UserManager.GetUserId(this.User) == Model.CreatorId)
+    {
+        <form asp-controller="Events" asp-action="DeleteEvent" method="post">
+            <div class="m-auto">
+                <input type="hidden" name="eventId" value="@Model.Id" />
+                <input type="submit" name="DeleteEvent" class="btn btn-danger" value="Delete" />
+            </div>
+        </form>
+    }
+
+</section>

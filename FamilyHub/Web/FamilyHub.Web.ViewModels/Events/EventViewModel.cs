@@ -16,11 +16,13 @@
 
         public string Description { get; set; }
 
-        public DateTime StartTime { get; set; }
+        public DateTime Start { get; set; }
 
         public TimeSpan? Duration { get; set; }
 
         public string CreatorUserName { get; set; }
+
+        public string CreatorId { get; set; }
 
         public int AssignedUsersCount { get; set; }
 

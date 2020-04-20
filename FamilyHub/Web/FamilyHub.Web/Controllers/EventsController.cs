@@ -94,5 +94,39 @@
 
             return this.Redirect("/");
         }
+
+        [Authorize]
+        public IActionResult Edit([FromRoute]int id)
+        {
+            var eventToEdit = this.eventsService.GetById<EventUpdateViewModel>(id);
+            if (eventToEdit == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(eventToEdit);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(EventUpdateViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            await this.eventsService.UpdateEvent(
+                model.Id, model.Title, model.Description, model.Start, model.End, model.IsAllDay, model.IsRecurring, model.Color);
+            return this.RedirectToAction("All");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> DeleteEvent(int eventId)
+        {
+            await this.eventsService.DeleteEvent(eventId);
+            return this.RedirectToAction("All");
+        }
     }
 }

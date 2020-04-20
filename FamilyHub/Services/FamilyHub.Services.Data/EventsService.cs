@@ -16,15 +16,18 @@
         private readonly IDeletableEntityRepository<Event> eventsRepository;
         private readonly INotificationsService notificationsService;
         private readonly IWallPostsService postsService;
+        private readonly IDeletableEntityRepository<Post> postRepository;
 
         public EventsService(
             IDeletableEntityRepository<Event> eventsRepository,
             INotificationsService notificationsService,
-            IWallPostsService postsService)
+            IWallPostsService postsService,
+            IDeletableEntityRepository<Post> postRepository)
         {
             this.eventsRepository = eventsRepository;
             this.notificationsService = notificationsService;
             this.postsService = postsService;
+            this.postRepository = postRepository;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -46,6 +49,49 @@
                 .To<T>().FirstOrDefault();
 
             return currentEvent;
+        }
+
+        public async Task UpdateEvent(
+            int eventId,
+            string title,
+            string description,
+            DateTime start,
+            DateTime end,
+            bool isAllDay,
+            bool isRecurring,
+            string color)
+        {
+            var eventToUpdate = this.eventsRepository.All().FirstOrDefault(e => e.Id == eventId);
+
+            if (eventToUpdate != null)
+            {
+                eventToUpdate.Title = title;
+                eventToUpdate.Description = description;
+                eventToUpdate.Start = start;
+                eventToUpdate.End = end;
+                eventToUpdate.IsAllDay = isAllDay;
+                eventToUpdate.IsRecurring = isRecurring;
+                eventToUpdate.Color = color;
+
+                this.eventsRepository.Update(eventToUpdate);
+                await this.eventsRepository.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteEvent(int eventId)
+        {
+            var eventToDelete = this.eventsRepository.All().FirstOrDefault(e => e.Id == eventId);
+            var postToDelete = this.postRepository
+                .All().FirstOrDefault(p => p.PostType == PostType.NewEvent && p.AssignedEntity == eventId);
+
+            if (eventToDelete != null)
+            {
+                this.eventsRepository.Delete(eventToDelete);
+                await this.eventsRepository.SaveChangesAsync();
+
+                this.postRepository.Delete(postToDelete);
+                await this.postRepository.SaveChangesAsync();
+            }
         }
 
         public IEnumerable<T> GetAllDeleted<T>(int? count = null)

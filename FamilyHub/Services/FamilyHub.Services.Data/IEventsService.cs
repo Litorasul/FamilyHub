@@ -26,5 +26,17 @@
         IEnumerable<T> GetAllDeleted<T>(int? count = null);
 
         Task UnDelete(int eventId);
+
+        Task DeleteEvent(int eventId);
+
+        Task UpdateEvent(
+            int eventId,
+            string title,
+            string description,
+            DateTime start,
+            DateTime end,
+            bool isAllDay,
+            bool isRecurring,
+            string color);
     }
 }

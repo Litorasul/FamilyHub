@@ -13,7 +13,7 @@
 
         public string Title { get; set; }
 
-        public DateTime StartTime { get; set; }
+        public DateTime Start { get; set; }
 
         public string CreatorName { get; set; }
 
