@@ -19,23 +19,22 @@
     {
         private readonly IDeletableEntityRepository<Album> albumRepository;
         private readonly IDeletableEntityRepository<Picture> pictureRepository;
-        private readonly IOptions<CloudinarySettings> cloudinaryConfig;
         private readonly IWallPostsService postsService;
         private readonly IDeletableEntityRepository<Post> postRepository;
-        private Cloudinary cloudinary;
+        private readonly ICloudinaryService cloudinaryService;
 
         public PhotoAlbumsService(
             IDeletableEntityRepository<Album> albumRepository,
             IDeletableEntityRepository<Picture> pictureRepository,
-            IOptions<CloudinarySettings> cloudinaryConfig,
             IWallPostsService postsService,
-            IDeletableEntityRepository<Post> postRepository)
+            IDeletableEntityRepository<Post> postRepository,
+            ICloudinaryService cloudinaryService)
         {
             this.albumRepository = albumRepository;
             this.pictureRepository = pictureRepository;
-            this.cloudinaryConfig = cloudinaryConfig;
             this.postsService = postsService;
             this.postRepository = postRepository;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -58,47 +57,6 @@
             return album;
         }
 
-        public async Task AddPhotoInAlbum(int albumId, IFormFile file)
-        {
-            Account account = new Account(
-                this.cloudinaryConfig.Value.CloudName,
-                this.cloudinaryConfig.Value.ApiKey,
-                this.cloudinaryConfig.Value.ApiSecret);
-
-            this.cloudinary = new Cloudinary(account);
-
-            var uploadResult = new ImageUploadResult();
-            var uploadResultThumb = new ImageUploadResult();
-            string pictureUrl;
-            string pictureThumb;
-            string publicId = Guid.NewGuid().ToString();
-
-            if (file.Length > 0)
-            {
-                await using var stream = file.OpenReadStream();
-                var uploadParams = new ImageUploadParams()
-                {
-                    File = new FileDescription(file.Name, stream),
-                    PublicId = publicId,
-                    Format = "jpg",
-                };
-                uploadResult = this.cloudinary.Upload(uploadParams);
-                pictureUrl = uploadResult.Uri.ToString();
-                string thumbEnd = $"v{uploadResult.Version}/{publicId}.jpg";
-                pictureThumb = $"https://res.cloudinary.com/daal2scr5/image/upload/c_thumb,h_200/{thumbEnd}";
-
-                var picture = new Picture()
-                {
-                    AlbumId = albumId,
-                    Url = pictureUrl,
-                    ThumbUrl = pictureThumb,
-                };
-
-                await this.pictureRepository.AddAsync(picture);
-                await this.pictureRepository.SaveChangesAsync();
-            }
-        }
-
         public async Task<bool> CreateAlbum(string title, string description, IFormFile picture, string userId)
         {
             var album = new Album
@@ -112,7 +70,7 @@
             await this.albumRepository.AddAsync(album);
             await this.albumRepository.SaveChangesAsync();
 
-            await this.AddPhotoInAlbum(album.Id, picture);
+            await this.cloudinaryService.AddPhotoInAlbum(album.Id, picture);
 
             await this.postsService.CreateAsync(userId, PostType.NewPicture, album.Id, null);
 
@@ -141,11 +99,10 @@
 
         public async Task UnDelete(int albumId)
         {
-            var album = this.pictureRepository.AllWithDeleted().FirstOrDefault(e => e.Id == albumId);
+            var album = this.albumRepository.AllWithDeleted().FirstOrDefault(e => e.Id == albumId);
             if (album != null && album.IsDeleted == true)
             {
-                album.IsDeleted = false;
-                album.DeletedOn = null;
+                this.albumRepository.Undelete(album);
                 await this.pictureRepository.SaveChangesAsync();
             }
         }

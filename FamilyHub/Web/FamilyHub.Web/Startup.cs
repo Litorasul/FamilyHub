@@ -85,6 +85,7 @@
             services.AddTransient<IMessengerService, MessengerService>();
             services.AddTransient<IPhotoAlbumsService, PhotoAlbumsService>();
             services.AddTransient<IWeatherService, WeatherService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

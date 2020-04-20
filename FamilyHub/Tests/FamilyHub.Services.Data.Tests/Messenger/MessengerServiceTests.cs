@@ -1,6 +1,4 @@
-﻿using FamilyHub.Data.Models;
-
-namespace FamilyHub.Services.Data.Tests.Messenger
+﻿namespace FamilyHub.Services.Data.Tests.Messenger
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +7,7 @@ namespace FamilyHub.Services.Data.Tests.Messenger
 
     using FamilyHub.Data;
     using FamilyHub.Data.Common.Repositories;
+    using FamilyHub.Data.Models;
     using FamilyHub.Data.Models.Messenger;
     using FamilyHub.Data.Repositories;
     using FamilyHub.Services.Mapping;

@@ -13,11 +13,16 @@
     {
         private readonly IPhotoAlbumsService albumsService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public PhotosController(IPhotoAlbumsService albumsService, UserManager<ApplicationUser> userManager)
+        public PhotosController(
+            IPhotoAlbumsService albumsService,
+            UserManager<ApplicationUser> userManager,
+            ICloudinaryService cloudinaryService)
         {
             this.albumsService = albumsService;
             this.userManager = userManager;
+            this.cloudinaryService = cloudinaryService;
         }
 
         [Authorize]
@@ -44,7 +49,7 @@
         {
             string name = input.AlbumName.Replace(" ", "-");
 
-            await this.albumsService.AddPhotoInAlbum(input.AlbumId, input.File);
+            await this.cloudinaryService.AddPhotoInAlbum(input.AlbumId, input.File);
             return this.RedirectToAction(nameof(this.ByName), new { name });
         }
 
