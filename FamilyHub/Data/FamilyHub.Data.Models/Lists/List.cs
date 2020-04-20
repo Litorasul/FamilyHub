@@ -18,14 +18,13 @@
             this.ListItems = new HashSet<ListItem>();
         }
 
-        [Required]
+        [Required(ErrorMessage = "Title is required.")]
         [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
 
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
-        [Required]
         public ListType Type { get; set; }
 
         public DateTime? DueDate { get; set; }

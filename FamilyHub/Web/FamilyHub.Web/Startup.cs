@@ -78,7 +78,6 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IEventsService, EventsService>();
             services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<INotificationsService, NotificationsService>();
             services.AddTransient<IListsService, ListsService>();
             services.AddTransient<IWallPostsService, WallPostsService>();
             services.AddTransient<ICommentsService, CommentsService>();

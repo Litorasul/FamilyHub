@@ -14,18 +14,15 @@
     public class EventsService : IEventsService
     {
         private readonly IDeletableEntityRepository<Event> eventsRepository;
-        private readonly INotificationsService notificationsService;
         private readonly IWallPostsService postsService;
         private readonly IDeletableEntityRepository<Post> postRepository;
 
         public EventsService(
             IDeletableEntityRepository<Event> eventsRepository,
-            INotificationsService notificationsService,
             IWallPostsService postsService,
             IDeletableEntityRepository<Post> postRepository)
         {
             this.eventsRepository = eventsRepository;
-            this.notificationsService = notificationsService;
             this.postsService = postsService;
             this.postRepository = postRepository;
         }
@@ -165,7 +162,6 @@
                 };
 
                 eventToAdd.AssignedUsers.Add(userEvent);
-                await this.notificationsService.CreateNotificationAsync(NotificationType.Event, eventToAdd.Id, userId);
             }
 
             await this.eventsRepository.SaveChangesAsync();
