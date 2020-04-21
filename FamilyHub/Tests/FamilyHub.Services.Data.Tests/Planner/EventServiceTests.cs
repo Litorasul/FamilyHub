@@ -15,7 +15,7 @@
     using Moq;
     using Xunit;
 
-    public class EventServiceTests
+    public class EventServiceTests : IDisposable
     {
         private readonly IDeletableEntityRepository<Event> eventsRepository;
         private readonly IWallPostsService postsService;
@@ -29,9 +29,8 @@
             this.dbContext = new ApplicationDbContext(options);
             this.eventsRepository = new EfDeletableEntityRepository<Event>(this.dbContext);
             this.postRepository = new EfDeletableEntityRepository<Post>(this.dbContext);
-
-            this.postsService = new Mock<IWallPostsService>().Object;
             AutoMapperConfig.RegisterMappings(typeof(TestEventViewModel).Assembly);
+            this.postsService = new Mock<IWallPostsService>().Object;
         }
 
         public void Dispose()
@@ -190,8 +189,7 @@
             var postService = new Mock<IWallPostsService>();
             postService
                 .Setup(r
-                    => r.CreateAsync
-                        (It.IsAny<string>(), It.IsAny<PostType>(), It.IsAny<int?>(), It.IsAny<string>()))
+                    => r.CreateAsync(It.IsAny<string>(), It.IsAny<PostType>(), It.IsAny<int?>(), It.IsAny<string>()))
                 .Callback<string, PostType, int?, string>((c, t, a, o) =>
                 {
                     post.UserId = c;

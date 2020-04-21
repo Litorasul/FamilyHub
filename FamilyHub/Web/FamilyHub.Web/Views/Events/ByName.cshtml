@@ -23,9 +23,9 @@
         <div class="card-footer">
             <p class="text-bold">For: </p>
             <p>
-                @foreach (var user in Model.AssignedUsersName)
+                @foreach (var user in Model.AssignedUsers)
                 {
-                    <span>@user,</span>
+                    <span>@user.UserUserName,</span>
                 }
             </p>
         </div>

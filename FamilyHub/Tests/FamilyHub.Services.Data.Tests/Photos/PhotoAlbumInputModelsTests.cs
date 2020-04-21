@@ -7,7 +7,6 @@
 
     using FamilyHub.Web.ViewModels.PhotoAlbums;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Http.Internal;
     using Xunit;
 
     public class PhotoAlbumInputModelsTests
