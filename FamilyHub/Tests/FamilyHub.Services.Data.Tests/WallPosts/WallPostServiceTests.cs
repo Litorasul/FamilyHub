@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace FamilyHub.Services.Data.Tests.WallPosts
+﻿namespace FamilyHub.Services.Data.Tests.WallPosts
 {
     using System;
     using System.Collections.Generic;
@@ -12,11 +10,12 @@ namespace FamilyHub.Services.Data.Tests.WallPosts
     using FamilyHub.Data.Models.WallPosts;
     using FamilyHub.Data.Repositories;
     using FamilyHub.Services.Mapping;
+    using FamilyHub.Web.ViewModels.Tests;
     using Microsoft.EntityFrameworkCore;
     using Moq;
     using Xunit;
 
-    public class WallPostServiceTests
+    public class WallPostServiceTests : IDisposable
     {
         private readonly IDeletableEntityRepository<Post> postRepository;
         private readonly ApplicationDbContext dbContext;
@@ -106,11 +105,6 @@ namespace FamilyHub.Services.Data.Tests.WallPosts
             Assert.Equal(2, models.Count);
             Assert.Equal(1, models[0].Id);
             Assert.Equal(2, models[1].Id);
-        }
-
-        public class TestPostViewModel : IMapFrom<Post>
-        {
-            public int Id { get; set; }
         }
     }
 }

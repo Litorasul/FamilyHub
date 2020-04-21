@@ -11,6 +11,7 @@
     using FamilyHub.Data.Models.WallPosts;
     using FamilyHub.Data.Repositories;
     using FamilyHub.Services.Mapping;
+    using FamilyHub.Web.ViewModels.Tests;
     using Microsoft.EntityFrameworkCore;
     using Moq;
     using Xunit;
@@ -269,13 +270,6 @@
             this.dbContext.Events.Add(eventTwo);
             this.dbContext.Events.Add(eventThree);
             await this.dbContext.SaveChangesAsync();
-        }
-
-        public class TestEventViewModel : IMapFrom<Event>
-        {
-            public int Id { get; set; }
-
-            public string Title { get; set; }
         }
     }
 }

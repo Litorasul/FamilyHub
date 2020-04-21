@@ -11,11 +11,12 @@
     using FamilyHub.Data.Models.WallPosts;
     using FamilyHub.Data.Repositories;
     using FamilyHub.Services.Mapping;
+    using FamilyHub.Web.ViewModels.Tests;
     using Microsoft.EntityFrameworkCore;
     using Moq;
     using Xunit;
 
-    public class ListServiceTests
+    public class ListServiceTests : IDisposable
     {
         private readonly IDeletableEntityRepository<List> listRepository;
         private readonly IDeletableEntityRepository<ListItem> listItemRepository;
@@ -359,15 +360,6 @@
             this.dbContext.Lists.Add(shoppingList);
             this.dbContext.Lists.Add(choresList);
             await this.dbContext.SaveChangesAsync();
-        }
-
-        public class TestListViewModel : IMapFrom<List>
-        {
-            public int Id { get; set; }
-
-            public ListType Type { get; set; }
-
-            public string Title { get; set; }
         }
     }
 }

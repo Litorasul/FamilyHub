@@ -12,13 +12,14 @@
     using FamilyHub.Data.Models.WallPosts;
     using FamilyHub.Data.Repositories;
     using FamilyHub.Services.Mapping;
+    using FamilyHub.Web.ViewModels.Tests;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Moq;
     using Xunit;
 
-    public class PhotoAlbumsServiceTests
+    public class PhotoAlbumsServiceTests : IDisposable
     {
         private readonly IDeletableEntityRepository<Album> albumRepository;
         private readonly IDeletableEntityRepository<Picture> pictureRepository;
@@ -285,17 +286,6 @@
             this.dbContext.PictureAlbums.Add(albumTwo);
             this.dbContext.PictureAlbums.Add(albumThree);
             await this.dbContext.SaveChangesAsync();
-        }
-
-        public class TestAlbumViewModel : IMapFrom<Album>
-        {
-            public int Id { get; set; }
-
-            public string Title { get; set; }
-
-            public string Description { get; set; }
-
-            public string UserId { get; set; }
         }
     }
 }

@@ -11,11 +11,12 @@
     using FamilyHub.Data.Models.Messenger;
     using FamilyHub.Data.Repositories;
     using FamilyHub.Services.Mapping;
+    using FamilyHub.Web.ViewModels.Tests;
     using Microsoft.EntityFrameworkCore;
     using Moq;
     using Xunit;
 
-    public class MessengerServiceTests
+    public class MessengerServiceTests : IDisposable
     {
         private readonly IDeletableEntityRepository<Conversation> conversationRepository;
         private readonly IDeletableEntityRepository<Message> messageRepository;
@@ -174,18 +175,6 @@
             this.dbContext.Messages.Add(messageOne);
             this.dbContext.Messages.Add(messageTwo);
             await this.dbContext.SaveChangesAsync();
-        }
-
-        public class TestConversationViewModel : IMapFrom<Conversation>
-        {
-            public string Name { get; set; }
-        }
-
-        public class TestMessageViewModel : IMapFrom<Message>
-        {
-            public string Text { get; set; }
-
-            public string UserId { get; set; }
         }
     }
 }
