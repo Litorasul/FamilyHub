@@ -10,12 +10,12 @@
     using FamilyHub.Data.Models.WallPosts;
     using FamilyHub.Data.Repositories;
     using FamilyHub.Services.Mapping;
+    using FamilyHub.Web.ViewModels.Tests;
     using Microsoft.EntityFrameworkCore;
     using Xunit;
 
     public class UserServiceTests
     {
-
         public UserServiceTests()
         {
             AutoMapperConfig.RegisterMappings(typeof(TestUserViewModel).Assembly);
@@ -47,18 +47,12 @@
             var repository = new EfDeletableEntityRepository<ApplicationUser>(dbContext);
 
             var service = new UsersService(repository);
-           
 
             List<TestUserViewModel> models = service.GetAll<TestUserViewModel>().ToList();
 
             Assert.Equal(2, models.Count);
             Assert.Equal("aaa", models[0].UserName);
             Assert.Equal("bbb", models[1].UserName);
-        }
-
-        public class TestUserViewModel : IMapFrom<ApplicationUser>
-        {
-            public string UserName { get; set; }
         }
     }
 }

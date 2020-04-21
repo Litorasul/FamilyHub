@@ -27,6 +27,11 @@
         [HttpPost]
         public async Task<IActionResult> Post(ListItemUpdateDoneViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
             var userId = this.userManager.GetUserId(this.User);
             await this.listsService.ListItemUpdateDone(model.ItemId, userId, DateTime.UtcNow);
 
