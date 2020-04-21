@@ -1,8 +1,7 @@
-﻿using FamilyHub.Web.ViewModels;
-
-namespace FamilyHub.Web.Controllers
+﻿namespace FamilyHub.Web.Controllers
 {
     using FamilyHub.Services.Data;
+    using FamilyHub.Web.ViewModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
