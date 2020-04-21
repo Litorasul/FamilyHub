@@ -17,7 +17,6 @@
         private readonly IWallPostsService wallPostsService;
         private readonly IEventsService eventsService;
 
-
         public HomeController(
             IWallPostsService wallPostsService,
             IEventsService eventsService)
@@ -38,13 +37,6 @@
         }
 
         [Authorize]
-        public JsonResult GetEvents()
-        {
-            var events = this.eventsService.GetAll<EventCalendarViewModel>();
-
-            return new JsonResult(events);
-        }
-
         public IActionResult Privacy()
         {
             return this.View();
