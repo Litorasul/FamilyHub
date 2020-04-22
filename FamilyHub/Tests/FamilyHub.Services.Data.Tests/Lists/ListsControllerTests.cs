@@ -41,15 +41,12 @@
                 .View();
 
         [Fact]
-        public void ByNameShouldHaveAuthorizedUsersOnlyRestrictionAndShouldReturnView()
+        public void ByNameShouldHaveAuthorizedUsersOnlyRestriction()
             => MyController<ListsController>
                 .Calling(c => c.ByName("lll"))
                 .ShouldHave()
                 .ActionAttributes(attr => attr
-                    .RestrictingForAuthorizedRequests())
-                .AndAlso()
-                .ShouldReturn()
-                .View();
+                    .RestrictingForAuthorizedRequests());
 
         [Fact]
         public void CreateGetShouldHaveAuthorizedUsersOnlyRestrictionAndShouldReturnView()

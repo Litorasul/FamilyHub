@@ -18,15 +18,12 @@
                 .View();
 
         [Fact]
-        public void ByNameShouldHaveAuthorizedUsersOnlyRestrictionAndShouldReturnView()
+        public void ByNameShouldHaveAuthorizedUsersOnlyRestriction()
             => MyController<PhotosController>
                 .Calling(c => c.ByName(With.Any<string>()))
                 .ShouldHave()
                 .ActionAttributes(attr => attr
-                    .RestrictingForAuthorizedRequests())
-                .AndAlso()
-                .ShouldReturn()
-                .View();
+                    .RestrictingForAuthorizedRequests());
 
         [Fact]
         public void CreateAlbumGetShouldHaveAuthorizedUsersOnlyRestrictionAndShouldReturnView()

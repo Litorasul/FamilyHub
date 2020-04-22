@@ -1,4 +1,4 @@
-﻿namespace FamilyHub.Services.Data.Tests
+﻿namespace FamilyHub.Services.Data.Tests.Home
 {
     using FamilyHub.Web.Controllers;
     using MyTested.AspNetCore.Mvc;
