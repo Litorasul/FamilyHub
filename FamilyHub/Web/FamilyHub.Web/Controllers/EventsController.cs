@@ -55,7 +55,7 @@
         public IActionResult ByName(string name)
         {
             var viewModel = this.eventsService.GetByName<EventViewModel>(name);
-            if (!this.ModelState.IsValid)
+            if (viewModel == null)
             {
                 return this.NotFound();
             }

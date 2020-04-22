@@ -30,6 +30,11 @@
         [HttpPost]
         public async Task<IActionResult> Create(string content)
         {
+            if (content == null || string.IsNullOrEmpty(content))
+            {
+                return this.BadRequest();
+            }
+
             var userId = this.userManager.GetUserId(this.User);
             await this.postsService.CreateAsync(userId, PostType.StatusUpdate, null, content);
             return this.Redirect("/");
@@ -39,6 +44,11 @@
         [HttpPost]
         public async Task<IActionResult> CreateComment(CommentInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
             var userId = this.userManager.GetUserId(this.User);
             await this.commentsService.CreateAsync(userId, input.PostId, input.Text);
             return this.Redirect("/");

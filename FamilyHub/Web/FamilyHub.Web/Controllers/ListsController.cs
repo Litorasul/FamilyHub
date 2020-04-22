@@ -62,6 +62,10 @@
         public IActionResult ByName(string name)
         {
             var viewModel = this.listsService.GetByName<ListByNameViewModel>(name);
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(viewModel);
         }
@@ -103,6 +107,11 @@
         [HttpPost]
         public async Task<IActionResult> UpdateAddNewListItem(ListUpdateViewModel viewModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
             foreach (var item in viewModel.ListItems)
             {
                 if (item.Id == 0)

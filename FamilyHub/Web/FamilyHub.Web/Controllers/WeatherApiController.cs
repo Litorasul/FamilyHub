@@ -20,6 +20,11 @@
         [HttpPost]
         public ActionResult Post(WeatherInputModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
             var data = this.weatherService.GetCurrentWeather(model.Lat, model.Lon);
 
             return this.Ok(data);
