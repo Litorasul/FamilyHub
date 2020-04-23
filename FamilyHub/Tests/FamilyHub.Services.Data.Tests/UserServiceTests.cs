@@ -9,6 +9,7 @@
     using FamilyHub.Data.Models;
     using FamilyHub.Data.Models.WallPosts;
     using FamilyHub.Data.Repositories;
+    using FamilyHub.Services.Data.User;
     using FamilyHub.Services.Mapping;
     using FamilyHub.Web.ViewModels.Tests;
     using Microsoft.EntityFrameworkCore;

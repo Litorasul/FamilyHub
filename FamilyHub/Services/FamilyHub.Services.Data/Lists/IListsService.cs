@@ -1,4 +1,4 @@
-﻿namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data.Lists
 {
     using System;
     using System.Collections.Generic;

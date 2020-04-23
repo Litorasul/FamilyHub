@@ -1,4 +1,4 @@
-﻿namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data.WallPosts
 {
     using System.Threading.Tasks;
 

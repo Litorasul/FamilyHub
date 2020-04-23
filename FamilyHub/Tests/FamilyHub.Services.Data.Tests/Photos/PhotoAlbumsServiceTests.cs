@@ -11,6 +11,8 @@
     using FamilyHub.Data.Models.PictureAlbums;
     using FamilyHub.Data.Models.WallPosts;
     using FamilyHub.Data.Repositories;
+    using FamilyHub.Services.Data.PhotoAlbum;
+    using FamilyHub.Services.Data.WallPosts;
     using FamilyHub.Services.Mapping;
     using FamilyHub.Web.ViewModels.Tests;
     using Microsoft.AspNetCore.Http;

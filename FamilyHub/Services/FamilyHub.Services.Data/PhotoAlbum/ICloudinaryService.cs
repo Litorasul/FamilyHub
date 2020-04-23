@@ -1,4 +1,4 @@
-﻿namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data.PhotoAlbum
 {
     using System.Threading.Tasks;
 

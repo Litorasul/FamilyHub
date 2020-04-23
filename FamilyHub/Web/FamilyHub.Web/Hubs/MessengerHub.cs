@@ -4,6 +4,7 @@
 
     using FamilyHub.Data.Models;
     using FamilyHub.Services.Data;
+    using FamilyHub.Services.Data.Messenger;
     using FamilyHub.Web.ViewModels.Messenger;
     using Ganss.XSS;
     using Microsoft.AspNetCore.Authorization;

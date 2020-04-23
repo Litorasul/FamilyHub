@@ -1,4 +1,4 @@
-﻿namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data.Planner
 {
     using System;
     using System.Collections.Generic;

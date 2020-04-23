@@ -1,9 +1,7 @@
-﻿namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data.Messenger
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using FamilyHub.Data.Models.Messenger;
 
     public interface IMessengerService
     {

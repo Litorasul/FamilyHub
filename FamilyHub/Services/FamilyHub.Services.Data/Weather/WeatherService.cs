@@ -1,7 +1,6 @@
-﻿namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data.Weather
 {
     using System.Linq;
-    using System.Threading.Tasks;
 
     using FamilyHub.Common;
     using Microsoft.Extensions.Options;

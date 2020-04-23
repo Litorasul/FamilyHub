@@ -1,11 +1,10 @@
-﻿namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data.Messenger
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using FamilyHub.Data.Common.Repositories;
-    using FamilyHub.Data.Models;
     using FamilyHub.Data.Models.Messenger;
     using FamilyHub.Services.Mapping;
 

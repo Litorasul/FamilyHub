@@ -5,6 +5,7 @@
 
     using FamilyHub.Data.Common.Repositories;
     using FamilyHub.Data.Models.WallPosts;
+    using FamilyHub.Services.Data.WallPosts;
     using Moq;
     using Xunit;
 

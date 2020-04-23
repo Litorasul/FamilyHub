@@ -1,4 +1,4 @@
-﻿namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data.Lists
 {
     using System;
     using System.Collections.Generic;
@@ -8,6 +8,7 @@
     using FamilyHub.Data.Common.Repositories;
     using FamilyHub.Data.Models.Lists;
     using FamilyHub.Data.Models.WallPosts;
+    using FamilyHub.Services.Data.WallPosts;
     using FamilyHub.Services.Mapping;
 
     public class ListsService : IListsService

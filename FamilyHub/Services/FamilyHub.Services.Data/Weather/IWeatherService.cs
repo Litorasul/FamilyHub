@@ -1,7 +1,5 @@
-﻿namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data.Weather
 {
-    using System.Threading.Tasks;
-
     using FamilyHub.Common;
 
     public interface IWeatherService

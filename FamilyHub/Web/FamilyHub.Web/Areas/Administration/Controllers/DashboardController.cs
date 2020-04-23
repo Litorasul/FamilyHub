@@ -3,6 +3,9 @@
     using System.Threading.Tasks;
 
     using FamilyHub.Services.Data;
+    using FamilyHub.Services.Data.Lists;
+    using FamilyHub.Services.Data.PhotoAlbum;
+    using FamilyHub.Services.Data.Planner;
     using FamilyHub.Web.ViewModels.Administration.Dashboard;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;

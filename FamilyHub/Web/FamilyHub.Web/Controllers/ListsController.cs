@@ -1,11 +1,11 @@
 ﻿namespace FamilyHub.Web.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using FamilyHub.Data.Models;
     using FamilyHub.Data.Models.Lists;
     using FamilyHub.Services.Data;
+    using FamilyHub.Services.Data.Lists;
     using FamilyHub.Web.ViewModels.Lists;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;

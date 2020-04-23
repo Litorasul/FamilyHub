@@ -5,6 +5,8 @@
 
     using FamilyHub.Data.Models;
     using FamilyHub.Services.Data;
+    using FamilyHub.Services.Data.Planner;
+    using FamilyHub.Services.Data.WallPosts;
     using FamilyHub.Web.ViewModels;
     using FamilyHub.Web.ViewModels.Events;
     using FamilyHub.Web.ViewModels.WallPosts;

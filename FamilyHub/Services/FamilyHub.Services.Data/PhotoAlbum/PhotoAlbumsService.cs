@@ -1,19 +1,15 @@
-﻿namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data.PhotoAlbum
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
-    using CloudinaryDotNet;
-    using CloudinaryDotNet.Actions;
-    using FamilyHub.Common;
     using FamilyHub.Data.Common.Repositories;
     using FamilyHub.Data.Models.PictureAlbums;
     using FamilyHub.Data.Models.WallPosts;
+    using FamilyHub.Services.Data.WallPosts;
     using FamilyHub.Services.Mapping;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.Options;
 
     public class PhotoAlbumsService : IPhotoAlbumsService
     {

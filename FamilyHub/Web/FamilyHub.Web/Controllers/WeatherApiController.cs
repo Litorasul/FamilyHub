@@ -1,6 +1,7 @@
 ﻿namespace FamilyHub.Web.Controllers
 {
     using FamilyHub.Services.Data;
+    using FamilyHub.Services.Data.Weather;
     using FamilyHub.Web.ViewModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;

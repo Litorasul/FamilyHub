@@ -5,6 +5,7 @@
     using FamilyHub.Data.Models;
     using FamilyHub.Data.Models.WallPosts;
     using FamilyHub.Services.Data;
+    using FamilyHub.Services.Data.WallPosts;
     using FamilyHub.Web.ViewModels.WallPosts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;

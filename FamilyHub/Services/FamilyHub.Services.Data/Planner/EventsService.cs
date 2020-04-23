@@ -1,4 +1,4 @@
-﻿namespace FamilyHub.Services.Data
+﻿namespace FamilyHub.Services.Data.Planner
 {
     using System;
     using System.Collections.Generic;
@@ -6,9 +6,9 @@
     using System.Threading.Tasks;
 
     using FamilyHub.Data.Common.Repositories;
-    using FamilyHub.Data.Models.Notification;
     using FamilyHub.Data.Models.Planner;
     using FamilyHub.Data.Models.WallPosts;
+    using FamilyHub.Services.Data.WallPosts;
     using FamilyHub.Services.Mapping;
 
     public class EventsService : IEventsService

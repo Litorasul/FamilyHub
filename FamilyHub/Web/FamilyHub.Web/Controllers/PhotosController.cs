@@ -4,6 +4,7 @@
 
     using FamilyHub.Data.Models;
     using FamilyHub.Services.Data;
+    using FamilyHub.Services.Data.PhotoAlbum;
     using FamilyHub.Web.ViewModels.PhotoAlbums;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
