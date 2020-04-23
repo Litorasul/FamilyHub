@@ -1,6 +1,4 @@
-﻿using FamilyHub.Common;
-
-namespace FamilyHub.Web.Areas.Identity.Pages.Account
+﻿namespace FamilyHub.Web.Areas.Identity.Pages.Account
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +8,7 @@ namespace FamilyHub.Web.Areas.Identity.Pages.Account
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
 
+    using FamilyHub.Common;
     using FamilyHub.Data.Models;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
@@ -83,7 +82,13 @@ namespace FamilyHub.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = Input.UserName,
+                    Email = Input.Email,
+                    ProfilePictureUrl = "https://res.cloudinary.com/daal2scr5/image/upload/v1587625670/DefaultProfilePic_syimdd.png",
+                };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
