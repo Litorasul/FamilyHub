@@ -3,6 +3,10 @@
 @model FamilyHub.Web.ViewModels.Lists.ListByNameViewModel
 @inject UserManager<ApplicationUser> UserManager
 
+<div class="text-muted text-lg-right m-5">
+    <h1 class="display-4">@DateTime.Now.ToString("D")</h1>
+</div>
+
 <section class="content">
     <!-- TO DO List -->
     <div class="card m-3">

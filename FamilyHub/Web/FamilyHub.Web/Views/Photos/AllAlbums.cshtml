@@ -3,6 +3,10 @@
     this.ViewData["Title"] = "All Photo Albums.";
 }
 
+<div class="text-muted text-lg-right m-5">
+    <h1 class="display-4">@DateTime.Now.ToString("D")</h1>
+</div>
+
 <section class="content mt-3">
     <div class="card-deck">
         @foreach (var album in Model.Albums)

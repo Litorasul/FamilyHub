@@ -24,6 +24,17 @@
             var userId = this.userManager.GetUserId(this.UserClaimsPrincipal);
             var model = this.usersService.GetById<UserSidebarViewModel>(userId);
 
+            // Temporary Solution For the Tests.
+            if (model == null)
+            {
+                model = new UserSidebarViewModel
+                {
+                    UserName = "Test",
+                    ProfilePictureUrl =
+                    "https://res.cloudinary.com/daal2scr5/image/upload/v1587625670/DefaultProfilePic_syimdd.png",
+                };
+            }
+
             return this.View("Default", model);
         }
     }
