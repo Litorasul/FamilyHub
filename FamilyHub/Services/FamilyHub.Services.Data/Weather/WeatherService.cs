@@ -1,4 +1,6 @@
-﻿namespace FamilyHub.Services.Data.Weather
+﻿using System;
+
+namespace FamilyHub.Services.Data.Weather
 {
     using System.Linq;
 

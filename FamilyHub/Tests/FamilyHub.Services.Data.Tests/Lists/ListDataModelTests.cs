@@ -9,8 +9,22 @@
     using Microsoft.EntityFrameworkCore;
     using Xunit;
 
-    public class ListDataModelTests
+    public class ListDataModelTests : IDisposable
     {
+        private readonly ApplicationDbContext dbContext;
+
+        public ListDataModelTests()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+            this.dbContext = new ApplicationDbContext(options);
+        }
+
+        public void Dispose()
+        {
+            this.dbContext.Dispose();
+        }
+
         [Fact]
         public void ListShouldHaveTitle()
         {
@@ -40,6 +54,18 @@
 
             Assert.False(actual);
             Assert.Single(validatorResults);
+        }
+
+        [Fact]
+        public void UserListShouldHaveUserId()
+        {
+            var userList = new UserList
+            {
+                UserId = null,
+                ListId = 1,
+            };
+
+            Assert.Throws<InvalidOperationException>(() => this.dbContext.UserLists.Add(userList));
         }
     }
 }
