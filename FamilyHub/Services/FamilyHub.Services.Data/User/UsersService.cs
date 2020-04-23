@@ -27,5 +27,13 @@
 
             return query.To<T>().ToList();
         }
+
+        public T GetById<T>(string id)
+        {
+            var user = this.userRepository
+                .All().Where(u => u.Id == id).To<T>().FirstOrDefault();
+
+            return user;
+        }
     }
 }
