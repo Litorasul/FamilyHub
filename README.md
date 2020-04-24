@@ -1,3 +1,3 @@
 # FamilyHub
 
-Family Management Tool, that helps oganize day to day activities and communication between family members.
+Family Management Tool, that helps organize day to day activities and communication between family members.
