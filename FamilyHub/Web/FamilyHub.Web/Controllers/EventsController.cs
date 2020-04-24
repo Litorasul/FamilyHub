@@ -1,4 +1,6 @@
-﻿namespace FamilyHub.Web.Controllers
+﻿using System.Security.Claims;
+
+namespace FamilyHub.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -35,7 +37,6 @@
                 Events =
                     this.eventsService.GetAll<EventSingleViewModel>(),
             };
-
             return this.View(viewModel);
         }
 

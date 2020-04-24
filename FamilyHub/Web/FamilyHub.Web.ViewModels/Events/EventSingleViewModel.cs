@@ -11,7 +11,7 @@
 
         public DateTime Start { get; set; }
 
-        public string CreatorName { get; set; }
+        public string CreatorUserName { get; set; }
 
         public string Url => $"/Events/{this.Title.Replace(' ', '-')}";
     }

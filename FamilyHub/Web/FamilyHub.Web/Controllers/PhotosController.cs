@@ -54,11 +54,6 @@
         [HttpPost]
         public async Task<IActionResult> UploadPicture(PictureInputModel input)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             string name = input.AlbumName.Replace(" ", "-");
 
             await this.cloudinaryService.AddPhotoInAlbum(input.AlbumId, input.File);
