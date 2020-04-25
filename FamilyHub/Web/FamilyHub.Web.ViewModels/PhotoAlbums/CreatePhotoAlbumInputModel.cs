@@ -14,7 +14,9 @@
         public string Description { get; set; }
 
         [Required]
-        [FileExtensions]
         public IFormFile Picture { get; set; }
+
+        [FileExtensions]
+        public string FileName => this.Picture.FileName;
     }
 }

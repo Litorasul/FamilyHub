@@ -13,7 +13,9 @@
         public string AlbumName { get; set; }
 
         [Required]
-        [FileExtensions]
         public IFormFile File { get; set; }
+
+        [FileExtensions]
+        public string FileName => this.File.FileName;
     }
 }

@@ -54,6 +54,11 @@
         [HttpPost]
         public async Task<IActionResult> UploadPicture(PictureInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             string name = input.AlbumName.Replace(" ", "-");
 
             await this.cloudinaryService.AddPhotoInAlbum(input.AlbumId, input.File);
@@ -70,6 +75,11 @@
         [HttpPost]
         public async Task<IActionResult> CreateAlbum(CreatePhotoAlbumInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             var userId = this.userManager.GetUserId(this.User);
             await this.albumsService.CreateAlbum(input.Title, input.Description, input.Picture, userId);
 
