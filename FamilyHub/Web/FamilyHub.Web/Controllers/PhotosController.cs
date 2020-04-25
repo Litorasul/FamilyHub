@@ -70,11 +70,6 @@
         [HttpPost]
         public async Task<IActionResult> CreateAlbum(CreatePhotoAlbumInputModel input)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(input);
-            }
-
             var userId = this.userManager.GetUserId(this.User);
             await this.albumsService.CreateAlbum(input.Title, input.Description, input.Picture, userId);
 
