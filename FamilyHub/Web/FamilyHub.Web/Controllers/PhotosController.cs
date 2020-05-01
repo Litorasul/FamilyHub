@@ -56,7 +56,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(input);
+                return this.BadRequest();
             }
 
             string name = input.AlbumName.Replace(" ", "-");

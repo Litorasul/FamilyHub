@@ -1,15 +1,10 @@
-﻿using System.Security.Claims;
-
-namespace FamilyHub.Web.Controllers
+﻿namespace FamilyHub.Web.Controllers
 {
     using System.Threading.Tasks;
 
     using FamilyHub.Data.Models;
-    using FamilyHub.Data.Models.Planner;
-    using FamilyHub.Services.Data;
     using FamilyHub.Services.Data.Planner;
     using FamilyHub.Services.Data.User;
-    using FamilyHub.Services.Mapping;
     using FamilyHub.Web.ViewModels.Events;
     using FamilyHub.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Authorization;
